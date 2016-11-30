@@ -6,11 +6,11 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-    public class Booking
+    public class BookingGUI
     {
         private JFrame frame;
 
-        public Booking()
+        public BookingGUI()
         {
             frame = new JFrame("Cinema: Book Tickets");
             frame.setSize(800, 600);
