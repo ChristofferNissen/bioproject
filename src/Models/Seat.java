@@ -12,5 +12,7 @@ public class Seat {
         this.seatNumber = seatNumber;
     }
 
+
     
+
 }

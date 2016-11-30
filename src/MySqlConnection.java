@@ -8,5 +8,4 @@ public class MySqlConnection {
     private static final String MYDB = "ccpbioDB";
     private static final String USER = "ccpbio";
     private static final String PASS = "password";
-
 }
