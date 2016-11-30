@@ -6,7 +6,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class Cinema {
+public class Cinema extends JComponent {
 
     private int[] rows;
     private int[] seats;
@@ -16,10 +16,15 @@ public class Cinema {
         rows = new int[] {0,1,2,3,4,5,6,7,8,9};
         seats = new int[] {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14};
 
+        makeFrame(this);
+
+    }
+
+    public void makeFrame(Cinema c){
         JFrame frame = new JFrame("Cinema: Choose Seats");
         frame.setSize(800, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(this);
+        frame.getContentPane().add(c);
         frame.setVisible(true);
     }
 
