@@ -17,14 +17,27 @@ CREATE TABLE shows (
 	show_id INT PRIMARY KEY AUTO_INCREMENT,
 	date DATE NOT NULL, 
 	time TIME NOT NULL,
+	hall_id INT,
 	FOREIGN KEY(hall_id) REFERENCES theaters(hall_id),
+	title VARCHAR(100),
 	FOREIGN KEY(title) REFERENCES movies(title)
 )ENGINE=InnoDB;
 
 CREATE TABLE reservations (
-	reservation_id INT PRIMARY AUTO_INCREMENT,
-	FOREIGN KEY(tlf_nr) REFERENCES customers(tlf_nr),
+	reservation_id INT PRIMARY KEY AUTO_INCREMENT,
+	tlf_nr INT,
+	FOREIGN KEY(tlf_nr) REFERENCES customers (tlf_nr),
+	show_id INT,
 	FOREIGN KEY(show_id) REFERENCES shows(show_id),
 	reserved_seats VARCHAR(100) NOT NULL
 )ENGINE=InnoDB;
 
+
+////////////////////////////////////////////////////////////
+
+
+Drop table reservations;
+Drop table shows;
+Drop table movies;
+Drop table theaters;
+Drop table customers;
