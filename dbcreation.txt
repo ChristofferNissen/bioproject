@@ -1,0 +1,30 @@
+CREATE TABLE customers (
+	tlf_nr INT PRIMARY KEY
+)ENGINE=InnoDB;
+
+CREATE TABLE theaters (
+	hall_id INT PRIMARY KEY AUTO_INCREMENT,
+	seats INT NOT NULL,
+	rows INT NOT NULL
+)ENGINE=InnoDB;
+
+CREATE TABLE movies (
+	title VARCHAR(100) NOT NULL PRIMARY KEY,
+	length INT NOT NULL
+)ENGINE=InnoDB;
+
+CREATE TABLE shows (
+	show_id INT PRIMARY KEY AUTO_INCREMENT,
+	date DATE NOT NULL, 
+	time TIME NOT NULL,
+	FOREIGN KEY(hall_id) REFERENCES theaters(hall_id),
+	FOREIGN KEY(title) REFERENCES movies(title)
+)ENGINE=InnoDB;
+
+CREATE TABLE reservations (
+	reservation_id INT PRIMARY AUTO_INCREMENT,
+	FOREIGN KEY(tlf_nr) REFERENCES customers(tlf_nr),
+	FOREIGN KEY(show_id) REFERENCES shows(show_id),
+	reserved_seats VARCHAR(100) NOT NULL
+)ENGINE=InnoDB;
+
