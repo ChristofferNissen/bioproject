@@ -1,0 +1,23 @@
+create new customer:
+INSERT INTO customers (phone) VALUES (**indsæt tlf**);
+
+Create reservation:
+INSERT INTO reservations (phone, showID, seats) VALUES ***(phone, showID, seats)*** ;
+
+update reservation w. seats
+UPDATE reservations SET **new seats** WHERE **old seats**;
+
+get seats:
+SELECT seats FROM customers, reservations WHERE phone = customerID;
+
+get all seats:
+SELECT seats FROM reservations WHERE showID = **showID**;
+
+get show (for-løkke)
+SELECT * FROM shows WHERE time = **time** AND title = **movie title**;
+
+get shows w. name
+SELECT * FROM shows WHERE title=**movie title**;
+
+get shows for time (for løkke)
+SELECT * FROM shows WHERE time = **time**;
