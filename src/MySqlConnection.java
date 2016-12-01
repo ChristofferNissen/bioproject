@@ -14,15 +14,25 @@ public class MySqlConnection {
     static final String DB_URL = "jdbc:mysql://mydb.itu.dk/" + MYDB;
 
     public static void main(String[] args) {
+
+        String sql = "SELECT * FROM reservations";
+        getReservationQuery(sql);
+
+    }
+
+    public static void getReservationQuery(String sql) {
         Connection connection = null;
         Statement statement = null;
         try {
+            // Connect to server
             DriverManager.registerDriver(new com.mysql.jdbc.Driver());
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
             statement = connection.createStatement();
 
-            String sql = "SELECT * FROM reservations";
+
+            // build and execute string
             ResultSet rs = statement.executeQuery(sql);
+            //
             while(rs.next()) {
                 //int id = getInt("id");
                 String reservation_id = rs.getString("reservation_id");
@@ -30,6 +40,7 @@ public class MySqlConnection {
 
                 System.out.println("Tlf_nr: " + tlf_nr + ", Reservation_id: " + reservation_id);
             }
+            // close connection
             rs.close();
             connection.close();
         } catch(Exception e) {
@@ -37,4 +48,7 @@ public class MySqlConnection {
         }
     }
 
-}
+
+    }
+
+
