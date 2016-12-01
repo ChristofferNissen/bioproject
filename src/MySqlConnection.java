@@ -15,7 +15,7 @@ public class MySqlConnection {
 
     public static void main(String[] args) {
 
-        String sql = "SELECT * FROM reservations";
+        String sql = "SELECT tlf_nr,reservations.reservation_id,reserved_seats FROM reservations,reserved_seats WHERE reservations.reservation_id=reserved_seats.reservation_id";
         getReservationQuery(sql);
 
     }
@@ -35,10 +35,11 @@ public class MySqlConnection {
             //
             while(rs.next()) {
                 //int id = getInt("id");
-                String reservation_id = rs.getString("reservation_id");
-                String tlf_nr = rs.getString("tlf_nr");
+                int reservation_id = rs.getInt("reservation_id");
+                int tlf_nr = rs.getInt("tlf_nr");
+                int reserved_seat = rs.getInt("reserved_seats");
 
-                System.out.println("Tlf_nr: " + tlf_nr + ", Reservation_id: " + reservation_id);
+                System.out.println("Tlf_nr: " + tlf_nr + ", Reservation_id: " + reservation_id + ", Seat reserved: " + reserved_seat);
             }
             // close connection
             rs.close();
