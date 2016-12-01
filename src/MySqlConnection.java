@@ -29,7 +29,6 @@ public class MySqlConnection {
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
             statement = connection.createStatement();
 
-
             // build and execute string
             ResultSet rs = statement.executeQuery(sql);
             //
@@ -48,8 +47,6 @@ public class MySqlConnection {
             e.printStackTrace();
         }
     }
-
-
-    }
+}
 
 
