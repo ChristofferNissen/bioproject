@@ -1,0 +1,16 @@
+
+// theaters	
+INSERT INTO theaters (seats, rows)->     VALUES (’105’, ’4’) ;
+
+// movies. Length is in minutes
+INSERT INTO movies (title, length)->     VALUES (‘James Bond’, ’120’) ;
+
+// customers
+INSERT INTO customers(tlf_nr)->     VALUES (‘22620391’) ;
+
+// reservations
+INSERT INTO reservation (tlf_nr, show_id, reserved_seats)->     VALUES (22620391,1,'10+11+12') ;
+
+// shows
+INSERT INTO shows (DATE, TIME,hall_id, title)->     VALUES (‘2017-01-01’,’1900’,1,’James Bond’) ;
+
