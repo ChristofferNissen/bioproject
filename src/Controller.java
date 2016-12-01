@@ -5,6 +5,9 @@ import Models.Seat;
  */
 public class Controller {
 
+    private String name;
+    private int number;
+
     private static Cinema cinema;
 
     public static void main (String[] args){
