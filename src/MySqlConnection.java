@@ -1,5 +1,5 @@
 import Models.Seat;
-import java.sql.
+import java.sql.*;
 
 /**
  * Created by cn on 30/11/2016.
@@ -9,10 +9,10 @@ public class MySqlConnection {
     private static final String USER = "ccpbio";
     private static final String PASS = "password";
 
+    /*
     static final String DB_URL = "jdbc:mysql://mydb.itu.dk/" + MYDB;
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         Connection connection = null;
         Statement statement = null;
         try {
@@ -35,4 +35,5 @@ public class MySqlConnection {
             e.printStackTrace();
         }
     }
+    */
 }

@@ -11,55 +11,46 @@ public class Cinema extends JComponent implements MouseListener {
     private int[] rows;
     private int[] seats;
     private Rectangle rect;
+    private JFrame frame;
+    private JPanel cinema;
 
     public Cinema()
     {
         rows = new int[] {0,1,2,3,4,5,6,7,8,9};
         seats = new int[] {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14};
 
+        frame = new JFrame("Cinema: Choose Seats");
+        cinema = new JPanel();
         makeFrame(this);
     }
 
     public void makeFrame(Cinema c){
-        JFrame frame = new JFrame("Cinema: Choose Seats");
         frame.setSize(800, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add(c);
+
+        cinema.setLayout(new FlowLayout());
+        frame.add(cinema);
+
+        makeCinema();
+
         frame.setVisible(true);
     }
 
     public void drawSeat()
     {
-        
+
     }
 
-    public void paint(Graphics g)
+    public void makeCinema()
     {
-        int width = 20;
-        int height = 20;
-        int xValue = 30;
-        int yValue = 30;
-
         for (int i = 0; i <= seats.length; i++) {
             for (int j = 0; j <= rows.length; j++) {
-                drawSeat();
-                this.addMouseListener(this);
+                JButton seat = new JButton();
+                seat.setPreferredSize(new Dimension(20, 20));
+                cinema.add(seat);
             }
         }
-
-        /*
-        int width = 20;
-        int height = 20;
-        int xValue = 30;
-        int yValue = 30;
-
-        for (int i = 1; i <= seats.length; i++) {
-            for (int j = 1; j <= rows.length; j++) {
-                g.drawRect(i * xValue, j * yValue, width, height);
-                this.addMouseListener(this);
-            }
-        }
-        */
     }
 
 
