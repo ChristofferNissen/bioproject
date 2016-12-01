@@ -6,7 +6,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class Cinema extends JComponent implements MouseListener {
+public class Cinema extends JComponent {
 
     private int[] rows;
     private int[] seats;
@@ -28,18 +28,20 @@ public class Cinema extends JComponent implements MouseListener {
         frame.setSize(800, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add(c);
+        frame.setLayout(new BorderLayout());
 
-        cinema.setLayout(new FlowLayout());
-        frame.add(cinema);
+        JLabel label = new JLabel("    Movie Title");
+        frame.add(label, BorderLayout.NORTH);
+        label.setFont(new Font("Comic Sans MS", Font.BOLD, 22));
+
+        // cinema.setPreferredSize(new Dimension(100, 100));
+        cinema.setBorder(new EmptyBorder(10, 10, 10, 10));
+        // cinema.setLayout(new GridLayout(rows.length, seats.length));
+        frame.add(cinema, BorderLayout.CENTER);
 
         makeCinema();
 
         frame.setVisible(true);
-    }
-
-    public void drawSeat()
-    {
-
     }
 
     public void makeCinema()
@@ -55,6 +57,7 @@ public class Cinema extends JComponent implements MouseListener {
 
 
 
+    /*
     public void mouseClicked(MouseEvent e) {
         if (rect.contains(e.getX(), e.getY())) {
             System.out.print("HEJ");
@@ -77,5 +80,6 @@ public class Cinema extends JComponent implements MouseListener {
     public void mousePressed(MouseEvent e) {
 
     }
+    */
 }
 
