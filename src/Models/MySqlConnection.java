@@ -16,7 +16,8 @@ public class MySqlConnection {
     public static ArrayList<Reservation> getReservationQuery(String sql) {
         Connection connection = null;
         Statement statement = null;
-        ArrayList<Models.Reservation> reservations = new ArrayList<Reservation>();
+        ArrayList<Models.Reservation> reservations;
+        reservations = new ArrayList<Reservation>();
 
         try {
             // Connect to server
@@ -46,7 +47,40 @@ public class MySqlConnection {
         return reservations;
     }
 
+    public static ArrayList<Showing> getShowingQuery(String sql) {
+        Connection connection = null;
+        Statement statement = null;
+        ArrayList<Models.Showing> shows;
+        shows = new ArrayList<Showing>();
+
+        try {
+            // Connect to server
+            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            statement = connection.createStatement();
+
+            ResultSet rs = statement.executeQuery("SELECT " + sql + " FROM shows");
+
+            // Process data
+            while(rs.next()) {
+                int show_id = rs.getInt("show_id");
+                Date date = rs.getDate("date");
+                int time = rs.getInt("time");
+                int hall_id = rs.getInt("hall_id");
+                String title = rs.getString("title");
+                Showing show = new Showing(show_id,date,time,hall_id,title);
+                shows.add(show);
+
+            }
+            // When done processing, close connection
+            rs.close();
+            connection.close();
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        // return collection
+        return shows;
+    }
 
 }
-
-

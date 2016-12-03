@@ -15,19 +15,24 @@ public class Controller {
     private static Cinema cinema;
 
     public static void main (String[] args){
-
-
-
         //cinema = new Cinema();
         //MySqlConnection.getReservationQuery("*");
 
         getReservations();
+        getShowings();
+
 
     }
 
-    private void getShowings(){
-        showingList = new ArrayList<Models.Showing>();
+    private static void getShowings(){
+        showingList = MySqlConnection.getShowingQuery("*");
 
+        // Extract data
+        for(Models.Showing s : showingList) {
+
+            System.out.println(s.toString());
+
+        }
 
 
     }
@@ -36,10 +41,11 @@ public class Controller {
         reservationList = MySqlConnection.getReservationQuery("*");
 
         // Extract data
-        for(Reservation r : reservationList){
+        for(Models.Reservation r : reservationList){
 
             System.out.println(r.toString());
 
         }
     }
 }
+

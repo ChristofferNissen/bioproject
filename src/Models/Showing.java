@@ -12,9 +12,9 @@ public class Showing {
     private int hall_id;
     private String title;
 
-    public Showing(int show_id, String date, int time, int hall_id, String title) {
+    public Showing(int show_id, Date date, int time, int hall_id, String title) {
         this.show_id = show_id;
-        this.date = setDate(date);
+        this.date = date;
         this.time = time;
         this.hall_id = hall_id;
         this.title = title;
