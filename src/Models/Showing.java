@@ -26,6 +26,27 @@ public class Showing {
         return new Date(myDate);
     }
 
+    // Getters
+    public int getShow_id() {
+        return show_id;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public int getHall_id() {
+        return hall_id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
     @Override
     public String toString() {
         return "Showing{" +

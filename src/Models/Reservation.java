@@ -18,6 +18,7 @@ public class Reservation {
     }
 
 
+
     // methods
     @Override
     public String toString() {
@@ -28,5 +29,18 @@ public class Reservation {
                 '}';
     }
 
+    //getters
 
+
+    public int getReservation_id() {
+        return reservation_id;
+    }
+
+    public int getTlf_nr() {
+        return tlf_nr;
+    }
+
+    public int getReserved_seat() {
+        return reserved_seat;
+    }
 }

@@ -1,5 +1,6 @@
 import Models.MySqlConnection;
 import Models.Reservation;
+import Models.Showing;
 import java.util.ArrayList;
 import java.sql.*;
 
@@ -10,16 +11,16 @@ public class Controller {
 
     private String name;
     private int number;
-    private static ArrayList<Models.Showing> showingList;
-    private static ArrayList<Models.Reservation> reservationList;
+    private static ArrayList<Showing> showingList;
+    private static ArrayList<Reservation> reservationList;
     private static Cinema cinema;
 
     public static void main (String[] args){
-        //cinema = new Cinema();
+        cinema = new Cinema();
         //MySqlConnection.getReservationQuery("*");
 
-        getReservations();
-        getShowings();
+        //getReservations();
+        //getShowings();
 
 
     }
@@ -28,7 +29,7 @@ public class Controller {
         showingList = MySqlConnection.getShowingQuery("*");
 
         // Extract data
-        for(Models.Showing s : showingList) {
+        for(Showing s : showingList) {
 
             System.out.println(s.toString());
 
@@ -41,11 +42,15 @@ public class Controller {
         reservationList = MySqlConnection.getReservationQuery("*");
 
         // Extract data
-        for(Models.Reservation r : reservationList){
+        for(Reservation r : reservationList){
 
             System.out.println(r.toString());
 
         }
+
+        Reservation k = reservationList.get(0);
+        System.out.println(k.getReservation_id());
+
     }
 }
 
