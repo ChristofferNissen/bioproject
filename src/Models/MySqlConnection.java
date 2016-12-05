@@ -182,8 +182,6 @@ public class MySqlConnection {
     }
 
 
-
-
     public static ArrayList<Integer> getReservedSeats(int reservation_id){
         Connection connection = null;
         Statement statement = null;
