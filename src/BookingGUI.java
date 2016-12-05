@@ -1,8 +1,11 @@
 /**
  * Created by caecilieiversen on 30/11/2016.
  */
+import Models.Showing;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -15,11 +18,11 @@ import javax.swing.border.*;
             frame = new JFrame("Cinema: Book Tickets");
             frame.setSize(800, 600);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            makeFrame();
+            //makeFrame(arrayList);
             frame.setVisible(true);
         }
 
-        public void makeFrame()
+        public void makeFrame(ArrayList<Models.Showing> arrayList)
         {
             JPanel contentPane = (JPanel)frame.getContentPane();
             contentPane.setLayout(new BorderLayout());
@@ -41,6 +44,50 @@ import javax.swing.border.*;
             searchBar.add(search);
 
             contentPane.add(searchBar, BorderLayout.NORTH);
+            contentPane.add(makeList(arrayList), BorderLayout.CENTER); // makeList
+
+            JPanel actionBar = new JPanel();
+            actionBar.setLayout(new FlowLayout());
+            JButton book = new JButton("Book");
+            book.addActionListener(
+                    (ActionEvent e) -> {
+                        System.out.println("IT WORKS");
+                    }
+
+            );
+            actionBar.add(book);
+
+            contentPane.add(actionBar, BorderLayout.EAST);
+
+
+            frame.setVisible(true);
+
+        }
+
+        public JPanel makeList(ArrayList<Models.Showing> arrayList) {
+
+
+            JPanel list = new JPanel();
+
+            JList<Showing> showList;
+
+            DefaultListModel<Showing> listModel = new DefaultListModel();
+
+                for (Showing s : arrayList) {
+
+                    listModel.addElement(s);
+
+                }
+
+
+            showList = new JList<Showing>(listModel);
+
+            list.add(showList);
+
+
+
+            return list;
+
         }
     }
 

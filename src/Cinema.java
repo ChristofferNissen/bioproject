@@ -21,8 +21,8 @@ public class Cinema extends JComponent { //implements ActionListener {
     {
         //rows = new int[] {0,1,2,3,4,5};
         //seats = new int[] {0,1,2,3,4,5,6,7};
-        rows = 10;
-        seats = 10;
+        rows = 5;
+        seats = 5;
 
         frame = new JFrame("Cinema: Choose Seats");
         cinema = new JPanel();
