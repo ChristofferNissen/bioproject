@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class Cinema extends JComponent { //implements ActionListener {
+public class Cinema extends JComponent implements ActionListener {
 
     private int rows;
     private int seats;
@@ -18,6 +18,12 @@ public class Cinema extends JComponent { //implements ActionListener {
     private int showID;
     private ArrayList reservedSeats;
     private ArrayList selectedSeats;
+
+    private ImageIcon vacantSeat;
+    private ImageIcon occupiedSeat;
+    private ImageIcon selectedSeat;
+
+
     private JFrame frame;
     private JPanel cinema;
     private JButton seat;
@@ -36,6 +42,9 @@ public class Cinema extends JComponent { //implements ActionListener {
         reservedSeats.add(12);
         reservedSeats.add(20);
         title = "<title goes here>";
+        vacantSeat = new ImageIcon("VacantSeat.png");
+        occupiedSeat = new ImageIcon("occupiedSeat.png");
+        selectedSeat = new ImageIcon("selectedSeat.png");
 
         frame = new JFrame("Cinema: Choose Seats");
         cinema = new JPanel();
@@ -50,6 +59,9 @@ public class Cinema extends JComponent { //implements ActionListener {
         this.title = title;
         this.showID = showID;
         this.reservedSeats = new ArrayList<Integer>();
+        ImageIcon vacantSeat = new ImageIcon("VacantSeat.png");
+        ImageIcon occupiedSeat = new ImageIcon("occupiedSeat.png");
+        ImageIcon selectedSeat = new ImageIcon("selectedSeat.png");
 
         frame = new JFrame("Cinema: Choose Seats");
         cinema = new JPanel();
@@ -117,18 +129,17 @@ public class Cinema extends JComponent { //implements ActionListener {
         seatArrangement.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
 
-        ImageIcon vacantSeat = new ImageIcon("VacantSeat.png");
-        ImageIcon occupiedSeat = new ImageIcon("occupiedSeat.png");
-        ImageIcon selectedSeat = new ImageIcon("selectedSeat.png");
+
 
         int seatNumber = 1;
 
         for (int i = 1; i <= rows; i++) {
             for (int j = 1; j <= seats; j++) {
                 if(!reservedSeats.contains(seatNumber)){
-                    seat = new JButton("Free",vacantSeat);
+                    seat = new JButton(""+seatNumber,vacantSeat);
+                    seat.addActionListener(this);
                 }else{
-                    seat = new JButton("Free",occupiedSeat);
+                    seat = new JButton("occupied",occupiedSeat);
                 }
 
                 seat.setPreferredSize(new Dimension(46, 38));
@@ -137,12 +148,6 @@ public class Cinema extends JComponent { //implements ActionListener {
                 c.gridx = j;                    // Position in grid
                 c.gridy = i;
 
-                /*
-                seat.setBackground(Color.green);
-                seat.setOpaque(true);
-                seat.setBorderPainted(false);
-                */
-
                 seatArrangement.add(seat, c);
                 seatNumber++;
             }
@@ -150,6 +155,18 @@ public class Cinema extends JComponent { //implements ActionListener {
 
         return seatArrangement;
 
+    }
+    public void actionPerformed(ActionEvent e){
+        selectedSeats = new ArrayList<Integer>();
+        System.out.println(e.getActionCommand());
+
+        JButton clicked = (JButton) e.getSource();
+        if(!clicked.getIcon().equals(selectedSeat)) {
+            clicked.setIcon(selectedSeat);
+        }
+        else{
+            clicked.setIcon(vacantSeat);
+        }
     }
 
 }
