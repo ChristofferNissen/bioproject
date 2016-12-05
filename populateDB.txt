@@ -6,11 +6,25 @@ INSERT INTO theaters (seats, rows)->     VALUES (’105’, ’4’) ;
 INSERT INTO movies (title, length)->     VALUES (‘James Bond’, ’120’) ;
 
 // customers
-INSERT INTO customers(tlf_nr)->     VALUES (‘22620391’) ;
+INSERT INTO customers(tlf_nr)->     VALUES (‘22620391’);
 
 // reservations
-INSERT INTO reservation (tlf_nr, show_id, reserved_seats)->     VALUES (22620391,1,'10+11+12') ;
+INSERT INTO reservation (tlf_nr, show_id)->     VALUES (22620391,1) ;
 
 // shows
 INSERT INTO shows (DATE, TIME,hall_id, title)->     VALUES (‘2017-01-01’,’1900’,1,’James Bond’) ;
+
+// reserved_seats
+INSERT INTO reserved_seats (reservation_id,seat_id)->     VALUES (‘2’,’10’) ;
+
+
+///
+INSERT INTO customers(tlf_nr) VALUES (‘22620391’);
+INSERT INTO customers(tlf_nr) VALUES (‘20546033’);
+INSERT INTO customers(tlf_nr) VALUES (‘28258988’);
+
+INSERT INTO reservations(tlf_nr,show_id) values (’20546033’,’1’);
+INSERT INTO reservations(tlf_nr,show_id) values (’20546033’,’2’);
+INSERT INTO reservations(tlf_nr,show_id) values (’28258988’,’1’);
+ INSERT INTO reservations(tlf_nr,show_id) values (’28258988’,’2’);
 
