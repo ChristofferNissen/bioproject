@@ -58,14 +58,10 @@ public class Cinema extends JComponent implements ActionListener {
         this.seats = seats;
         this.title = title;
         this.showID = showID;
-<<<<<<< HEAD
-        this.reservedSeats = reservedSeats;
-=======
         this.reservedSeats = new ArrayList<Integer>();
         ImageIcon vacantSeat = new ImageIcon("VacantSeat.png");
         ImageIcon occupiedSeat = new ImageIcon("occupiedSeat.png");
         ImageIcon selectedSeat = new ImageIcon("selectedSeat.png");
->>>>>>> f1e120ea9eeb6520d59a12582ab8143bfc9144e3
 
         frame = new JFrame("Cinema: Choose Seats");
         cinema = new JPanel();
