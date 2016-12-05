@@ -108,25 +108,6 @@ public class Cinema extends JComponent implements ActionListener {
         frame.setVisible(true);
     }
 
-
-
-    /*
-    public void makeCinema()
-    {
-        System.out.print(rows.length + " " + seats.length);
-
-        for (int i = 0; i <= seats.length; i++) {
-            for (int j = 0; j <= rows.length; j++) {
-                seat = new JButton();
-                seat.setPreferredSize(new Dimension(20, 20));
-                // seat.addActionListener();
-
-                cinema.add(seat);
-            }
-        }
-    }
-    */
-
     public JPanel makeGrid() {
         JPanel seatArrangement = new JPanel();
         seatArrangement.setLayout(new GridBagLayout());
@@ -136,6 +117,7 @@ public class Cinema extends JComponent implements ActionListener {
 
         for (int i = 1; i <= rows; i++) {
             for (int j = 1; j <= seats; j++) {
+                // If it doesnt contain the seatnumber, set the seat to free
                 if(!reservedSeats.contains(seatNumber)){
                     seat = new JButton(""+seatNumber,vacantSeat);
                     seat.addActionListener(this);
@@ -145,7 +127,7 @@ public class Cinema extends JComponent implements ActionListener {
 
                 seat.setPreferredSize(new Dimension(46, 38));
                 c.fill = GridBagConstraints.HORIZONTAL;
-                c.insets = new Insets(2,2,2,2); // External padding around each button
+                c.insets = new Insets(6,2,6,2); // External padding around each button
                 c.gridx = j;                    // Position in grid
                 c.gridy = i;
 
@@ -161,9 +143,15 @@ public class Cinema extends JComponent implements ActionListener {
         selectedSeats = new ArrayList<Integer>();
         System.out.println(e.getActionCommand());
 
+        String a  = e.getActionCommand();
+
+
+        System.out.println(a);
+
         JButton clicked = (JButton) e.getSource();
         if(!clicked.getIcon().equals(selectedSeat)) {
             clicked.setIcon(selectedSeat);
+            System.out.println(""+clicked.toString());
         }
         else{
             clicked.setIcon(vacantSeat);

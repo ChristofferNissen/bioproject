@@ -26,54 +26,53 @@ public class Controller {
     }
 
     private static TreeMap<Integer,String> getShows(){
-        getShowings();
-        TreeMap<Integer,String> showings = new TreeMap<Integer,String>();
+        getShowings(); // update showings from DB
+
+        // Convert from arraylist to TreeMap, return the TreeMap.
+        TreeMap<Integer,String> showings = new TreeMap();
         for (Showing s : showingList) {
             showings.put(s.getShow_id(), s.toString());
             //System.out.println(s.toString());
         }
+        // The TreeMap to be returned
         return showings;
     }
 
-    public static ArrayList<Integer> getReservedSeats(int show_id){
-        getReservations();
-        ArrayList<Integer> reserv = new ArrayList<>();
-        for (Reservation r : reservationList)
-            reserv.add(r.getReserved_seat());
-        return reserv;
-    }
 
-    public static void getShowByID(int a) {
-        ArrayList<Integer> reservation_ids = MySqlConnection.getReservationID(a);
+    // Get info and create GUI
+    public static void getShowByID(int selectedID) {
+        ArrayList<Integer> reservation_ids = MySqlConnection.getReservationID(selectedID); // Return the reservationID for the chosen showing
 
         //husk at lave exceptions på null
-        ArrayList<Integer> reserved_seats = null;
+        ArrayList<Integer> reserved_seats = new ArrayList<>();
 
-        for(int l : reservation_ids) {
-            reserved_seats = MySqlConnection.getReservedSeats(l);
+        for(int id : reservation_ids) {
+            // Get seats reserved for this show
+            reserved_seats = MySqlConnection.getReservedSeats(id);
         }
-
-        Showing show = MySqlConnection.getShowByID(a);
+        // get show info
+        Showing show = MySqlConnection.getShowByID(selectedID);
+        //get info about the hall
         Hall hall = MySqlConnection.getHallByID(show.getHall_id());
 
+        // Create cinema gui based on data from DB
         Cinema c = new Cinema(hall.getRows(), hall.getSeats(),
                 show.getTitle(), show.getShow_id(), reserved_seats);
 
     }
-
+    //Load all shows from DB
     private static void getShowings(){
         showingList = MySqlConnection.getShowingQuery("*");
     }
 
+    //
     private static void getReservations(){
-
         reservationList = MySqlConnection.getReservationQuery("*");
-
     }
 
+    //
     public static void storeSelectedID(int a) {
         selectID = a;
-
     }
 }
 
