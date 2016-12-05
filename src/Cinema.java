@@ -61,9 +61,9 @@ public class Cinema extends JComponent implements ActionListener {
 
         this.reservedSeats = reservedSeats;
 
-        ImageIcon vacantSeat = new ImageIcon("VacantSeat.png");
-        ImageIcon occupiedSeat = new ImageIcon("occupiedSeat.png");
-        ImageIcon selectedSeat = new ImageIcon("selectedSeat.png");
+        vacantSeat = new ImageIcon("VacantSeat.png");
+        occupiedSeat = new ImageIcon("occupiedSeat.png");
+        selectedSeat = new ImageIcon("selectedSeat.png");
 
 
         frame = new JFrame("Cinema: Choose Seats");
@@ -139,9 +139,9 @@ public class Cinema extends JComponent implements ActionListener {
                 if(!reservedSeats.contains(seatNumber)){
                     seat = new JButton(""+seatNumber,vacantSeat);
                     seat.addActionListener(this);
-                }else{
+                }else
                     seat = new JButton("occupied",occupiedSeat);
-                }
+
 
                 seat.setPreferredSize(new Dimension(46, 38));
                 c.fill = GridBagConstraints.HORIZONTAL;
