@@ -2,16 +2,21 @@
  * Created by caecilieiversen on 30/11/2016.
  */
 import Models.Showing;
+import apple.laf.JRSUIUtils;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.TreeMap;
 import javax.swing.*;
 import javax.swing.border.*;
 
     public class BookingGUI
     {
         private JFrame frame;
+        JList<Showing> showList;
+        TreeMap showings;
+        DefaultListModel<Showing> listModel;
 
         public BookingGUI()
         {
@@ -51,7 +56,8 @@ import javax.swing.border.*;
             JButton book = new JButton("Book");
             book.addActionListener(
                     (ActionEvent e) -> {
-                        System.out.println("IT WORKS");
+                        int i = showList.getSelectedIndex();
+                        System.out.println(listModel.get(i).getShow_id());
                     }
 
             );
@@ -59,23 +65,19 @@ import javax.swing.border.*;
 
             contentPane.add(actionBar, BorderLayout.EAST);
 
-
             frame.setVisible(true);
 
         }
 
         public JPanel makeList(ArrayList<Models.Showing> arrayList) {
-
-
             JPanel list = new JPanel();
 
-            JList<Showing> showList;
-
-            DefaultListModel<Showing> listModel = new DefaultListModel();
+            listModel = new DefaultListModel();
 
                 for (Showing s : arrayList) {
 
                     listModel.addElement(s);
+
 
                 }
 
