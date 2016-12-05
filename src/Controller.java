@@ -44,6 +44,14 @@ public class Controller {
         showingList = MySqlConnection.getShowingQuery("*");
     }
 
+    public static ArrayList<Integer> getReservedSeats(int show_id){
+        getReservations();
+        ArrayList<Integer> reserv = new ArrayList<>();
+        for (Reservation r : reservationList)
+            reserv.add(r.getReserved_seat());
+        return reserv;
+    }
+
     private static void getReservations(){
 
         reservationList = MySqlConnection.getReservationQuery("*");
