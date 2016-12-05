@@ -1,8 +1,6 @@
-import Models.MySqlConnection;
-import Models.Reservation;
-import Models.Showing;
+
+import Models.*;
 import java.util.ArrayList;
-import java.sql.*;
 import java.util.TreeMap;
 
 /**
@@ -21,11 +19,9 @@ public class Controller {
         BookingGUI gui = new BookingGUI();
         gui.makeFrame(getShows());
 
-        cinema = new Cinema();
-        //MySqlConnection.getReservationQuery("*");
+        //cinema = new Cinema();
 
-        //getReservations();
-        //getShowings();
+        //getShowByID(2);
 
     }
 
@@ -34,7 +30,7 @@ public class Controller {
         TreeMap<Integer,String> showings = new TreeMap<Integer,String>();
         for (Showing s : showingList) {
             showings.put(s.getShow_id(), s.toString());
-            System.out.println(s.toString());
+            //System.out.println(s.toString());
         }
         return showings;
     }
@@ -47,9 +43,20 @@ public class Controller {
         return reserv;
     }
 
-    private static void getShowByID(int a) {
-        ArrayList<Integer> reserved_seats = MySqlConnection.getReservedSeatsShowing(a);
+    public static void getShowByID(int a) {
+        ArrayList<Integer> reservation_ids = MySqlConnection.getReservationID(a);
 
+        ArrayList<Integer> reserved_seats = null;
+
+        for(int l : reservation_ids) {
+            reserved_seats = MySqlConnection.getReservedSeats(l);
+        }
+
+        Showing show = MySqlConnection.getShowByID(a);
+        Hall hall = MySqlConnection.getHallByID(show.getHall_id());
+
+        Cinema c = new Cinema(hall.getRows(), hall.getSeats(),
+                show.getTitle(), show.getShow_id(), reserved_seats);
 
     }
 

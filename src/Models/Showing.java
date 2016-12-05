@@ -49,12 +49,13 @@ public class Showing {
 
     @Override
     public String toString() {
-        return "Showing{" +
-                "show_id=" + show_id +
+        return
+                title + '\'' +
                 ", date=" + date +
                 ", time=" + time +
-                ", hall_id=" + hall_id +
-                ", title='" + title + '\'' +
-                '}';
+                ", show_id=" + show_id +
+                ", hall_id=" + hall_id;
+
+
     }
 }

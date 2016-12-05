@@ -62,14 +62,13 @@ import java.util.Map;
                             int i = showList.getSelectedIndex();
                             int a = (Integer) listModel.get(i).getKey();
                             Controller.storeSelectedID(a);
+                            Controller.getShowByID(a);
                         }
                     }
 
             );
             actionBar.add(book);
-
             contentPane.add(actionBar, BorderLayout.EAST);
-
             frame.setVisible(true);
 
         }
@@ -82,13 +81,10 @@ import java.util.Map;
                 Integer key = entry.getKey();
                 String value = entry.getValue();
                 listModel.addElement(entry);
-
             }
 
             showList = new JList<Map.Entry>(listModel);
-
             list.add(showList);
-
             return list;
 
         }

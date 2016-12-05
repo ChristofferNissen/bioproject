@@ -8,20 +8,10 @@
     <content url="jar://$MODULE_DIR$/../mysql.jar!/" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar:///Users/mysql.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="library" exported="" name="mysql" level="project" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../mysql.jar!/" />
+          <root url="jar://$USER_HOME$/Desktop/mysql.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

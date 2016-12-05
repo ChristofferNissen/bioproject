@@ -49,7 +49,7 @@ public class Cinema extends JComponent { //implements ActionListener {
         this.seats = seats;
         this.title = title;
         this.showID = showID;
-        this.reservedSeats = new ArrayList<Integer>();
+        this.reservedSeats = reservedSeats;
 
         frame = new JFrame("Cinema: Choose Seats");
         cinema = new JPanel();
