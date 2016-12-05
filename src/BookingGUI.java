@@ -2,7 +2,7 @@
  * Created by caecilieiversen on 30/11/2016.
  */
 import Models.Showing;
-import apple.laf.JRSUIUtils;
+//import apple.laf.JRSUIUtils;
 
 import java.awt.*;
 import java.awt.event.*;
