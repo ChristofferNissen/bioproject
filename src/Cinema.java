@@ -5,6 +5,7 @@ import com.sun.scenario.effect.impl.sw.java.JSWBlend_BLUEPeer;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -21,6 +22,17 @@ public class Cinema extends JComponent { //implements ActionListener {
     {
         //rows = new int[] {0,1,2,3,4,5};
         //seats = new int[] {0,1,2,3,4,5,6,7};
+        rows = 5;
+        seats = 5;
+
+        frame = new JFrame("Cinema: Choose Seats");
+        cinema = new JPanel();
+        //seat = new JButton();
+        makeFrame(this);
+    }
+
+    public Cinema(int rows)
+    {
         rows = 5;
         seats = 5;
 
@@ -52,6 +64,8 @@ public class Cinema extends JComponent { //implements ActionListener {
 
         frame.setVisible(true);
     }
+
+
 
     /*
     public void makeCinema()
