@@ -46,6 +46,7 @@ public class Controller {
     public static void getShowByID(int a) {
         ArrayList<Integer> reservation_ids = MySqlConnection.getReservationID(a);
 
+        //husk at lave exceptions på null
         ArrayList<Integer> reserved_seats = null;
 
         for(int l : reservation_ids) {
