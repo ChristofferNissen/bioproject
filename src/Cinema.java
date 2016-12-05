@@ -17,6 +17,7 @@ public class Cinema extends JComponent { //implements ActionListener {
     private String title;
     private int showID;
     private ArrayList reservedSeats;
+    private ArrayList selectedSeats;
     private JFrame frame;
     private JPanel cinema;
     private JButton seat;
@@ -73,6 +74,19 @@ public class Cinema extends JComponent { //implements ActionListener {
         JPanel seats = makeGrid();
 
         frame.add(seats, BorderLayout.CENTER);
+
+        JPanel bookingButton = new JPanel();
+        JButton bookNow = new JButton("Book now!");
+        bookNow.addActionListener(
+                (ActionEvent e) ->{
+                    System.out.println("booking succes");
+                }
+        );
+        bookingButton.add(bookNow);
+
+        frame.add(bookingButton, BorderLayout.EAST);
+
+
 
         //makeCinema();
 
