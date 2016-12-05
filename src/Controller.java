@@ -16,6 +16,11 @@ public class Controller {
     private static Cinema cinema;
 
     public static void main (String[] args){
+
+        getShowings();
+        BookingGUI gui = new BookingGUI();
+        gui.makeFrame(showingList);
+
         cinema = new Cinema();
         //MySqlConnection.getReservationQuery("*");
 
@@ -29,12 +34,11 @@ public class Controller {
         showingList = MySqlConnection.getShowingQuery("*");
 
         // Extract data
-        for(Showing s : showingList) {
 
-            System.out.println(s.toString());
+            for (Showing s : showingList) {
 
-        }
-
+                System.out.println(s.toString());
+            }
 
     }
 
@@ -42,11 +46,13 @@ public class Controller {
         reservationList = MySqlConnection.getReservationQuery("*");
 
         // Extract data
-        for(Reservation r : reservationList){
+            for (Reservation r : reservationList) {
 
-            System.out.println(r.toString());
+                System.out.println(r.toString());
 
-        }
+            }
+
+
 
         Reservation k = reservationList.get(0);
         System.out.println(k.getReservation_id());
