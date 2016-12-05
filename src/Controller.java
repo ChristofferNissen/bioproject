@@ -21,7 +21,7 @@ public class Controller {
         BookingGUI gui = new BookingGUI();
         gui.makeFrame(getShows());
 
-        //cinema = new Cinema();
+        cinema = new Cinema();
         //MySqlConnection.getReservationQuery("*");
 
         //getReservations();

@@ -89,7 +89,7 @@ public class Cinema extends JComponent { //implements ActionListener {
         seatArrangement.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
 
-        ImageIcon greenIcon = new ImageIcon("greenIcon.png");
+        ImageIcon greenIcon = new ImageIcon("VacantSeat.png");
 
         for (int i = 0; i <= seats; i++) {
             for (int j = 0; j <= rows; j++) {
