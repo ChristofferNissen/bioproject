@@ -12,7 +12,7 @@ public class Seat {
         this.seatNumber = seatNumber;
     }
 
-
-    
-
+    public int getSeatNumber() {
+        return seatNumber;
+    }
 }
