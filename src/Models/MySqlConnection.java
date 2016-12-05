@@ -83,11 +83,11 @@ public class MySqlConnection {
         return shows;
     }
 
-    public ArrayList<Reservation> getReservedSeatsShowing(int show_id){
+    public static ArrayList<Integer> getReservedSeatsShowing(int show_id){
         Connection connection = null;
         Statement statement = null;
-        ArrayList<Models.Reservation> reservationsShow;
-        reservationsShow = new ArrayList<Reservation>();
+        ArrayList<Integer> RSeats;
+        RSeats = new ArrayList<>();
 
         try {
             // Connect to server
@@ -95,15 +95,12 @@ public class MySqlConnection {
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
             statement = connection.createStatement();
 
-            ResultSet rs = statement.executeQuery("SELECT * FROM reservations WHERE show_id = " + show_id);
+            ResultSet rs = statement.executeQuery("SELECT * FROM reservations WHERE reservations.show_id = " + show_id);
 
             // Process data
             while(rs.next()) {
-                int reservation_id = rs.getInt("reservation_id");
-                int tlf_nr = rs.getInt("tlf_nr");
                 int reserved_seat = rs.getInt("reserved_seats");
-                Reservation reservation = new Reservation(reservation_id,tlf_nr,reserved_seat);
-                reservationsShow.add(reservation);
+                RSeats.add(reserved_seat);
 
             }
             // When done processing, close connection
@@ -114,7 +111,7 @@ public class MySqlConnection {
             e.printStackTrace();
         }
         // return collection
-        return reservationsShow;
+        return RSeats;
 
 
     }

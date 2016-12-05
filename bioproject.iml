@@ -21,7 +21,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../mysql.jar!/" />
+          <root url="jar://$USER_HOME$/Desktop/mysql.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
