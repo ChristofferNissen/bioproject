@@ -11,7 +11,7 @@ import java.util.TreeMap;
 public class Controller {
 
     private String name;
-    private int number;
+    private static int selectID;
     private static ArrayList<Showing> showingList;
     private static ArrayList<Reservation> reservationList;
     private static Cinema cinema;
@@ -29,8 +29,6 @@ public class Controller {
 
     }
 
-
-
     private static TreeMap<Integer,String> getShows(){
         getShowings();
         TreeMap<Integer,String> showings = new TreeMap<Integer,String>();
@@ -41,10 +39,6 @@ public class Controller {
         return showings;
     }
 
-    private static void getShowings(){
-        showingList = MySqlConnection.getShowingQuery("*");
-    }
-
     public static ArrayList<Integer> getReservedSeats(int show_id){
         getReservations();
         ArrayList<Integer> reserv = new ArrayList<>();
@@ -53,9 +47,24 @@ public class Controller {
         return reserv;
     }
 
+    private static void getShowByID(int a) {
+        ArrayList<Integer> reserved_seats = MySqlConnection.getReservedSeatsShowing(a);
+
+
+    }
+
+    private static void getShowings(){
+        showingList = MySqlConnection.getShowingQuery("*");
+    }
+
     private static void getReservations(){
 
         reservationList = MySqlConnection.getReservationQuery("*");
+
+    }
+
+    public static void storeSelectedID(int a) {
+        selectID = a;
 
     }
 }

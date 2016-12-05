@@ -60,7 +60,8 @@ import java.util.Map;
                     (ActionEvent e) -> {
                         if(showList.getSelectedIndex() == -1) { } else {
                             int i = showList.getSelectedIndex();
-                            System.out.println(listModel.get(i).getKey());
+                            int a = (Integer) listModel.get(i).getKey();
+                            Controller.storeSelectedID(a);
                         }
                     }
 
@@ -75,33 +76,18 @@ import java.util.Map;
 
         public JPanel makeList(TreeMap<Integer,String> arrayList) {
             JPanel list = new JPanel();
-
             listModel = new DefaultListModel();
-
-                //for (TreeMap s : arrayList) {
-
-                //    listModel.addElement(s);
-
-
-                //}
-
 
             for(Map.Entry<Integer,String> entry : arrayList.entrySet()) {
                 Integer key = entry.getKey();
-
                 String value = entry.getValue();
-
                 listModel.addElement(entry);
 
-                System.out.println(key + " => " + value);
             }
-
 
             showList = new JList<Map.Entry>(listModel);
 
             list.add(showList);
-
-
 
             return list;
 
