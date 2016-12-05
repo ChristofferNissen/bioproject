@@ -10,13 +10,15 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 import javax.swing.*;
 import javax.swing.border.*;
+import java.util.TreeMap;
+import java.util.Map;
 
     public class BookingGUI
     {
         private JFrame frame;
-        JList<Showing> showList;
-        TreeMap showings;
-        DefaultListModel<Showing> listModel;
+        JList<Map.Entry> showList;
+        TreeMap<Integer,String> showings;
+        DefaultListModel<Map.Entry> listModel;
 
         public BookingGUI()
         {
@@ -27,7 +29,7 @@ import javax.swing.border.*;
             frame.setVisible(true);
         }
 
-        public void makeFrame(ArrayList<Models.Showing> arrayList)
+        public void makeFrame(TreeMap treemap)
         {
             JPanel contentPane = (JPanel)frame.getContentPane();
             contentPane.setLayout(new BorderLayout());
@@ -49,15 +51,17 @@ import javax.swing.border.*;
             searchBar.add(search);
 
             contentPane.add(searchBar, BorderLayout.NORTH);
-            contentPane.add(makeList(arrayList), BorderLayout.CENTER); // makeList
+            contentPane.add(makeList(treemap), BorderLayout.CENTER); // makeList
 
             JPanel actionBar = new JPanel();
             actionBar.setLayout(new FlowLayout());
             JButton book = new JButton("Book");
             book.addActionListener(
                     (ActionEvent e) -> {
-                        int i = showList.getSelectedIndex();
-                        System.out.println(listModel.get(i).getShow_id());
+                        if(showList.getSelectedIndex() == -1) { } else {
+                            int i = showList.getSelectedIndex();
+                            System.out.println(listModel.get(i).getKey());
+                        }
                     }
 
             );
@@ -69,20 +73,31 @@ import javax.swing.border.*;
 
         }
 
-        public JPanel makeList(ArrayList<Models.Showing> arrayList) {
+        public JPanel makeList(TreeMap<Integer,String> arrayList) {
             JPanel list = new JPanel();
 
             listModel = new DefaultListModel();
 
-                for (Showing s : arrayList) {
+                //for (TreeMap s : arrayList) {
 
-                    listModel.addElement(s);
-
-
-                }
+                //    listModel.addElement(s);
 
 
-            showList = new JList<Showing>(listModel);
+                //}
+
+
+            for(Map.Entry<Integer,String> entry : arrayList.entrySet()) {
+                Integer key = entry.getKey();
+
+                String value = entry.getValue();
+
+                listModel.addElement(entry);
+
+                System.out.println(key + " => " + value);
+            }
+
+
+            showList = new JList<Map.Entry>(listModel);
 
             list.add(showList);
 

@@ -19,24 +19,25 @@ public class Controller {
     public static void main (String[] args){
         getShowings();
         BookingGUI gui = new BookingGUI();
-        gui.makeFrame(showingList);
+        gui.makeFrame(getShows());
 
-        cinema = new Cinema();
+        //cinema = new Cinema();
         //MySqlConnection.getReservationQuery("*");
 
         //getReservations();
         //getShowings();
 
-
     }
 
 
 
-    private static TreeMap getShows(){
+    private static TreeMap<Integer,String> getShows(){
         getShowings();
-        TreeMap showings = new TreeMap();
-        for (Showing s : showingList)
-            showings.put(s.getShow_id(),s.toString());
+        TreeMap<Integer,String> showings = new TreeMap<Integer,String>();
+        for (Showing s : showingList) {
+            showings.put(s.getShow_id(), s.toString());
+            System.out.println(s.toString());
+        }
         return showings;
     }
 
