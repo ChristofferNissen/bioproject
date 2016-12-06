@@ -101,5 +101,9 @@ public class Controller {
     public static void storeSelectedID(int a) {
         selectID = a;
     }
+
+    public static void deleteReservation(int tlf_nr) {
+        MySqlConnection.deleteReservation(tlf_nr);
+    }
 }
 

@@ -94,7 +94,8 @@ import java.util.Map;
             JButton deleteReservation = new JButton("Delete Reservation");
             deleteReservation.addActionListener(
                     (ActionEvent e) -> {
-
+                        int tlf_nr = 20546033;
+                        Controller.deleteReservation(tlf_nr);
                     }
             );
             buttomBar.add(deleteReservation);
