@@ -30,10 +30,9 @@ public class MySqlConnection {
             while(rs.next()) {
                 int reservation_id = rs.getInt("reservation_id");
                 int tlf_nr = rs.getInt("tlf_nr");
-                int reserved_seat = rs.getInt("reserved_seats");
-                Reservation reservation = new Reservation(reservation_id,tlf_nr);
+                int showID = rs.getInt("show_id");
+                Reservation reservation = new Reservation(reservation_id,tlf_nr,showID);
                 reservations.add(reservation);
-
             }
             // When done processing, close connection
             rs.close();
@@ -64,7 +63,7 @@ public class MySqlConnection {
             while(rs.next()) {
                 int show_id = rs.getInt("show_id");
                 Date date = rs.getDate("date");
-                int time = rs.getInt("time");
+                String time = rs.getString("time");
                 int hall_id = rs.getInt("hall_id");
                 String title = rs.getString("title");
                 Showing show = new Showing(show_id,date,time,hall_id,title);
@@ -131,7 +130,7 @@ public class MySqlConnection {
                 while(rs.next()) {
                     int id = rs.getInt("show_id");
                     Date date = rs.getDate("date");
-                    int time = rs.getInt("time");
+                    String time = rs.getString("time");
                     int hall_id = rs.getInt("hall_id");
                     String title = rs.getString("title");
                     show = new Showing(id,date,time,hall_id,title);
@@ -213,6 +212,8 @@ public class MySqlConnection {
     }
 
     public static boolean updateReservation(){
+
+
         return false;
     }
 
@@ -229,16 +230,19 @@ public class MySqlConnection {
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
             statement = connection.createStatement();
 
-            String customerCheck = " IF (EXISTS(SELECT * FROM customers WHERE tlf_nr = tlfNr))" +
-                    " ELSE INSERT INTO customers (tlf_nr) VALUES tlfNr";
-            statement.executeQuery(customerCheck);
+            String customerCheck = "SELECT * FROM customers WHERE tlf_nr = " + tlfNr;
+            if(!statement.executeQuery(customerCheck).next()){
+                String makeCustomer = "INSERT INTO customers (tlf_nr) VALUES (" + tlfNr + ")";
+                statement.executeUpdate(makeCustomer);
+            }
 
-            String createReservation ="INSERT INTO reservations (phone, showID) VALUES (phone, showID) ";
+            String createReservation ="INSERT INTO reservations (tlf_nr, show_id) VALUES (" + tlfNr + "," + showID + ")";
 
             statement.executeUpdate(createReservation);
 
 
-            if(createReservedSeats(r.getReserved_seats(), r.getReservation_id())){
+
+            if(createReservedSeats(r.getReserved_seats(), reservation_id)){
                 connection.close();
                 return true;
             }
@@ -253,7 +257,7 @@ public class MySqlConnection {
         return false;
     }
 
-    private static boolean createReservedSeats(int[] seats, int reservation_id) {
+    private static boolean createReservedSeats(int[] seats) {
         Connection connection = null;
         Statement statement = null;
         int lines = 0;
@@ -264,8 +268,8 @@ public class MySqlConnection {
             statement = connection.createStatement();
 
 
-            for (int i = 0; i < seats.length; i++) {
-                String reserveSeat = "INSERT INTO reserved_seats (reservation_id, reserved_set) VALUES (reservation_id, seats[i])";
+            for (int i = 0; i < seats.length-1; i++) {
+                String reserveSeat = "INSERT INTO reserved_seats (reservation_id, seat_id) VALUES (" + "reservation_id ," + seats[i]+ ")";
                 lines += statement.executeUpdate(reserveSeat);
             }
         } catch (Exception e) {
