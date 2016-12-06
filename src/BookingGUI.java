@@ -74,7 +74,7 @@ import java.util.Map;
                             int a = (Integer) listModel.get(i).getKey();
                             //System.out.println(a);
                             Controller.storeSelectedID(a);
-                            Controller.getShowByID(a);
+                            Controller.getShowByID(a,"");
                         }
                     }
             );
@@ -84,8 +84,25 @@ import java.util.Map;
             JButton changeReservation = new JButton("Change Reservation");
             changeReservation.addActionListener(
                     (ActionEvent e) -> {
+                        JPanel myPanel = new JPanel();
+                        JTextField phoneField = new JTextField(12);
 
+                        myPanel.add(new JLabel("Input Phone:"));
+                        myPanel.add(phoneField);
 
+                        int pressed = JOptionPane.showConfirmDialog(null, myPanel,
+                                "Please Enter Customers PhoneNumber", JOptionPane.OK_CANCEL_OPTION);
+                        if (pressed == JOptionPane.OK_OPTION) {
+                            if(phoneField != null){
+                               try{
+                                   //Controller.updateReservation(Integer.parseInt(phoneField.getText()));
+                               }catch (IllegalArgumentException iae){
+                                   JOptionPane.showMessageDialog(null, "please enter a PhoneNumber");
+                               }
+                            }else{
+                                JOptionPane.showMessageDialog(null, "please enter a PhoneNumber");
+                            }
+                        }
                     }
             );
             buttomBar.add(changeReservation);

@@ -28,7 +28,7 @@ public class CinemaView extends JComponent implements ActionListener {
     private JPanel cinema;
     private JButton seat;
 
-    public CinemaView(int rows, int seats, String title, int showID, ArrayList<Integer> reservedSeats)
+    public CinemaView(int rows, int seats, String title, int showID, ArrayList<Integer> reservedSeats, String input)
     {
         this.rows = rows;
         this.seats = seats;
@@ -41,7 +41,7 @@ public class CinemaView extends JComponent implements ActionListener {
             System.out.println(a);
         }
 
-        this.input = "";
+        this.input = input;
 
         // Icons
         vacantSeat = new ImageIcon("VacantSeat.png");
@@ -108,39 +108,39 @@ public class CinemaView extends JComponent implements ActionListener {
         for (int i = 1; i <= rows; i++) {
             for (int j = 1; j <= seats; j++) {
                 // If it doesnt contain the seatnumber, set the seat to free
-                if(!reservedSeats.contains(seatNumber)){
-                    seat = new JButton(""+seatNumber,vacantSeat);
+                if (!reservedSeats.contains(seatNumber)) {
+                    seat = new JButton(""+seatNumber, vacantSeat);
                     seat.addActionListener(
                             (ActionEvent e) -> {
-                            JButton clicked = (JButton) e.getSource();
-                            if(!clicked.getIcon().equals(selectedSeat)) {
-                                clicked.setIcon(selectedSeat);
-                                input = input + "," + e.getActionCommand();
-                                //System.out.println(input);
-                            }
-                            else{
-                                clicked.setIcon(vacantSeat);
-                                if(input.contains(e.getActionCommand())) {
-                                    input = input.replace(","+e.getActionCommand(),"");
+                                JButton clicked = (JButton) e.getSource();
+                                if (!clicked.getIcon().equals(selectedSeat)) {
+                                    clicked.setIcon(selectedSeat);
+                                    input = input + "," + e.getActionCommand();
                                     //System.out.println(input);
+                                } else {
+                                    clicked.setIcon(vacantSeat);
+                                    if (input.contains(e.getActionCommand())) {
+                                        input = input.replace("," + e.getActionCommand(), "");
+                                        //System.out.println(input);
+                                    }
                                 }
-                            }
+                            });
+                }
 
-                        });
 
-                }else {
+                if (reservedSeats.contains(seatNumber)) {
                     seat = new JButton("occupied", occupiedSeat);
                 }
                 seat.setPreferredSize(new Dimension(46, 38));
                 c.fill = GridBagConstraints.HORIZONTAL;
-                c.insets = new Insets(6,2,6,2); // External padding around each button
+                c.insets = new Insets(6, 2, 6, 2); // External padding around each button
                 c.gridx = j;                    // Position in grid
                 c.gridy = i;
                 seatArrangement.add(seat, c);
                 seatNumber++;
             }
-        }
 
+        }
         return seatArrangement;
 
     }
@@ -187,6 +187,10 @@ public class CinemaView extends JComponent implements ActionListener {
 
     }
 
+    public void setInput(String input){
+
+
+    }
 
     public void actionPerformed(ActionEvent e ) {
 
