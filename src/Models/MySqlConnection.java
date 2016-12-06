@@ -246,6 +246,7 @@ public class MySqlConnection {
             String createReservation ="INSERT INTO reservations (tlf_nr, show_id) VALUES (" + tlfNr + "," + showID + ")";
             statement.executeUpdate(createReservation);
 
+
             //get reservation id, for reserving seats
             ResultSet rs = statement.executeQuery("SELECT * FROM reservations WHERE tlf_nr = " + tlfNr + " AND show_id = " + showID);
             int reservation_id = 0;
@@ -258,7 +259,6 @@ public class MySqlConnection {
             //reserve a number of seats
             if(createReservedSeats(r.getReserved_seats(), reservation_id)){
                 //returns true
-
                 connection.close();
                 return true;
             }
@@ -302,5 +302,13 @@ public class MySqlConnection {
             return true;
         else
             return false;
+    }
+
+
+    public static boolean updateReservation(Reservation r){
+
+
+
+        return false;
     }
 }
