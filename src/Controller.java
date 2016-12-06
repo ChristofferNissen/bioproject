@@ -83,14 +83,16 @@ public class Controller {
         return seat;
     }
 
-    /*public static void updateReservation(int phone){
+    public static void updateReservation(int phone){
+        ArrayList<Reservation> res = new ArrayList<>();
+        res = Models.MySqlConnection.getReservationsByID(phone);
 
 
-        String reservedSeats;
+        //String reservedSeats;
 
-        getShowByID();
+        //getShowByID();
 
-    }*/
+    }
 
     //Load all shows from DB
     private static void getShowings(){
