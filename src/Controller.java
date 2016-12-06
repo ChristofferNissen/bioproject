@@ -111,4 +111,3 @@ public class Controller {
         MySqlConnection.deleteReservation(tlf_nr);
     }
 }
-
