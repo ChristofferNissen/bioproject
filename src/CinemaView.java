@@ -36,6 +36,12 @@ public class CinemaView extends JComponent implements ActionListener {
         this.showID = showID;
 
         this.reservedSeats = reservedSeats;
+
+        for(int a : reservedSeats) {
+            System.out.println(a);
+
+        }
+
         this.input = "";
 
         vacantSeat = new ImageIcon("VacantSeat.png");

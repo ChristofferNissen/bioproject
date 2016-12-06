@@ -16,7 +16,7 @@ import java.util.Map;
     public class BookingGUI
     {
         private JFrame frame;
-        private JList<String> showList;
+        private JList<Map.Entry> showList;
         //JList<Map.Entry> showList;
         TreeMap<Integer,String> showings;
         DefaultListModel<Map.Entry> listModel;
@@ -27,6 +27,7 @@ import java.util.Map;
             frame.setSize(800, 600);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             //makeFrame(arrayList);
+            listModel = new DefaultListModel();
             frame.setVisible(true);
         }
 
@@ -70,7 +71,9 @@ import java.util.Map;
                     (ActionEvent e) -> {
                         if(showList.getSelectedIndex() == -1) { } else {
                             int i = showList.getSelectedIndex();
+                            System.out.println(i);
                             int a = (Integer) listModel.get(i).getKey();
+                            System.out.println(a);
                             Controller.storeSelectedID(a);
                             Controller.getShowByID(a);
                         }
@@ -112,7 +115,6 @@ import java.util.Map;
 
         public JPanel makeList(TreeMap<Integer,String> treeMap) {
             JPanel list = new JPanel();
-            listModel = new DefaultListModel();
             ArrayList<String> temp = new ArrayList<>();
 
             for(Map.Entry<Integer,String> entry : treeMap.entrySet()) {
@@ -124,12 +126,13 @@ import java.util.Map;
                 listModel.addElement(entry);
             }
 
-            showList = new JList<>(temp.toArray(new String[temp.size()]));
-            showList.setFont(new Font("Cambria", Font.BOLD, 14));
+            //showList = new JList<>(temp.toArray(new String[temp.size()]));
+            //showList.setFont(new Font("Cambria", Font.BOLD, 14));
             // DefaultListCellRenderer renderer =  (DefaultListCellRenderer) showList.getCellRenderer();
             // renderer.setHorizontalAlignment(JLabel.CENTER);
 
+            showList = new JList<Map.Entry>(listModel);
             list.add(showList);
-            return list;
+            return showList;
         }
     }
