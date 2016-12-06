@@ -240,6 +240,12 @@ public class MySqlConnection {
 
             statement.executeUpdate(createReservation);
 
+            ResultSet rs = statement.executeQuery("SELECT * FROM reservations WHERE tlf_nr = " + tlfNr + " AND show_id = " + showID);
+            int reservation_id = 0;
+            while(rs.next()) {
+                reservation_id = rs.getInt("reservation_id");
+                System.out.println(reservation_id +"");
+            }
 
 
             if(createReservedSeats(r.getReserved_seats(), reservation_id)){
@@ -257,7 +263,7 @@ public class MySqlConnection {
         return false;
     }
 
-    private static boolean createReservedSeats(int[] seats) {
+    private static boolean createReservedSeats(int[] seats, int reservation_id) {
         Connection connection = null;
         Statement statement = null;
         int lines = 0;
@@ -269,7 +275,7 @@ public class MySqlConnection {
 
 
             for (int i = 0; i < seats.length-1; i++) {
-                String reserveSeat = "INSERT INTO reserved_seats (reservation_id, seat_id) VALUES (" + "reservation_id ," + seats[i]+ ")";
+                String reserveSeat = "INSERT INTO reserved_seats (reservation_id, seat_id) VALUES (" + reservation_id + "," + seats[i]+ ")";
                 lines += statement.executeUpdate(reserveSeat);
             }
         } catch (Exception e) {
