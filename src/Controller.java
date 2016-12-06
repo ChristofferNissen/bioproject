@@ -40,7 +40,7 @@ public class Controller {
 
 
     // Get info and create GUI
-    public static void getShowByID(int selectedID) {
+    public static void getShowByID(int selectedID, String input) {
         ArrayList<Integer> reservation_ids = MySqlConnection.getReservationID(selectedID); // Return the reservationID for the chosen showing
 
         //husk at lave exceptions på null
@@ -54,10 +54,10 @@ public class Controller {
         Showing show = MySqlConnection.getShowByID(selectedID);
         //get info about the hall
         Hall hall = MySqlConnection.getHallByID(show.getHall_id());
-
+        input= "2,20";
         // Create cinemaView gui based on data from DB
         CinemaView c = new CinemaView(hall.getRows(), hall.getSeats(),
-                show.getTitle(), show.getShow_id(), reserved_seats);
+                show.getTitle(), show.getShow_id(), reserved_seats, input);
 
     }
 
@@ -86,6 +86,15 @@ public class Controller {
 
         return seat;
     }
+
+    /*public static void updateReservation(int phone){
+
+
+        String reservedSeats;
+
+        getShowByID();
+
+    }*/
 
     //Load all shows from DB
     private static void getShowings(){
