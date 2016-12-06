@@ -258,6 +258,7 @@ public class MySqlConnection {
             //reserve a number of seats
             if(createReservedSeats(r.getReserved_seats(), reservation_id)){
                 //returns true
+
                 connection.close();
                 return true;
             }
