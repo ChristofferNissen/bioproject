@@ -101,13 +101,13 @@ public class CinemaView extends JComponent implements ActionListener {
                             if(!clicked.getIcon().equals(selectedSeat)) {
                                 clicked.setIcon(selectedSeat);
                                 input = input + "," + e.getActionCommand();
-                                System.out.println(input);
+                                //System.out.println(input);
                             }
                             else{
                                 clicked.setIcon(vacantSeat);
                                 if(input.contains(e.getActionCommand())) {
                                     input = input.replace(","+e.getActionCommand(),"");
-                                    System.out.println(input);
+                                    //System.out.println(input);
                                 }
                             }
 
@@ -121,7 +121,6 @@ public class CinemaView extends JComponent implements ActionListener {
                 c.insets = new Insets(6,2,6,2); // External padding around each button
                 c.gridx = j;                    // Position in grid
                 c.gridy = i;
-
                 seatArrangement.add(seat, c);
                 seatNumber++;
             }
