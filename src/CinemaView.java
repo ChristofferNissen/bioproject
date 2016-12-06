@@ -10,6 +10,7 @@ import javax.swing.border.*;
 
 public class CinemaView extends JComponent implements ActionListener {
 
+    //fields
     private int rows;
     private int seats;
     private String title;
@@ -78,17 +79,19 @@ public class CinemaView extends JComponent implements ActionListener {
         bookNow.addActionListener(
                 (ActionEvent e) ->{
                     int tlf = book();
-                    if(Controller.makeReservation(tlf, showID, input) && input.length() > 0){
-                        JOptionPane.showMessageDialog(null, "Booking Succes");
-                        input="";
+                    //if(String.valueOf(tlf).length() == 8) {
+                        if (Controller.makeReservation(tlf, showID, input) && input.length() > 0) {
+                            JOptionPane.showMessageDialog(null, "Booking Succes");
+                            input = "";
 
-                    }else if(true){
-                        JOptionPane.showMessageDialog(null, "Booking failed");
+                        } else if (input.length() <= 0) {
+                            JOptionPane.showMessageDialog(null, "Please enter a number");
 
-                    }else{
-                        JOptionPane.showMessageDialog(null, "Booking failed");
-                    }
-                    System.out.println("booking succes");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Booking failed");
+                        }
+                        System.out.println("booking succes");
+
                 }
         );
         bookingButton.add(bookNow, BorderLayout.CENTER);
@@ -149,12 +152,12 @@ public class CinemaView extends JComponent implements ActionListener {
 
     }
 
-    private int book(){
+    public int book(){
         int i = 0;
         try{
             i = getReservationNumber();
         }
-        catch(IllegalArgumentException e){
+        catch(IllegalArgumentException e) {
             if (e.getMessage().equals("Missing phone number"))
                 JOptionPane.showMessageDialog(null, "Please enter a PhoneNumber");
         }
@@ -179,10 +182,10 @@ public class CinemaView extends JComponent implements ActionListener {
             }
 
         }
-        /*if (result == JOptionPane.CANCEL_OPTION){
-        }*/
-
-        throw new IllegalArgumentException("cancel pressed");
+        if (pressed == JOptionPane.CANCEL_OPTION){
+            throw new IllegalArgumentException("cancel pressed");
+        }
+        return -1;
     }
 
 
