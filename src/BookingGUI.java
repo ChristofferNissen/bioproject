@@ -49,13 +49,22 @@ import java.util.Map;
             searchBar.add(time);
 
             JButton search = new JButton("Search");
+            search.addActionListener(
+                    (ActionEvent e) -> {
+                        String a = movie.getText();
+                        System.out.println("WORKS" + a);
+                    }
+            );
             searchBar.add(search);
 
             contentPane.add(searchBar, BorderLayout.NORTH);
             contentPane.add(makeList(treemap), BorderLayout.CENTER); // makeList
 
             JPanel actionBar = new JPanel();
+            JPanel buttomBar = new JPanel();
             actionBar.setLayout(new FlowLayout());
+
+            // Make reservation
             JButton book = new JButton("Book");
             book.addActionListener(
                     (ActionEvent e) -> {
@@ -69,17 +78,45 @@ import java.util.Map;
 
             );
             actionBar.add(book);
+
+            // Change reservation
+            JButton changeReservation = new JButton("Change Reservation");
+            changeReservation.addActionListener(
+                    (ActionEvent e) -> {
+
+
+                    }
+            );
+            buttomBar.add(changeReservation);
+
+            // Delete reservation
+            JButton deleteReservation = new JButton("Delete Reservation");
+            deleteReservation.addActionListener(
+                    (ActionEvent e) -> {
+
+                    }
+            );
+            buttomBar.add(deleteReservation);
+
             contentPane.add(actionBar, BorderLayout.EAST);
+            contentPane.add(buttomBar,BorderLayout.SOUTH);
             frame.setVisible(true);
 
         }
 
-        public JPanel makeList(TreeMap<Integer,String> arrayList) {
+        public void updateList() {
+            // Get input from movie-field
+            // get the shows containing input
+            // remake list, update view.
+
+        }
+
+        public JPanel makeList(TreeMap<Integer,String> treeMap) {
             JPanel list = new JPanel();
             listModel = new DefaultListModel();
             ArrayList<String> temp = new ArrayList<>();
 
-            for(Map.Entry<Integer,String> entry : arrayList.entrySet()) {
+            for(Map.Entry<Integer,String> entry : treeMap.entrySet()) {
                 //Integer key = entry.getKey();
                 String value = entry.getValue();
                 temp.add(value);
@@ -92,7 +129,3 @@ import java.util.Map;
 
         }
     }
-
-
-
-
