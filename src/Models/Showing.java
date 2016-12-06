@@ -8,11 +8,11 @@ public class Showing {
 
     private int show_id;
     private Date date;
-    private int time;
+    private String time;
     private int hall_id;
     private String title;
 
-    public Showing(int show_id, Date date, int time, int hall_id, String title) {
+    public Showing(int show_id, Date date, String time, int hall_id, String title) {
         this.show_id = show_id;
         this.date = date;
         this.time = time;
@@ -35,7 +35,7 @@ public class Showing {
         return date;
     }
 
-    public int getTime() {
+    public String getTime() {
         return time;
     }
 
@@ -49,11 +49,11 @@ public class Showing {
 
     @Override
     public String toString() {
+
         return
                 title +
-                ". Date: " + date +
-                ", time: " + time +
-                ", hall: " + hall_id;
-
+                " on the " + date +
+                " at " + time +
+                " in Hall " + hall_id;
     }
 }

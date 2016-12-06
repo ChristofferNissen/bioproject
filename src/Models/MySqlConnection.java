@@ -64,7 +64,7 @@ public class MySqlConnection {
             while(rs.next()) {
                 int show_id = rs.getInt("show_id");
                 Date date = rs.getDate("date");
-                int time = rs.getInt("time");
+                String time = rs.getString("time");
                 int hall_id = rs.getInt("hall_id");
                 String title = rs.getString("title");
                 Showing show = new Showing(show_id,date,time,hall_id,title);
@@ -131,7 +131,7 @@ public class MySqlConnection {
                 while(rs.next()) {
                     int id = rs.getInt("show_id");
                     Date date = rs.getDate("date");
-                    int time = rs.getInt("time");
+                    String time = rs.getString("time");
                     int hall_id = rs.getInt("hall_id");
                     String title = rs.getString("title");
                     show = new Showing(id,date,time,hall_id,title);
