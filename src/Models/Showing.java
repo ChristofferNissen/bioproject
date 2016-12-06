@@ -54,5 +54,6 @@ public class Showing {
                 ". Date: " + date +
                 ", time: " + time +
                 ", hall: " + hall_id;
+
     }
 }

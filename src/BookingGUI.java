@@ -16,7 +16,8 @@ import java.util.Map;
     public class BookingGUI
     {
         private JFrame frame;
-        JList<Map.Entry> showList;
+        private JList<String> showList;
+        //JList<Map.Entry> showList;
         TreeMap<Integer,String> showings;
         DefaultListModel<Map.Entry> listModel;
 
@@ -76,14 +77,16 @@ import java.util.Map;
         public JPanel makeList(TreeMap<Integer,String> arrayList) {
             JPanel list = new JPanel();
             listModel = new DefaultListModel();
+            ArrayList<String> temp = new ArrayList<>();
 
             for(Map.Entry<Integer,String> entry : arrayList.entrySet()) {
-                Integer key = entry.getKey();
+                //Integer key = entry.getKey();
                 String value = entry.getValue();
+                temp.add(value);
                 listModel.addElement(entry);
             }
 
-            showList = new JList<Map.Entry>(listModel);
+            showList = new JList<>(temp.toArray(new String[temp.size()]));
             list.add(showList);
             return list;
 
