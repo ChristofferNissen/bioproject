@@ -42,10 +42,8 @@ public class CinemaView extends JComponent implements ActionListener {
         occupiedSeat = new ImageIcon("occupiedSeat.png");
         selectedSeat = new ImageIcon("selectedSeat.png");
 
-
         frame = new JFrame("CinemaView: Choose Seats");
         cinema = new JPanel();
-        //seat = new JButton();
         makeFrame(this);
     }
 
@@ -99,14 +97,10 @@ public class CinemaView extends JComponent implements ActionListener {
                     seat = new JButton(""+seatNumber,vacantSeat);
                     seat.addActionListener(
                             (ActionEvent e) -> {
-                            //System.out.println(input);
                             JButton clicked = (JButton) e.getSource();
                             if(!clicked.getIcon().equals(selectedSeat)) {
                                 clicked.setIcon(selectedSeat);
-                                    input = input + "," + e.getActionCommand();
-
-                                System.out.println(input);
-
+                                input = input + "," + e.getActionCommand();
                             }
                             else{
                                 clicked.setIcon(vacantSeat);

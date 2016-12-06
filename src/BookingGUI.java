@@ -55,7 +55,10 @@ import java.util.Map;
             contentPane.add(makeList(treemap), BorderLayout.CENTER); // makeList
 
             JPanel actionBar = new JPanel();
+            JPanel buttomBar = new JPanel();
             actionBar.setLayout(new FlowLayout());
+
+            // Make reservation
             JButton book = new JButton("Book");
             book.addActionListener(
                     (ActionEvent e) -> {
@@ -69,7 +72,28 @@ import java.util.Map;
 
             );
             actionBar.add(book);
+
+            // Change reservation
+            JButton changeReservation = new JButton("Change Reservation");
+            changeReservation.addActionListener(
+                    (ActionEvent e) -> {
+
+
+                    }
+            );
+            buttomBar.add(changeReservation);
+
+            // Delete reservation
+            JButton deleteReservation = new JButton("Delete Reservation");
+            deleteReservation.addActionListener(
+                    (ActionEvent e) -> {
+
+                    }
+            );
+            buttomBar.add(deleteReservation);
+
             contentPane.add(actionBar, BorderLayout.EAST);
+            contentPane.add(buttomBar,BorderLayout.SOUTH);
             frame.setVisible(true);
 
         }
