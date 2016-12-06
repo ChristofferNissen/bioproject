@@ -17,9 +17,8 @@ import java.util.Map;
     {
         private JFrame frame;
         private JList<String> showList;
-        //JList<Map.Entry> showList;
-        TreeMap<Integer,String> showings;
-        DefaultListModel<Map.Entry> listModel;
+        private TreeMap<Integer,String> showings;
+        private DefaultListModel<Map.Entry> listModel;
 
         public BookingGUI()
         {
@@ -31,8 +30,7 @@ import java.util.Map;
             frame.setVisible(true);
         }
 
-        public void makeFrame(TreeMap treemap)
-        {
+        public void makeFrame(TreeMap treemap) {
             JPanel contentPane = (JPanel)frame.getContentPane();
             contentPane.setLayout(new BorderLayout());
             contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -63,7 +61,8 @@ import java.util.Map;
 
             JPanel actionBar = new JPanel();
             JPanel buttomBar = new JPanel();
-            actionBar.setLayout(new FlowLayout());
+            actionBar.setLayout(new BorderLayout());
+            actionBar.setBorder(new EmptyBorder(50, 10, 350, 10));
 
             // Make reservation
             JButton book = new JButton("Book");
@@ -79,7 +78,7 @@ import java.util.Map;
                         }
                     }
             );
-            actionBar.add(book);
+            actionBar.add(book, BorderLayout.CENTER);
 
             // Change reservation
             JButton changeReservation = new JButton("Change Reservation");
@@ -144,9 +143,6 @@ import java.util.Map;
 
             //showList = new JList<>(temp.toArray(new String[temp.size()]));
 
-            // DefaultListCellRenderer renderer =  (DefaultListCellRenderer) showList.getCellRenderer();
-            // renderer.setHorizontalAlignment(JLabel.CENTER);
-
             // convert to String[] from arrayList
             int i = 0;
             String[] var = new String[temp.size()];
@@ -154,8 +150,10 @@ import java.util.Map;
                 var[i] = r;
                 i++;
             }
+
             showList = new JList<String>(var);
             showList.setFont(new Font("Cambria", Font.BOLD, 14));
+            showList.setBorder(new EmptyBorder(10,10,10,10));
 
             list.add(showList);
 
