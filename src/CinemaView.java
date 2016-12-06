@@ -60,19 +60,20 @@ public class CinemaView extends JComponent implements ActionListener {
         frame.getContentPane().add(c);
         frame.setLayout(new BorderLayout());
 
-        JLabel label = new JLabel(title);
+        JLabel label = new JLabel(title, SwingConstants.CENTER);
         frame.add(label, BorderLayout.NORTH);
-        label.setFont(new Font("Comic Sans MS", Font.BOLD, 22));
+        label.setFont(new Font("Cambria", Font.BOLD, 22));
 
         // cinema.setPreferredSize(new Dimension(100, 100));
         cinema.setBorder(new EmptyBorder(10, 10, 10, 10));
         // cinema.setLayout(new GridLayout(rows.length, seats.length));
 
         JPanel seats = makeGrid();
-
         frame.add(seats, BorderLayout.CENTER);
 
         JPanel bookingButton = new JPanel();
+        bookingButton.setLayout(new BorderLayout());
+        bookingButton.setBorder(new EmptyBorder(245, 10, 245, 70));
         JButton bookNow = new JButton("Book now!");
         bookNow.addActionListener(
                 (ActionEvent e) ->{
@@ -80,16 +81,17 @@ public class CinemaView extends JComponent implements ActionListener {
                     if(Controller.makeReservation(tlf, showID, input) && input.length() > 0){
                         JOptionPane.showMessageDialog(null, "Booking Succes");
                         input="";
-                        revalidate();
+
                     }else if(true){
                         JOptionPane.showMessageDialog(null, "Booking failed");
+
                     }else{
                         JOptionPane.showMessageDialog(null, "Booking failed");
                     }
                     System.out.println("booking succes");
                 }
         );
-        bookingButton.add(bookNow);
+        bookingButton.add(bookNow, BorderLayout.CENTER);
 
         frame.add(bookingButton, BorderLayout.EAST);
 
