@@ -39,11 +39,11 @@ public class CinemaView extends JComponent implements ActionListener {
 
         for(int a : reservedSeats) {
             System.out.println(a);
-
         }
 
         this.input = "";
 
+        // Icons
         vacantSeat = new ImageIcon("VacantSeat.png");
         occupiedSeat = new ImageIcon("occupiedSeat.png");
         selectedSeat = new ImageIcon("selectedSeat.png");
@@ -56,6 +56,7 @@ public class CinemaView extends JComponent implements ActionListener {
     public void makeFrame(CinemaView c){
         frame.setSize(800, 600);
         //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.getContentPane().add(c);
         frame.setLayout(new BorderLayout());
 

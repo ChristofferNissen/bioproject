@@ -17,9 +17,8 @@ import java.util.Map;
     {
         private JFrame frame;
         private JList<String> showList;
-        //JList<Map.Entry> showList;
-        TreeMap<Integer,String> showings;
-        DefaultListModel<Map.Entry> listModel;
+        private TreeMap<Integer,String> showings;
+        private DefaultListModel<Map.Entry> listModel;
 
         public BookingGUI()
         {
@@ -31,8 +30,7 @@ import java.util.Map;
             frame.setVisible(true);
         }
 
-        public void makeFrame(TreeMap treemap)
-        {
+        public void makeFrame(TreeMap treemap) {
             JPanel contentPane = (JPanel)frame.getContentPane();
             contentPane.setLayout(new BorderLayout());
             contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -137,6 +135,7 @@ import java.util.Map;
                 var[i] = r;
                 i++;
             }
+
             showList = new JList<String>(var);
             showList.setFont(new Font("Cambria", Font.BOLD, 14));
 
