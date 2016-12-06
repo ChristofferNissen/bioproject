@@ -7,17 +7,21 @@ public class Reservation {
     // Fields
     private int reservation_id;
     private int tlf_nr;
-    private int reserved_seat;
+    private int show_id;
+    private int[] reserved_seats;
 
     // Constructor
 
-    public Reservation(int reservation_id, int tlf_nr, int reserved_seat) {
+    public Reservation(int reservation_id, int tlf_nr, int[] reserved_seats) {
         this.reservation_id = reservation_id;
         this.tlf_nr = tlf_nr;
-        this.reserved_seat = reserved_seat;
+        this.reserved_seats = reserved_seats;
     }
 
-
+    public Reservation(int reservation_id, int tlf_nr) {
+        this.reservation_id = reservation_id;
+        this.tlf_nr = tlf_nr;
+    }
 
     // methods
     @Override
@@ -25,8 +29,8 @@ public class Reservation {
         return "Reservation{" +
                 "reservation_id=" + reservation_id +
                 ", tlf_nr=" + tlf_nr +
-                ", reserved_seat=" + reserved_seat +
-                '}';
+                ", reserved_seats = " + reserved_seats.toString() + "";
+
     }
 
     //getters
@@ -40,7 +44,11 @@ public class Reservation {
         return tlf_nr;
     }
 
-    public int getReserved_seat() {
-        return reserved_seat;
+    public int[] getReserved_seats() {
+        return reserved_seats;
+    }
+
+    public int getShow_id() {
+        return show_id;
     }
 }
