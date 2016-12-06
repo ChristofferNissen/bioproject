@@ -115,7 +115,7 @@ import java.util.Map;
             listModel = new DefaultListModel();
             ArrayList<String> temp = new ArrayList<>();
 
-            for(Map.Entry<Integer,String> entry : arrayList.entrySet()) {
+            for(Map.Entry<Integer,String> entry : treeMap.entrySet()) {
                 Integer key = entry.getKey();
 
                 String value = entry.getValue();
