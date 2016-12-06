@@ -214,6 +214,10 @@ public class MySqlConnection {
         return RSeats;
     }
 
+    public static boolean updateReservation(){
+        return false;
+    }
+
     public static boolean makeReservation(Reservation r) {
         Connection connection = null;
         Statement statement = null;
@@ -266,9 +270,6 @@ public class MySqlConnection {
                 String reserveSeat = "INSERT INTO reserved_seats (reservation_id, reserved_set) VALUES (reservation_id, seats[i])";
                 lines += statement.executeUpdate(reserveSeat);
             }
-
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
