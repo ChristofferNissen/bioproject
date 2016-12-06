@@ -16,7 +16,7 @@ import java.util.Map;
     public class BookingGUI
     {
         private JFrame frame;
-        private JList<Map.Entry> showList;
+        private JList<String> showList;
         //JList<Map.Entry> showList;
         TreeMap<Integer,String> showings;
         DefaultListModel<Map.Entry> listModel;
@@ -53,7 +53,7 @@ import java.util.Map;
             search.addActionListener(
                     (ActionEvent e) -> {
                         String a = movie.getText();
-                        System.out.println("WORKS" + a);
+                        System.out.println(a);
                     }
             );
             searchBar.add(search);
@@ -71,9 +71,9 @@ import java.util.Map;
                     (ActionEvent e) -> {
                         if(showList.getSelectedIndex() == -1) { } else {
                             int i = showList.getSelectedIndex();
-                            System.out.println(i);
+                            //System.out.println(i);
                             int a = (Integer) listModel.get(i).getKey();
-                            System.out.println(a);
+                            //System.out.println(a);
                             Controller.storeSelectedID(a);
                             Controller.getShowByID(a);
                         }
@@ -122,17 +122,26 @@ import java.util.Map;
 
                 String value = entry.getValue();
                 temp.add(value);
-                temp.add("");
                 listModel.addElement(entry);
             }
 
             //showList = new JList<>(temp.toArray(new String[temp.size()]));
-            //showList.setFont(new Font("Cambria", Font.BOLD, 14));
+
             // DefaultListCellRenderer renderer =  (DefaultListCellRenderer) showList.getCellRenderer();
             // renderer.setHorizontalAlignment(JLabel.CENTER);
 
-            showList = new JList<Map.Entry>(listModel);
+            // convert to String[] from arrayList
+            int i = 0;
+            String[] var = new String[temp.size()];
+            for(String r : temp) {
+                var[i] = r;
+                i++;
+            }
+            showList = new JList<String>(var);
+            showList.setFont(new Font("Cambria", Font.BOLD, 14));
+
             list.add(showList);
-            return showList;
+
+            return list;
         }
     }
