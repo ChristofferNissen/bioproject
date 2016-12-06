@@ -49,6 +49,12 @@ import java.util.Map;
             searchBar.add(time);
 
             JButton search = new JButton("Search");
+            search.addActionListener(
+                    (ActionEvent e) -> {
+                        String a = movie.getText();
+                        System.out.println("WORKS" + a);
+                    }
+            );
             searchBar.add(search);
 
             contentPane.add(searchBar, BorderLayout.NORTH);

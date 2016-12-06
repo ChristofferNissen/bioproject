@@ -50,7 +50,7 @@ public class Showing {
     @Override
     public String toString() {
         return
-                title +
+                title + ".\n" +
                 ". Date: " + date +
                 ", time: " + time +
                 ", hall: " + hall_id;
