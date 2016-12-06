@@ -11,7 +11,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../mysql.jar!/" />
+          <root url="jar:///Users/mysql.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -21,6 +21,15 @@
       <library>
         <CLASSES>
           <root url="jar://$USER_HOME$/Downloads/mysql.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Desktop/mysql.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
