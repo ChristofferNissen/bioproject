@@ -27,6 +27,7 @@ import java.util.Map;
             frame.setSize(800, 600);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             //makeFrame(arrayList);
+            listModel = new DefaultListModel();
             frame.setVisible(true);
         }
 
@@ -52,7 +53,7 @@ import java.util.Map;
             search.addActionListener(
                     (ActionEvent e) -> {
                         String a = movie.getText();
-                        System.out.println("WORKS" + a);
+                        System.out.println(a);
                     }
             );
             searchBar.add(search);
@@ -70,7 +71,9 @@ import java.util.Map;
                     (ActionEvent e) -> {
                         if(showList.getSelectedIndex() == -1) { } else {
                             int i = showList.getSelectedIndex();
+                            //System.out.println(i);
                             int a = (Integer) listModel.get(i).getKey();
+                            //System.out.println(a);
                             Controller.storeSelectedID(a);
                             Controller.getShowByID(a);
                         }
@@ -112,7 +115,6 @@ import java.util.Map;
 
         public JPanel makeList(TreeMap<Integer,String> treeMap) {
             JPanel list = new JPanel();
-            listModel = new DefaultListModel();
             ArrayList<String> temp = new ArrayList<>();
 
             for(Map.Entry<Integer,String> entry : treeMap.entrySet()) {
@@ -120,16 +122,26 @@ import java.util.Map;
 
                 String value = entry.getValue();
                 temp.add(value);
-                temp.add("");
                 listModel.addElement(entry);
             }
 
-            showList = new JList<>(temp.toArray(new String[temp.size()]));
-            showList.setFont(new Font("Cambria", Font.BOLD, 14));
+            //showList = new JList<>(temp.toArray(new String[temp.size()]));
+
             // DefaultListCellRenderer renderer =  (DefaultListCellRenderer) showList.getCellRenderer();
             // renderer.setHorizontalAlignment(JLabel.CENTER);
 
+            // convert to String[] from arrayList
+            int i = 0;
+            String[] var = new String[temp.size()];
+            for(String r : temp) {
+                var[i] = r;
+                i++;
+            }
+            showList = new JList<String>(var);
+            showList.setFont(new Font("Cambria", Font.BOLD, 14));
+
             list.add(showList);
+
             return list;
         }
     }

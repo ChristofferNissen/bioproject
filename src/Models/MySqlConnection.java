@@ -191,8 +191,8 @@ public class MySqlConnection {
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
             statement = connection.createStatement();
 
-            ResultSet rs = statement.executeQuery("SELECT * FROM reservations,reserved_seats" +
-                    " WHERE reservations.reservation_id = " + reservation_id);
+            ResultSet rs = statement.executeQuery("SELECT * FROM reserved_seats" +
+                    " WHERE reserved_seats.reservation_id = " + reservation_id);
 
             // Process data
             while(rs.next()) {
