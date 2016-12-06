@@ -173,11 +173,7 @@ public class CinemaView extends JComponent implements ActionListener {
             }else{
                 throw new IllegalArgumentException("Missing phone number");
             }
-
         }
-        /*if (result == JOptionPane.CANCEL_OPTION){
-        }*/
-
         throw new IllegalArgumentException("cancel pressed");
     }
 

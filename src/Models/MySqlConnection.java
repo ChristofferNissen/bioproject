@@ -312,7 +312,7 @@ public class MySqlConnection {
     }
 
     // Delete reservation from reservations && delete reservated seats
-    public static void deleteReservation(int tlf_nr){
+    public static void deleteReservation(String tlf_nr){
         Connection connection = null;
         Statement statement = null;
         ArrayList<Integer> r_id;

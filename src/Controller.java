@@ -19,10 +19,6 @@ public class Controller {
         BookingGUI gui = new BookingGUI();
         gui.makeFrame(getShows());
 
-        //cinemaView = new CinemaView();
-
-        //getShowByID(2);
-
     }
 
     //
@@ -54,7 +50,7 @@ public class Controller {
         Showing show = MySqlConnection.getShowByID(selectedID);
         //get info about the hall
         Hall hall = MySqlConnection.getHallByID(show.getHall_id());
-        input= "2,20";
+        input= "";
         // Create cinemaView gui based on data from DB
         CinemaView c = new CinemaView(hall.getRows(), hall.getSeats(),
                 show.getTitle(), show.getShow_id(), reserved_seats, input);
@@ -111,7 +107,7 @@ public class Controller {
         selectID = a;
     }
 
-    public static void deleteReservation(int tlf_nr) {
+    public static void deleteReservation(String tlf_nr) {
         MySqlConnection.deleteReservation(tlf_nr);
     }
 }
