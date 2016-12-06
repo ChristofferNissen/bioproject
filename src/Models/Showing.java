@@ -50,12 +50,9 @@ public class Showing {
     @Override
     public String toString() {
         return
-                title + '\'' +
-                ", date=" + date +
-                ", time=" + time +
-                ", show_id=" + show_id +
-                ", hall_id=" + hall_id;
-
-
+                title +
+                ". Date: " + date +
+                ", time: " + time +
+                ", hall: " + hall_id;
     }
 }
