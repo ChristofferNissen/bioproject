@@ -55,5 +55,6 @@ public class Showing {
                 " on the " + date +
                 " at " + time +
                 " in Hall " + hall_id;
+
     }
 }

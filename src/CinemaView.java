@@ -42,10 +42,8 @@ public class CinemaView extends JComponent implements ActionListener {
         occupiedSeat = new ImageIcon("occupiedSeat.png");
         selectedSeat = new ImageIcon("selectedSeat.png");
 
-
         frame = new JFrame("CinemaView: Choose Seats");
         cinema = new JPanel();
-        //seat = new JButton();
         makeFrame(this);
     }
 
@@ -71,6 +69,14 @@ public class CinemaView extends JComponent implements ActionListener {
         JButton bookNow = new JButton("Book now!");
         bookNow.addActionListener(
                 (ActionEvent e) ->{
+                    int tlf = book();
+                    if(Controller.makeReservation(tlf, showID, input)){
+                        JOptionPane.showMessageDialog(null, "Booking Succes");
+                        input="";
+                        revalidate();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Booking failed");
+                    }
                     System.out.println("booking succes");
                 }
         );
@@ -99,14 +105,11 @@ public class CinemaView extends JComponent implements ActionListener {
                     seat = new JButton(""+seatNumber,vacantSeat);
                     seat.addActionListener(
                             (ActionEvent e) -> {
-                            //System.out.println(input);
                             JButton clicked = (JButton) e.getSource();
                             if(!clicked.getIcon().equals(selectedSeat)) {
                                 clicked.setIcon(selectedSeat);
-                                    input = input + "," + e.getActionCommand();
-
+                                input = input + "," + e.getActionCommand();
                                 System.out.println(input);
-
                             }
                             else{
                                 clicked.setIcon(vacantSeat);
@@ -134,6 +137,42 @@ public class CinemaView extends JComponent implements ActionListener {
 
         return seatArrangement;
 
+    }
+
+    private int book(){
+        int i = 0;
+        try{
+            i = getReservationNumber();
+        }
+        catch(IllegalArgumentException e){
+            if (e.getMessage().equals("Missing phone number"))
+                JOptionPane.showMessageDialog(null, "Please enter a PhoneNumber");
+        }
+        return i;
+
+    }
+
+    private int getReservationNumber(){
+        JPanel myPanel = new JPanel();
+        JTextField phoneField = new JTextField(12);
+
+        myPanel.add(new JLabel("Input Phone:"));
+        myPanel.add(phoneField);
+
+        int pressed = JOptionPane.showConfirmDialog(null, myPanel,
+                "Please Enter Customers PhoneNumber", JOptionPane.OK_CANCEL_OPTION);
+        if (pressed == JOptionPane.OK_OPTION) {
+            if(phoneField != null){
+                return Integer.parseInt(phoneField.getText());
+            }else{
+                throw new IllegalArgumentException("Missing phone number");
+            }
+
+        }
+        /*if (result == JOptionPane.CANCEL_OPTION){
+        }*/
+
+        throw new IllegalArgumentException("cancel pressed");
     }
 
 

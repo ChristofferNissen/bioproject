@@ -60,6 +60,30 @@ public class Controller {
                 show.getTitle(), show.getShow_id(), reserved_seats);
 
     }
+
+    public static boolean makeReservation(int tlf, int showID, String seats){
+        Reservation reservation = new Reservation(tlf, showID,splitSeatString(seats));
+        if(MySqlConnection.makeReservation(reservation)){
+            return true;
+        }
+        System.out.println("make reservation: " + tlf + showID);
+        return false;
+    }
+
+    private static int[] splitSeatString(String seats){
+        String[] arr = seats.split(",");
+        int[] seat = new int[arr.length];
+
+
+        for(int i = 1; i < arr.length;i++){
+            seat[i-1] = Integer.parseInt(arr[i]);
+        }
+
+        System.out.println(seat.toString());
+
+        return seat;
+    }
+
     //Load all shows from DB
     private static void getShowings(){
         showingList = MySqlConnection.getShowingQuery("*");

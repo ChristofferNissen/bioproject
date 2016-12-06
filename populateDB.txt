@@ -19,6 +19,11 @@ INSERT INTO reserved_seats (reservation_id,seat_id)->     VALUES (‘2’,’10
 
 
 ///
+INSERT INTO movies(title, length) values (‘James Bond - Goldfinger’,’120);
+INSERT INTO movies(title, length) values (‘James Bond - Casino Royal’,’120);
+INSERT INTO movies(title, length) values (‘James Bond - On her Majesty’s Secret Service’,’120);
+
+
 INSERT INTO customers(tlf_nr) VALUES (‘22620391’);
 INSERT INTO customers(tlf_nr) VALUES (‘20546033’);
 INSERT INTO customers(tlf_nr) VALUES (‘28258988’);
