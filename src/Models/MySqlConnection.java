@@ -32,7 +32,7 @@ public class MySqlConnection {
                 int reservation_id = rs.getInt("reservation_id");
                 int tlf_nr = rs.getInt("tlf_nr");
                 int reserved_seat = rs.getInt("reserved_seats");
-                Reservation reservation = new Reservation(reservation_id,tlf_nr,reserved_seat);
+                Reservation reservation = new Reservation(reservation_id,tlf_nr);
                 reservations.add(reservation);
 
             }
@@ -212,5 +212,69 @@ public class MySqlConnection {
         }
         // return collection
         return RSeats;
+    }
+
+    public static boolean makeReservation(Reservation r) {
+        Connection connection = null;
+        Statement statement = null;
+
+        int tlfNr = r.getTlf_nr();
+        int showID = r.getShow_id();
+
+        try {
+            // Connect to server
+            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            statement = connection.createStatement();
+
+            String customerCheck = " IF (EXISTS(SELECT * FROM customers WHERE tlf_nr = tlfNr))" +
+                    " ELSE INSERT INTO customers (tlf_nr) VALUES tlfNr";
+            statement.executeQuery(customerCheck);
+
+            String createReservation ="INSERT INTO reservations (phone, showID) VALUES (phone, showID) ";
+
+            statement.executeUpdate(createReservation);
+
+
+            if(createReservedSeats(r.getReserved_seats(), r.getReservation_id())){
+                connection.close();
+                return true;
+            }
+
+            connection.close();
+            return false;
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        // return collection
+        return false;
+    }
+
+    private static boolean createReservedSeats(int[] seats, int reservation_id) {
+        Connection connection = null;
+        Statement statement = null;
+        int lines = 0;
+        try {
+            // Connect to server
+            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            statement = connection.createStatement();
+
+
+            for (int i = 0; i < seats.length; i++) {
+                String reserveSeat = "INSERT INTO reserved_seats (reservation_id, reserved_set) VALUES (reservation_id, seats[i])";
+                lines += statement.executeUpdate(reserveSeat);
+            }
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if(lines == seats.length)
+            return true;
+        else
+            return false;
     }
 }
