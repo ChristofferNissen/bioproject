@@ -98,10 +98,6 @@ public class CinemaView extends JComponent implements ActionListener {
 
         frame.add(bookingButton, BorderLayout.EAST);
 
-
-
-        //makeCinema();
-
         frame.setVisible(true);
     }
 
@@ -180,8 +176,8 @@ public class CinemaView extends JComponent implements ActionListener {
             }else{
                 throw new IllegalArgumentException("Missing phone number");
             }
-
         }
+
         if (pressed == JOptionPane.CANCEL_OPTION){
             throw new IllegalArgumentException("cancel pressed");
         }

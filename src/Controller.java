@@ -19,10 +19,6 @@ public class Controller {
         BookingGUI gui = new BookingGUI();
         gui.makeFrame(getShows());
 
-        //cinemaView = new CinemaView();
-
-        //getShowByID(2);
-
     }
 
     //
@@ -111,6 +107,10 @@ public class Controller {
     //
     public static void storeSelectedID(int a) {
         selectID = a;
+    }
+
+    public static void deleteReservation(String tlf_nr) {
+        MySqlConnection.deleteReservation(tlf_nr);
     }
 }
 

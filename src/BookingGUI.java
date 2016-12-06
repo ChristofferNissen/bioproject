@@ -112,6 +112,18 @@ import java.util.Map;
             deleteReservation.addActionListener(
                     (ActionEvent e) -> {
 
+                        JPanel myPanel = new JPanel();
+                        JTextField phoneField = new JTextField(8); // 8 digits
+
+                        myPanel.add(new JLabel("Input Phone Number:"));
+                        myPanel.add(phoneField);
+                        int pressed = JOptionPane.showConfirmDialog(null, myPanel,
+                                "Please Enter Customers PhoneNumber", JOptionPane.OK_CANCEL_OPTION);
+
+
+                        String tlf_nr = phoneField.getText();
+
+                        Controller.deleteReservation(tlf_nr);
                     }
             );
             buttomBar.add(deleteReservation);
@@ -134,8 +146,7 @@ import java.util.Map;
             ArrayList<String> temp = new ArrayList<>();
 
             for(Map.Entry<Integer,String> entry : treeMap.entrySet()) {
-                Integer key = entry.getKey();
-
+                //Integer key = entry.getKey();
                 String value = entry.getValue();
                 temp.add(value);
                 listModel.addElement(entry);

@@ -246,7 +246,6 @@ public class MySqlConnection {
             String createReservation ="INSERT INTO reservations (tlf_nr, show_id) VALUES (" + tlfNr + "," + showID + ")";
             statement.executeUpdate(createReservation);
 
-
             //get reservation id, for reserving seats
             ResultSet rs = statement.executeQuery("SELECT * FROM reservations WHERE tlf_nr = " + tlfNr + " AND show_id = " + showID);
             int reservation_id = 0;
@@ -343,5 +342,42 @@ public class MySqlConnection {
 
 
         return false;
+    }
+
+    // Delete reservation from reservations && delete reservated seats
+    public static void deleteReservation(String tlf_nr){
+        Connection connection = null;
+        Statement statement = null;
+        ArrayList<Integer> r_id;
+        r_id = new ArrayList<>();
+
+        try {
+            // Connect to server
+            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            statement = connection.createStatement();
+
+            ResultSet rs = statement.executeQuery("SELECT reservation_id  FROM reservations where tlf_nr=" + tlf_nr);
+            // Process data
+            while(rs.next()) {
+                int reservation_id = rs.getInt("reservation_id");
+                r_id.add(reservation_id);
+            }
+
+
+            // Delete seats by ID
+            for(int a : r_id) {
+                statement.executeUpdate("DELETE FROM reserved_seats where reservation_id=" + a);
+            }
+            statement.executeUpdate("DELETE FROM reservations where tlf_nr="+tlf_nr);
+
+            // When done processing, close connection
+            rs.close();
+            connection.close();
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
