@@ -45,7 +45,7 @@ import java.util.Map;
             searchBar.add(movie);
 
             JTextField time = new JTextField(20);
-            time.setBorder(new TitledBorder("Time"));
+            time.setBorder(new TitledBorder("Date"));
             searchBar.add(time);
 
             JButton search = new JButton("Search");
@@ -75,7 +75,6 @@ import java.util.Map;
                             Controller.getShowByID(a);
                         }
                     }
-
             );
             actionBar.add(book);
 
@@ -116,16 +115,21 @@ import java.util.Map;
             listModel = new DefaultListModel();
             ArrayList<String> temp = new ArrayList<>();
 
-            for(Map.Entry<Integer,String> entry : treeMap.entrySet()) {
-                //Integer key = entry.getKey();
+            for(Map.Entry<Integer,String> entry : arrayList.entrySet()) {
+                Integer key = entry.getKey();
+
                 String value = entry.getValue();
                 temp.add(value);
+                temp.add("");
                 listModel.addElement(entry);
             }
 
             showList = new JList<>(temp.toArray(new String[temp.size()]));
+            showList.setFont(new Font("Cambria", Font.BOLD, 14));
+            // DefaultListCellRenderer renderer =  (DefaultListCellRenderer) showList.getCellRenderer();
+            // renderer.setHorizontalAlignment(JLabel.CENTER);
+
             list.add(showList);
             return list;
-
         }
     }
