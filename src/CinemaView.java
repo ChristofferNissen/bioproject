@@ -1,8 +1,6 @@
 /**
  * Created by caecilieiversen on 30/11/2016.
  */
-import com.sun.scenario.effect.impl.ImagePool;
-import com.sun.scenario.effect.impl.sw.java.JSWBlend_BLUEPeer;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -10,7 +8,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class Cinema extends JComponent implements ActionListener {
+public class CinemaView extends JComponent implements ActionListener {
 
     private int rows;
     private int seats;
@@ -29,7 +27,7 @@ public class Cinema extends JComponent implements ActionListener {
     private JButton seat;
 
 
-    public Cinema()
+    public CinemaView()
     {
         //rows = new int[] {0,1,2,3,4,5};
         //seats = new int[] {0,1,2,3,4,5,6,7};
@@ -46,13 +44,13 @@ public class Cinema extends JComponent implements ActionListener {
         occupiedSeat = new ImageIcon("occupiedSeat.png");
         selectedSeat = new ImageIcon("selectedSeat.png");
 
-        frame = new JFrame("Cinema: Choose Seats");
+        frame = new JFrame("CinemaView: Choose Seats");
         cinema = new JPanel();
         //seat = new JButton();
         makeFrame(this);
     }
 
-    public Cinema(int rows, int seats, String title, int showID, ArrayList<Integer> reservedSeats)
+    public CinemaView(int rows, int seats, String title, int showID, ArrayList<Integer> reservedSeats)
     {
         this.rows = rows;
         this.seats = seats;
@@ -66,13 +64,13 @@ public class Cinema extends JComponent implements ActionListener {
         selectedSeat = new ImageIcon("selectedSeat.png");
 
 
-        frame = new JFrame("Cinema: Choose Seats");
+        frame = new JFrame("CinemaView: Choose Seats");
         cinema = new JPanel();
         //seat = new JButton();
         makeFrame(this);
     }
 
-    public void makeFrame(Cinema c){
+    public void makeFrame(CinemaView c){
         frame.setSize(800, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add(c);
@@ -140,7 +138,7 @@ public class Cinema extends JComponent implements ActionListener {
 
     }
     public void actionPerformed(ActionEvent e){
-        selectedSeats = new ArrayList<Integer>();
+        selectedSeats = new ArrayList<String>();
         System.out.println(e.getActionCommand());
 
         String a  = e.getActionCommand();
@@ -149,13 +147,19 @@ public class Cinema extends JComponent implements ActionListener {
         System.out.println(a);
 
         JButton clicked = (JButton) e.getSource();
+        String input = e.getActionCommand();
+        selectedSeats.add(input);
+
         if(!clicked.getIcon().equals(selectedSeat)) {
             clicked.setIcon(selectedSeat);
-            System.out.println(""+clicked.toString());
+
+
+            System.out.println(selectedSeats.toString());
         }
         else{
             clicked.setIcon(vacantSeat);
         }
+
     }
 
 }

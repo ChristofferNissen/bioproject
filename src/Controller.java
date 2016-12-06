@@ -12,14 +12,14 @@ public class Controller {
     private static int selectID;
     private static ArrayList<Showing> showingList;
     private static ArrayList<Reservation> reservationList;
-    private static Cinema cinema;
+    private static CinemaView cinemaView;
 
     public static void main (String[] args){
         getShowings();
         BookingGUI gui = new BookingGUI();
         gui.makeFrame(getShows());
 
-        //cinema = new Cinema();
+        //cinemaView = new CinemaView();
 
         //getShowByID(2);
 
@@ -55,8 +55,8 @@ public class Controller {
         //get info about the hall
         Hall hall = MySqlConnection.getHallByID(show.getHall_id());
 
-        // Create cinema gui based on data from DB
-        Cinema c = new Cinema(hall.getRows(), hall.getSeats(),
+        // Create cinemaView gui based on data from DB
+        CinemaView c = new CinemaView(hall.getRows(), hall.getSeats(),
                 show.getTitle(), show.getShow_id(), reserved_seats);
 
     }

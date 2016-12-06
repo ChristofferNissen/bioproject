@@ -22,7 +22,7 @@ import java.util.Map;
 
         public BookingGUI()
         {
-            frame = new JFrame("Cinema: Book Tickets");
+            frame = new JFrame("CinemaView: Book Tickets");
             frame.setSize(800, 600);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             //makeFrame(arrayList);
