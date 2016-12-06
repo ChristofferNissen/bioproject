@@ -217,10 +217,12 @@ public class MySqlConnection {
         return false;
     }
 
+    //make reservation
     public static boolean makeReservation(Reservation r) {
         Connection connection = null;
         Statement statement = null;
 
+        //get tlf, and showID from reservation
         int tlfNr = r.getTlf_nr();
         int showID = r.getShow_id();
 
@@ -230,57 +232,71 @@ public class MySqlConnection {
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
             statement = connection.createStatement();
 
+            //checks if a customer exist in system
             String customerCheck = "SELECT * FROM customers WHERE tlf_nr = " + tlfNr;
-            if(!statement.executeQuery(customerCheck).next()){
+            //returns nothing if the query returns nothing
+
+            if(!statement.executeQuery(customerCheck).next()){ //if no next(empty query)
+                //makes the customer
                 String makeCustomer = "INSERT INTO customers (tlf_nr) VALUES (" + tlfNr + ")";
                 statement.executeUpdate(makeCustomer);
             }
 
+            //make a reservation in database
             String createReservation ="INSERT INTO reservations (tlf_nr, show_id) VALUES (" + tlfNr + "," + showID + ")";
-
             statement.executeUpdate(createReservation);
 
+            //get reservation id, for reserving seats
             ResultSet rs = statement.executeQuery("SELECT * FROM reservations WHERE tlf_nr = " + tlfNr + " AND show_id = " + showID);
             int reservation_id = 0;
-            while(rs.next()) {
+            while(rs.next()) { //should return, only 1 entry
+                //save id
                 reservation_id = rs.getInt("reservation_id");
                 System.out.println(reservation_id +"");
             }
 
-
+            //reserve a number of seats
             if(createReservedSeats(r.getReserved_seats(), reservation_id)){
+                //returns true
                 connection.close();
                 return true;
             }
-
+            //close connection
             connection.close();
             return false;
 
         } catch(Exception e) {
+            //print stack trace if exceptions are thrown
             e.printStackTrace();
         }
         // return collection
         return false;
     }
 
+    //create reservation for seats
     private static boolean createReservedSeats(int[] seats, int reservation_id) {
         Connection connection = null;
         Statement statement = null;
-        int lines = 0;
+
+        //check variable
+        int lines = 1;
         try {
             // Connect to server
             DriverManager.registerDriver(new com.mysql.jdbc.Driver());
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
             statement = connection.createStatement();
 
-
+            //creates an entry for each seat selected
             for (int i = 0; i < seats.length-1; i++) {
                 String reserveSeat = "INSERT INTO reserved_seats (reservation_id, seat_id) VALUES (" + reservation_id + "," + seats[i]+ ")";
                 lines += statement.executeUpdate(reserveSeat);
             }
+
+            //catches exceptions and prints
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //if the number of entried is the same as number of seats
         if(lines == seats.length)
             return true;
         else

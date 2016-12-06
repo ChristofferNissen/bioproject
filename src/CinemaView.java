@@ -70,10 +70,12 @@ public class CinemaView extends JComponent implements ActionListener {
         bookNow.addActionListener(
                 (ActionEvent e) ->{
                     int tlf = book();
-                    if(Controller.makeReservation(tlf, showID, input)){
+                    if(Controller.makeReservation(tlf, showID, input) && input.length() > 0){
                         JOptionPane.showMessageDialog(null, "Booking Succes");
                         input="";
                         revalidate();
+                    }else if(true){
+                        JOptionPane.showMessageDialog(null, "Booking failed");
                     }else{
                         JOptionPane.showMessageDialog(null, "Booking failed");
                     }

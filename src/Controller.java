@@ -70,10 +70,13 @@ public class Controller {
         return false;
     }
 
-    private static int[] splitSeatString(String seats){
-        String[] arr = seats.split(",");
-        int[] seat = new int[arr.length];
 
+    //splits seats to an array
+    private static int[] splitSeatString(String seats){
+        //seperates at ","
+        String[] arr = seats.split(",");
+
+        int[] seat = new int[arr.length];
 
         for(int i = 1; i < arr.length;i++){
             seat[i-1] = Integer.parseInt(arr[i]);
