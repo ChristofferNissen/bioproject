@@ -304,6 +304,39 @@ public class MySqlConnection {
             return false;
     }
 
+    public static ArrayList<Reservation> getReservationsByID(int phone) {
+        Connection connection = null;
+        Statement statement = null;
+        ArrayList<Models.Reservation> res;
+        res = new ArrayList<>();
+
+        try {
+            // Connect to server
+            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            statement = connection.createStatement();
+
+            ResultSet rs = statement.executeQuery("SELECT * FROM reservations WHERE tlf_nr = " + phone);
+
+            // Process data
+            while(rs.next()) {
+                int show_id = rs.getInt("show_id");
+                int reservation_id = rs.getInt("reservation_id");
+                int tlf_nr = rs.getInt("tlf_nr");
+                Reservation r = new Reservation(reservation_id, tlf_nr, show_id);
+                res.add(r);
+
+            }
+            // When done processing, close connection
+            rs.close();
+            connection.close();
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        // return collection
+        return res;
+    }
 
     public static boolean updateReservation(Reservation r){
 

@@ -54,7 +54,7 @@ public class Controller {
         Showing show = MySqlConnection.getShowByID(selectedID);
         //get info about the hall
         Hall hall = MySqlConnection.getHallByID(show.getHall_id());
-        input= "2,20";
+        input= "";
         // Create cinemaView gui based on data from DB
         CinemaView c = new CinemaView(hall.getRows(), hall.getSeats(),
                 show.getTitle(), show.getShow_id(), reserved_seats, input);
@@ -87,14 +87,16 @@ public class Controller {
         return seat;
     }
 
-    /*public static void updateReservation(int phone){
+    public static void updateReservation(int phone){
+        ArrayList<Reservation> res = new ArrayList<>();
+        res = Models.MySqlConnection.getReservationsByID(phone);
 
 
-        String reservedSeats;
+        //String reservedSeats;
 
-        getShowByID();
+        //getShowByID();
 
-    }*/
+    }
 
     //Load all shows from DB
     private static void getShowings(){
