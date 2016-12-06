@@ -12,7 +12,6 @@ public class MySqlConnection {
     private static final String PASS = "password";
     static final String DB_URL = "jdbc:mysql://mydb.itu.dk/" + MYDB;
 
-
     public static ArrayList<Reservation> getReservationQuery(String sql) {
         Connection connection = null;
         Statement statement = null;
@@ -180,7 +179,6 @@ public class MySqlConnection {
         // return collection
         return reservationID;
     }
-
 
     public static ArrayList<Integer> getReservedSeats(int reservation_id){
         Connection connection = null;

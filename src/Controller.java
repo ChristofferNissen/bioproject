@@ -25,6 +25,7 @@ public class Controller {
 
     }
 
+    //
     private static TreeMap<Integer,String> getShows(){
         getShowings(); // update showings from DB
 
@@ -32,7 +33,6 @@ public class Controller {
         TreeMap<Integer,String> showings = new TreeMap();
         for (Showing s : showingList) {
             showings.put(s.getShow_id(), s.toString());
-            //System.out.println(s.toString());
         }
         // The TreeMap to be returned
         return showings;

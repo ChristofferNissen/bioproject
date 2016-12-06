@@ -14,6 +14,8 @@ public class CinemaView extends JComponent implements ActionListener {
     private int seats;
     private String title;
     private int showID;
+    private int seatNumber;
+    private String input;
     private ArrayList reservedSeats;
     private ArrayList selectedSeats;
 
@@ -26,30 +28,6 @@ public class CinemaView extends JComponent implements ActionListener {
     private JPanel cinema;
     private JButton seat;
 
-
-    public CinemaView()
-    {
-        //rows = new int[] {0,1,2,3,4,5};
-        //seats = new int[] {0,1,2,3,4,5,6,7};
-        rows = 5;
-        seats = 5;
-        showID = 5;
-        reservedSeats = new ArrayList<Integer>();
-        reservedSeats.add(2);
-        reservedSeats.add(10);
-        reservedSeats.add(12);
-        reservedSeats.add(20);
-        title = "<title goes here>";
-        vacantSeat = new ImageIcon("VacantSeat.png");
-        occupiedSeat = new ImageIcon("occupiedSeat.png");
-        selectedSeat = new ImageIcon("selectedSeat.png");
-
-        frame = new JFrame("CinemaView: Choose Seats");
-        cinema = new JPanel();
-        //seat = new JButton();
-        makeFrame(this);
-    }
-
     public CinemaView(int rows, int seats, String title, int showID, ArrayList<Integer> reservedSeats)
     {
         this.rows = rows;
@@ -58,6 +36,7 @@ public class CinemaView extends JComponent implements ActionListener {
         this.showID = showID;
 
         this.reservedSeats = reservedSeats;
+        this.input = "";
 
         vacantSeat = new ImageIcon("VacantSeat.png");
         occupiedSeat = new ImageIcon("occupiedSeat.png");
@@ -72,7 +51,7 @@ public class CinemaView extends JComponent implements ActionListener {
 
     public void makeFrame(CinemaView c){
         frame.setSize(800, 600);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add(c);
         frame.setLayout(new BorderLayout());
 
@@ -111,18 +90,37 @@ public class CinemaView extends JComponent implements ActionListener {
         seatArrangement.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
 
-        int seatNumber = 1;
+        seatNumber = 1;
 
         for (int i = 1; i <= rows; i++) {
             for (int j = 1; j <= seats; j++) {
                 // If it doesnt contain the seatnumber, set the seat to free
                 if(!reservedSeats.contains(seatNumber)){
                     seat = new JButton(""+seatNumber,vacantSeat);
-                    seat.addActionListener(this);
-                }else
-                    seat = new JButton("occupied",occupiedSeat);
+                    seat.addActionListener(
+                            (ActionEvent e) -> {
+                            //System.out.println(input);
+                            JButton clicked = (JButton) e.getSource();
+                            if(!clicked.getIcon().equals(selectedSeat)) {
+                                clicked.setIcon(selectedSeat);
+                                    input = input + "," + e.getActionCommand();
 
+                                System.out.println(input);
 
+                            }
+                            else{
+                                clicked.setIcon(vacantSeat);
+                                if(input.contains(e.getActionCommand())) {
+                                    input = input.replace(","+e.getActionCommand(),"");
+                                    System.out.println(input);
+                                }
+                            }
+
+                        });
+
+                }else {
+                    seat = new JButton("occupied", occupiedSeat);
+                }
                 seat.setPreferredSize(new Dimension(46, 38));
                 c.fill = GridBagConstraints.HORIZONTAL;
                 c.insets = new Insets(6,2,6,2); // External padding around each button
@@ -137,28 +135,15 @@ public class CinemaView extends JComponent implements ActionListener {
         return seatArrangement;
 
     }
-    public void actionPerformed(ActionEvent e){
-        selectedSeats = new ArrayList<String>();
-        System.out.println(e.getActionCommand());
-
-        String a  = e.getActionCommand();
 
 
-        System.out.println(a);
+    public void storeSelectedSeat(JButton s) {
+        selectedSeats.add(s);
 
-        JButton clicked = (JButton) e.getSource();
-        String input = e.getActionCommand();
-        selectedSeats.add(input);
-
-        if(!clicked.getIcon().equals(selectedSeat)) {
-            clicked.setIcon(selectedSeat);
+    }
 
 
-            System.out.println(selectedSeats.toString());
-        }
-        else{
-            clicked.setIcon(vacantSeat);
-        }
+    public void actionPerformed(ActionEvent e ) {
 
     }
 

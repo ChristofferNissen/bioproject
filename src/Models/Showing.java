@@ -51,10 +51,10 @@ public class Showing {
     public String toString() {
         return
                 title + '\'' +
-                ", date=" + date +
-                ", time=" + time +
-                ", show_id=" + show_id +
-                ", hall_id=" + hall_id;
+                ", date " + date +
+                ", time " + time +
+                ", show_id " + show_id  +
+                ", hall_id " + hall_id;
 
 
     }
