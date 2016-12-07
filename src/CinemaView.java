@@ -14,6 +14,9 @@ public class CinemaView extends JComponent implements ActionListener {
     private int rows;
     private int seats;
     private String title;
+    private String time;
+    private java.util.Date date;
+    private int hall;
     private int showID;
     private int seatNumber;
     private String input;
@@ -29,11 +32,14 @@ public class CinemaView extends JComponent implements ActionListener {
     private JPanel cinema;
     private JButton seat;
 
-    public CinemaView(int rows, int seats, String title, int showID, ArrayList<Integer> reservedSeats, String input)
+    public CinemaView(int rows, int seats, String title, String time, java.util.Date date, int hall, int showID, ArrayList<Integer> reservedSeats, String input)
     {
         this.rows = rows;
         this.seats = seats;
         this.title = title;
+        this.time = time;
+        this.date = date;
+        this.hall = hall;
         this.showID = showID;
 
         this.reservedSeats = reservedSeats;
@@ -61,9 +67,10 @@ public class CinemaView extends JComponent implements ActionListener {
         frame.getContentPane().add(c);
         frame.setLayout(new BorderLayout());
 
-        JLabel label = new JLabel(title, SwingConstants.CENTER);
+        JLabel label = new JLabel("You have chosen " + title + " on the " + date + " at " + time + " in hall " + hall, SwingConstants.CENTER);
         frame.add(label, BorderLayout.NORTH);
-        label.setFont(new Font("Cambria", Font.BOLD, 22));
+        label.setFont(new Font("Cambria", Font.BOLD, 14));
+        label.setBorder(new EmptyBorder(10,10,10,10));
 
         // cinema.setPreferredSize(new Dimension(100, 100));
         cinema.setBorder(new EmptyBorder(10, 10, 10, 10));
