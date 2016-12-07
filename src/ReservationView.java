@@ -27,7 +27,6 @@ public class ReservationView{
         frame.setPreferredSize(new Dimension(400, 800));
         //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
     }
 
     public void makeFrame(TreeMap treeMap){
