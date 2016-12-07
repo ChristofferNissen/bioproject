@@ -85,8 +85,7 @@ public class Controller {
         input= "";
         // Create cinemaView gui based on data from DB
         CinemaView c = new CinemaView(hall.getRows(), hall.getSeats(),
-                show.getTitle(), show.getShow_id(), reserved_seats, input);
-
+                show.getTitle(), show.getTime(), show.getDate(), show.getHall_id(), show.getShow_id(), reserved_seats, input);
     }
 
     public static boolean makeReservation(int tlf, int showID, String seats){
