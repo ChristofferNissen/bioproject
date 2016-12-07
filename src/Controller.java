@@ -20,10 +20,13 @@ public class Controller {
         BookingGUI gui = new BookingGUI();
         gui.makeFrame(getShows());
 
+
+    }
+
+    public static void makeReservationView(){
         getReservations();
         ReservationView r = new ReservationView();
         r.makeFrame(getRervs());
-
     }
 
     //Convert arrayList to treemap
@@ -155,6 +158,6 @@ public class Controller {
     }
 
     public static void deleteReservation(String tlf_nr) {
-        MySqlConnection.deleteReservation(tlf_nr);
+        MySqlConnection.deleteAllReservations(tlf_nr);
     }
 }

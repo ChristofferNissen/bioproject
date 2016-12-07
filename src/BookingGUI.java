@@ -80,6 +80,10 @@ import java.util.Map;
             JButton changeReservation = new JButton("Change Reservation");
             changeReservation.addActionListener(
                     (ActionEvent e) -> {
+
+                        Controller.makeReservationView();
+
+                        /*
                         JPanel myPanel = new JPanel();
                         JTextField phoneField = new JTextField(12);
 
@@ -99,13 +103,17 @@ import java.util.Map;
                                 JOptionPane.showMessageDialog(null, "please enter a PhoneNumber");
                             }
                         }
+                        */
                     }
+
+
             );
             buttomBar.add(changeReservation);
 
+            /*
             // Delete reservation
-            JButton deleteReservation = new JButton("Delete Reservation");
-            deleteReservation.addActionListener(
+            JButton deleteAllReservations = new JButton("Delete Reservation");
+            deleteAllReservations.addActionListener(
                     (ActionEvent e) -> {
 
                         JPanel myPanel = new JPanel();
@@ -119,10 +127,11 @@ import java.util.Map;
 
                         String tlf_nr = phoneField.getText();
 
-                        Controller.deleteReservation(tlf_nr);
+                        Controller.deleteAllReservations(tlf_nr);
                     }
             );
-            buttomBar.add(deleteReservation);
+            buttomBar.add(deleteAllReservations);
+            */
 
             contentPane.add(actionBar, BorderLayout.EAST);
             contentPane.add(buttomBar,BorderLayout.SOUTH);

@@ -345,7 +345,7 @@ public class MySqlConnection {
     }
 
     // Delete reservation from reservations && delete reservated seats
-    public static void deleteReservation(String tlf_nr){
+    public static void deleteAllReservations(String tlf_nr){
         Connection connection = null;
         Statement statement = null;
         ArrayList<Integer> r_id;
@@ -378,6 +378,46 @@ public class MySqlConnection {
         } catch(Exception e) {
             e.printStackTrace();
         }
+
+    }
+
+    public static void deleteRerv(int id) {
+        Connection connection = null;
+        Statement statement = null;
+        int r_id = id;
+
+        try {
+            // Connect to server
+            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            statement = connection.createStatement();
+
+            /*
+            ResultSet rs = statement.executeQuery("SELECT reservation_id  FROM reservations where tlf_nr=" + tlf_nr);
+            // Process data
+            while(rs.next()) {
+                int reservation_id = rs.getInt("reservation_id");
+                r_id.add(reservation_id);
+            }
+            */
+
+
+            // Delete seats by ID
+
+            statement.executeUpdate("DELETE FROM reserved_seats where reservation_id=" + id);
+
+            statement.executeUpdate("DELETE FROM reservations where reservation_id="+id);
+
+            // When done processing, close connection
+            /*
+            rs.close();
+            */
+            connection.close();
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
 
     }
 }
