@@ -1,9 +1,6 @@
 /**
  * Created by caecilieiversen on 30/11/2016.
  */
-import Models.Showing;
-//import apple.laf.JRSUIUtils;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -25,9 +22,8 @@ import java.util.Map;
             frame = new JFrame("CinemaView: Book Tickets");
             frame.setSize(800, 600);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            //makeFrame(arrayList);
             listModel = new DefaultListModel();
-            frame.setVisible(true);
+            //frame.setVisible(true);
         }
 
         public void makeFrame(TreeMap treemap) {
@@ -130,29 +126,21 @@ import java.util.Map;
 
             contentPane.add(actionBar, BorderLayout.EAST);
             contentPane.add(buttomBar,BorderLayout.SOUTH);
+            frame.pack();
             frame.setVisible(true);
 
         }
 
-        public void updateList() {
-            // Get input from movie-field
-            // get the shows containing input
-            // remake list, update view.
-
-        }
-
+        // Create list for displaying shows
         public JPanel makeList(TreeMap<Integer,String> treeMap) {
             JPanel list = new JPanel();
             ArrayList<String> temp = new ArrayList<>();
 
             for(Map.Entry<Integer,String> entry : treeMap.entrySet()) {
-                //Integer key = entry.getKey();
                 String value = entry.getValue();
                 temp.add(value);
                 listModel.addElement(entry);
             }
-
-            //showList = new JList<>(temp.toArray(new String[temp.size()]));
 
             // convert to String[] from arrayList
             int i = 0;
@@ -162,12 +150,11 @@ import java.util.Map;
                 i++;
             }
 
-            showList = new JList<String>(var);
+            showList = new JList<>(var);
             showList.setFont(new Font("Cambria", Font.BOLD, 14));
             showList.setBorder(new EmptyBorder(10,10,10,10));
 
             list.add(showList);
-
             return list;
         }
     }

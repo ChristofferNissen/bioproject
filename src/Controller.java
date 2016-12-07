@@ -19,9 +19,13 @@ public class Controller {
         BookingGUI gui = new BookingGUI();
         gui.makeFrame(getShows());
 
+        getReservations();
+        ReservationView r = new ReservationView();
+        r.makeFrame(getRervs());
+
     }
 
-    //
+    //Convert arrayList to treemap
     private static TreeMap<Integer,String> getShows(){
         getShowings(); // update showings from DB
 
@@ -32,6 +36,19 @@ public class Controller {
         }
         // The TreeMap to be returned
         return showings;
+    }
+    private static TreeMap<Integer,String> getRervs() {
+        getReservations(); // update reservations from DB
+
+        // Convert from ArrayList to TreeMap, return the TreeMap
+        TreeMap<Integer,String> reservations = new TreeMap<>();
+        for (Reservation r : reservationList) {
+            System.out.println(r.toString());
+            reservations.put(r.getReservation_id(),r.toString());
+        }
+
+        return reservations;
+
     }
 
 
@@ -99,9 +116,11 @@ public class Controller {
         showingList = MySqlConnection.getShowingQuery("*");
     }
 
-    //
+    //Load all reservations from DB
     private static void getReservations(){
         reservationList = MySqlConnection.getReservationQuery("*");
+
+
     }
 
     //

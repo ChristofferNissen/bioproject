@@ -31,10 +31,9 @@ public class Reservation {
     // methods
     @Override
     public String toString() {
-        return "Reservation{" +
-                "reservation_id=" + reservation_id +
-                ", tlf_nr=" + tlf_nr +
-                ", reserved_seats = " + reserved_seats.toString() + "";
+        return "Reservation: " +
+                "id=" + reservation_id +
+                ", tlf_nr=" + tlf_nr;
 
     }
 

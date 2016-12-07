@@ -97,7 +97,7 @@ public class CinemaView extends JComponent implements ActionListener {
         bookingButton.add(bookNow, BorderLayout.CENTER);
 
         frame.add(bookingButton, BorderLayout.EAST);
-
+        //frame.pack();
         frame.setVisible(true);
     }
 
