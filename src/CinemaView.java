@@ -153,8 +153,34 @@ public class CinemaView extends JComponent implements ActionListener {
 
 
                 if (reservedSeats.contains(seatNumber)) {
-                    seat = new JButton("occupied", occupiedSeat);
+                    String s = "," + seatNumber;
+
+                        if(input.contains(s)){
+                            seat = new JButton(""+seatNumber, occupiedSeat);
+                            seat.addActionListener(
+                                    (ActionEvent e) -> {
+                                        JButton clicked = (JButton) e.getSource();
+                                        if (!clicked.getIcon().equals(selectedSeat)) {
+                                            clicked.setIcon(selectedSeat);
+                                            input = input + "," + e.getActionCommand();
+                                            System.out.println(input);
+                                        } else {
+                                            clicked.setIcon(vacantSeat);
+                                            if (input.contains(e.getActionCommand())) {
+                                                input = input.replace("," + e.getActionCommand(), "");
+                                                System.out.println(input);
+                                            }
+                                        }
+                                    });
+                            seat.setIcon(selectedSeat);
+                    } else {
+                            seat = new JButton("occupied", occupiedSeat);
+                        }
+
                 }
+
+
+
                 seat.setPreferredSize(new Dimension(46, 38));
                 c.fill = GridBagConstraints.HORIZONTAL;
                 c.insets = new Insets(6, 2, 6, 2); // External padding around each button

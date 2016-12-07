@@ -61,7 +61,8 @@ public class ReservationView{
                         System.out.println(a);
                         // a = reservations_id
 
-                        //Controller.showReservation(a);
+                        // rename
+                        Controller.reservedSeatsToString(a);
 
                         // put into controller, then call from here
                         //MySqlConnection.deleteRerv(a);

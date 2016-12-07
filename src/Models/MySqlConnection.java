@@ -148,6 +148,7 @@ public class MySqlConnection {
 
         }
 
+
     public static ArrayList<Integer> getReservationID(int show_id) {
         Connection connection = null;
         Statement statement = null;
@@ -178,6 +179,38 @@ public class MySqlConnection {
         // return collection
         return reservationID;
     }
+
+    public static ArrayList<Integer> getShowID(int reservation_id) {
+        Connection connection = null;
+        Statement statement = null;
+        ArrayList<Integer> showID;
+        showID = new ArrayList<>();
+
+        try {
+            // Connect to server
+            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            statement = connection.createStatement();
+
+            ResultSet rs = statement.executeQuery("SELECT Show_id FROM reservations" +
+                    " WHERE reservations.reservation_id = " + reservation_id);
+
+            // Process data
+            while(rs.next()) {
+                int ID = rs.getInt("show_id");
+                showID.add(ID);
+            }
+            // When done processing, close connection
+            rs.close();
+            connection.close();
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        // return collection
+        return showID;
+    }
+
 
     public static ArrayList<Integer> getReservedSeats(int reservation_id){
         Connection connection = null;

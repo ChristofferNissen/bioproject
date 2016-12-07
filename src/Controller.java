@@ -77,30 +77,30 @@ public class Controller {
 
     }
 
-    /*
-    public static void getReservationByID(int selectedID, String input) {
-        // convert from reservationID to showID
-        // Get reservations for this show:
-        ArrayList<Integer> reservation_ids = MySqlConnection.getReservationID(selectedID); // Return the reservationID for the chosen showing
-
+    public static void reservedSeatsToString(int selectedID) {
         //husk at lave exceptions på null
-        ArrayList<Integer> reserved_seats = new ArrayList<>();
+        ArrayList<Integer> selected_seats;
 
-        for(int id : reservation_ids) {
-            // Get seats reserved for this show
-            reserved_seats = MySqlConnection.getReservedSeats(id);
+        // Get seats reserved for this reservation
+        selected_seats = MySqlConnection.getReservedSeats(selectedID);
+
+        String input ="";
+
+        for(int i : selected_seats) {
+            input = input + "," + i;
         }
 
-        // get show info
-        Showing show = MySqlConnection.getShowByID(selectedID);
-        //get info about the hall
-        Hall hall = MySqlConnection.getHallByID(show.getHall_id());
+        ArrayList<Integer> show_id = MySqlConnection.getShowID(selectedID);
+        int show = 0;
 
-        // Create cinemaView gui based on data from DB
-        CinemaView c = new CinemaView(hall.getRows(), hall.getSeats(),
-                show.getTitle(), show.getTime(), show.getDate(), show.getHall_id(), show.getShow_id(), reserved_seats, input);
+        for(int i : show_id) {
+            show = i;
+        }
+
+
+        getShowByID(show,input);
     }
-    */
+
 
     // Get info and create GUI
     public static void getShowByID(int selectedID, String input) {
