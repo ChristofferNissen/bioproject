@@ -140,12 +140,16 @@ public class CinemaView extends JComponent implements ActionListener {
                                 if (!clicked.getIcon().equals(selectedSeat)) {
                                     clicked.setIcon(selectedSeat);
                                     input = input + "," + e.getActionCommand();
-                                    //System.out.println(input);
+                                    System.out.println(input);
                                 } else {
                                     clicked.setIcon(vacantSeat);
                                     if (input.contains(e.getActionCommand())) {
                                         input = input.replace("," + e.getActionCommand(), "");
-                                        //System.out.println(input);
+                                        System.out.println(input);
+                                    } else  {
+                                        clicked.disable();
+                                        System.out.println("Sorry,you cant book this seat");
+                                        System.out.println(input);
                                     }
                                 }
                             });

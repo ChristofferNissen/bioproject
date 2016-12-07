@@ -53,6 +53,23 @@ public class ReservationView{
         changeReservations.addActionListener(
                 (ActionEvent e ) -> {
 
+
+                    if(showList.getSelectedIndex() == -1) { } else {
+                        int i = showList.getSelectedIndex();
+                        System.out.println(i);
+                        int a = (Integer) listModel.get(i).getKey();
+                        System.out.println(a);
+                        // a = reservations_id
+
+                        //Controller.storeSelectedID(a);
+
+                        // put into controller, then call from here
+                        //MySqlConnection.deleteRerv(a);
+                        //updateList(Controller.getRervs());
+                        frame.setVisible(true);
+                    }
+
+                    /*
                     JPanel myPanel = new JPanel();
                     JTextField phoneField = new JTextField(12);
 
@@ -72,6 +89,8 @@ public class ReservationView{
                             JOptionPane.showMessageDialog(null, "please enter a PhoneNumber");
                         }
                     }
+                    )
+                    */
 
                 }
         );
