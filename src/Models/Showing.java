@@ -52,9 +52,9 @@ public class Showing {
 
         return
                 title +
-                ", " + date +
-                ", " + time +
-                ", hall " + hall_id;
+                " on the " + date +
+                " at " + time +
+                " in hall " + hall_id;
 
     }
 }
