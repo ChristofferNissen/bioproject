@@ -20,28 +20,30 @@ public class ReservationView{
 
     private int reservation_id;
 
-
     private ArrayList<String> kda;
 
     public ReservationView() {
         frame = new JFrame("Reservations");
         frame.setPreferredSize(new Dimension(400, 800));
         //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        listModel = new DefaultListModel<>();
+
 
     }
 
     public void makeFrame(TreeMap treeMap){
-
         JPanel contentPane = (JPanel)frame.getContentPane();
-
-        System.out.println(frame.toString());
         contentPane.setLayout(new BorderLayout());
 
-        JButton showReservations = new JButton("Show reservations");
-        showReservations.addActionListener(
-                (ActionEvent e ) -> {
+        JTextField text = new JTextField();
+        //text.setText("Enter a phone number");
+        text.setToolTipText("Enter a phone number");
+        contentPane.add(text,BorderLayout.SOUTH);
 
+        JButton searchReservations = new JButton("Search reservations");
+        searchReservations.addActionListener(
+                (ActionEvent e ) -> {
+                    String tlf_nr = text.getText();
+                    makeFrame(Controller.getReservationByID(tlf_nr));
                 }
         );
         JButton changeReservations = new JButton("Change reservation");
@@ -63,7 +65,7 @@ public class ReservationView{
         buttonPane2.setLayout(new BorderLayout());
         buttonPane.add(buttonPane2,BorderLayout.CENTER);
 
-        buttonPane2.add(showReservations,BorderLayout.NORTH);
+        buttonPane2.add(searchReservations,BorderLayout.NORTH);
         buttonPane2.add(changeReservations,BorderLayout.CENTER);
         buttonPane2.add(deleteReservations,BorderLayout.SOUTH);
 
@@ -78,6 +80,7 @@ public class ReservationView{
     private JPanel makeReservationList(TreeMap<Integer,String> treeMap) {
         JPanel list = new JPanel();
         list.setPreferredSize(new Dimension(400,400));
+        listModel = new DefaultListModel<>();
         ArrayList<String> temp = new ArrayList<>();
 
         for(Map.Entry<Integer,String> entry : treeMap.entrySet()) {
@@ -103,4 +106,5 @@ public class ReservationView{
         return list;
 
     }
+
 }

@@ -51,6 +51,20 @@ public class Controller {
 
     }
 
+    private static TreeMap<Integer,String> getRervsByID() {
+        getReservations(); // update reservations from DB
+
+        // Convert from ArrayList to TreeMap, return the TreeMap
+        TreeMap<Integer,String> reservations = new TreeMap<>();
+        for (Reservation r : reservationList) {
+            System.out.println(r.toString());
+            reservations.put(r.getReservation_id(),r.toString());
+        }
+
+        return reservations;
+
+    }
+
 
     // Get info and create GUI
     public static void getShowByID(int selectedID, String input) {
@@ -100,7 +114,7 @@ public class Controller {
         return seat;
     }
 
-    public static void updateReservation(int phone){
+    public static void updateReservation(String phone){
         ArrayList<Reservation> res = new ArrayList<>();
         res = Models.MySqlConnection.getReservationsByID(phone);
 
@@ -119,7 +133,19 @@ public class Controller {
     //Load all reservations from DB
     private static void getReservations(){
         reservationList = MySqlConnection.getReservationQuery("*");
+    }
 
+    public static  TreeMap<Integer, String> getReservationByID(String tlf_nr) {
+        reservationList = MySqlConnection.getReservationsByID(tlf_nr);
+
+        // Convert from ArrayList to TreeMap, return the TreeMap
+        TreeMap<Integer,String> reservations = new TreeMap<>();
+        for (Reservation r : reservationList) {
+            System.out.println(r.toString());
+            reservations.put(r.getReservation_id(),r.toString());
+        }
+
+        return reservations;
 
     }
 

@@ -303,7 +303,7 @@ public class MySqlConnection {
             return false;
     }
 
-    public static ArrayList<Reservation> getReservationsByID(int phone) {
+    public static ArrayList<Reservation> getReservationsByID(String phone) {
         Connection connection = null;
         Statement statement = null;
         ArrayList<Models.Reservation> res;
