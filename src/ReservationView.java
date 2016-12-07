@@ -19,6 +19,7 @@ public class ReservationView{
     private JPanel contentPane;
     private JList<String> showList;
     private DefaultListModel<Map.Entry> listModel;
+    private DefaultListModel<String> stringModel;
 
     private int reservation_id;
 
@@ -71,14 +72,15 @@ public class ReservationView{
         buttonPane2.add(deleteReservations,BorderLayout.SOUTH);
 
         contentPane.add(buttonPane,BorderLayout.NORTH);
-        contentPane.add(makeReservationList(treeMap),BorderLayout.CENTER);
+        makeReservationList(treeMap);
+        contentPane.add(list,BorderLayout.CENTER);
 
         frame.pack();
         frame.setVisible(true);
 
     }
 // change returntype to JPanel
-    public JPanel makeReservationList(TreeMap<Integer,String> treeMap) {
+    public void makeReservationList(TreeMap<Integer,String> treeMap) {
         list = new JPanel();
         list.setPreferredSize(new Dimension(400,400));
         listModel = new DefaultListModel<>();
@@ -105,16 +107,16 @@ public class ReservationView{
 
         list.add(showList);
 
-        return list;
-
     }
 
     public void updateList(TreeMap<Integer,String> treeMap) {
         ArrayList<String> temp = new ArrayList<>();
         listModel = new DefaultListModel<>();
+        stringModel = new DefaultListModel<>();
         for(Map.Entry<Integer,String> entry : treeMap.entrySet()) {
             String value = entry.getValue();
             temp.add(value);
+            stringModel.addElement(value);
             listModel.addElement(entry);
 
         }
@@ -128,12 +130,15 @@ public class ReservationView{
             i++;
         }
 
-        showList = new JList<>(var);
+        JList updatedList = new JList<>(var);
+
+        showList.setModel(stringModel);
+
         //updatedList.setModel(temp.toArray().toString());
         showList.setPreferredSize(new Dimension(400,400));
         System.out.println(showList.size());
 
-        list.add(showList);
+        //list.add(showList);
 
         frame.setVisible(true);
 
