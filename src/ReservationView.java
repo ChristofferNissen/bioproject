@@ -15,6 +15,8 @@ import java.util.TreeMap;
 public class ReservationView{
 
     private JFrame frame;
+    private JPanel list;
+    private JPanel contentPane;
     private JList<String> showList;
     private DefaultListModel<Map.Entry> listModel;
 
@@ -24,14 +26,13 @@ public class ReservationView{
 
     public ReservationView() {
         frame = new JFrame("Reservations");
-        frame.setPreferredSize(new Dimension(400, 800));
         //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 
     }
 
     public void makeFrame(TreeMap treeMap){
         JPanel contentPane = (JPanel)frame.getContentPane();
+        frame.setPreferredSize(new Dimension(400, 800));
         contentPane.setLayout(new BorderLayout());
 
         JTextField text = new JTextField();
@@ -43,7 +44,7 @@ public class ReservationView{
         searchReservations.addActionListener(
                 (ActionEvent e ) -> {
                     String tlf_nr = text.getText();
-                    makeFrame(Controller.getReservationByID(tlf_nr));
+                    updateList(Controller.getReservationByID(tlf_nr));
                 }
         );
         JButton changeReservations = new JButton("Change reservation");
@@ -70,15 +71,15 @@ public class ReservationView{
         buttonPane2.add(deleteReservations,BorderLayout.SOUTH);
 
         contentPane.add(buttonPane,BorderLayout.NORTH);
-        contentPane.add(makeReservationList(treeMap));
+        contentPane.add(makeReservationList(treeMap),BorderLayout.CENTER);
 
         frame.pack();
         frame.setVisible(true);
 
     }
 // change returntype to JPanel
-    private JPanel makeReservationList(TreeMap<Integer,String> treeMap) {
-        JPanel list = new JPanel();
+    public JPanel makeReservationList(TreeMap<Integer,String> treeMap) {
+        list = new JPanel();
         list.setPreferredSize(new Dimension(400,400));
         listModel = new DefaultListModel<>();
         ArrayList<String> temp = new ArrayList<>();
@@ -103,7 +104,39 @@ public class ReservationView{
         showList.setBorder(new EmptyBorder(10,10,10,10));
 
         list.add(showList);
+
         return list;
+
+    }
+
+    public void updateList(TreeMap<Integer,String> treeMap) {
+        ArrayList<String> temp = new ArrayList<>();
+        listModel = new DefaultListModel<>();
+        for(Map.Entry<Integer,String> entry : treeMap.entrySet()) {
+            String value = entry.getValue();
+            temp.add(value);
+            listModel.addElement(entry);
+
+        }
+
+        // convert to String[] from arrayList
+        int i = 0;
+        String[] var = new String[temp.size()];
+        for(String r : temp) {
+            System.out.println(r);
+            var[i] = r;
+            i++;
+        }
+
+        showList = new JList<>(var);
+        //updatedList.setModel(temp.toArray().toString());
+        showList.setPreferredSize(new Dimension(400,400));
+        System.out.println(showList.size());
+
+        list.add(showList);
+
+        frame.setVisible(true);
+
 
     }
 

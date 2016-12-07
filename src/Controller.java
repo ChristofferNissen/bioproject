@@ -12,6 +12,7 @@ public class Controller {
     private static int selectID;
     private static ArrayList<Showing> showingList;
     private static ArrayList<Reservation> reservationList;
+    private static ArrayList<Reservation> reservList;
     private static CinemaView cinemaView;
 
     public static void main (String[] args){
@@ -135,18 +136,17 @@ public class Controller {
         reservationList = MySqlConnection.getReservationQuery("*");
     }
 
-    public static  TreeMap<Integer, String> getReservationByID(String tlf_nr) {
-        reservationList = MySqlConnection.getReservationsByID(tlf_nr);
+    public static TreeMap<Integer, String> getReservationByID(String tlf_nr) {
+        reservList= MySqlConnection.getReservationsByID(tlf_nr);
 
         // Convert from ArrayList to TreeMap, return the TreeMap
         TreeMap<Integer,String> reservations = new TreeMap<>();
-        for (Reservation r : reservationList) {
+        for (Reservation r : reservList) {
             System.out.println(r.toString());
             reservations.put(r.getReservation_id(),r.toString());
         }
 
         return reservations;
-
     }
 
     //
