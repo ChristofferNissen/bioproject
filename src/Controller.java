@@ -12,6 +12,7 @@ public class Controller {
     private static int selectID;
     private static ArrayList<Showing> showingList;
     private static ArrayList<Reservation> reservationList;
+    private static ArrayList<Reservation> reservList;
     private static CinemaView cinemaView;
 
     public static void main (String[] args){
@@ -19,10 +20,13 @@ public class Controller {
         BookingGUI gui = new BookingGUI();
         gui.makeFrame(getShows());
 
+
+    }
+
+    public static void makeReservationView(){
         getReservations();
         ReservationView r = new ReservationView();
         r.makeFrame(getRervs());
-
     }
 
     //Convert arrayList to treemap
@@ -37,7 +41,7 @@ public class Controller {
         // The TreeMap to be returned
         return showings;
     }
-    private static TreeMap<Integer,String> getRervs() {
+    public static TreeMap<Integer,String> getRervs() {
         getReservations(); // update reservations from DB
 
         // Convert from ArrayList to TreeMap, return the TreeMap
@@ -84,8 +88,7 @@ public class Controller {
         input= "";
         // Create cinemaView gui based on data from DB
         CinemaView c = new CinemaView(hall.getRows(), hall.getSeats(),
-                show.getTitle(), show.getShow_id(), reserved_seats, input);
-
+                show.getTitle(), show.getTime(), show.getDate(), show.getHall_id(), show.getShow_id(), reserved_seats, input);
     }
 
     public static boolean makeReservation(int tlf, int showID, String seats){
@@ -135,18 +138,17 @@ public class Controller {
         reservationList = MySqlConnection.getReservationQuery("*");
     }
 
-    public static  TreeMap<Integer, String> getReservationByID(String tlf_nr) {
-        reservationList = MySqlConnection.getReservationsByID(tlf_nr);
+    public static TreeMap<Integer, String> getReservationByID(String tlf_nr) {
+        reservList= MySqlConnection.getReservationsByID(tlf_nr);
 
         // Convert from ArrayList to TreeMap, return the TreeMap
         TreeMap<Integer,String> reservations = new TreeMap<>();
-        for (Reservation r : reservationList) {
+        for (Reservation r : reservList) {
             System.out.println(r.toString());
             reservations.put(r.getReservation_id(),r.toString());
         }
 
         return reservations;
-
     }
 
     //
@@ -155,6 +157,6 @@ public class Controller {
     }
 
     public static void deleteReservation(String tlf_nr) {
-        MySqlConnection.deleteReservation(tlf_nr);
+        MySqlConnection.deleteAllReservations(tlf_nr);
     }
 }

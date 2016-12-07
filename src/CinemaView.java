@@ -14,6 +14,9 @@ public class CinemaView extends JComponent implements ActionListener {
     private int rows;
     private int seats;
     private String title;
+    private String time;
+    private java.util.Date date;
+    private int hall;
     private int showID;
     private int seatNumber;
     private String input;
@@ -29,11 +32,14 @@ public class CinemaView extends JComponent implements ActionListener {
     private JPanel cinema;
     private JButton seat;
 
-    public CinemaView(int rows, int seats, String title, int showID, ArrayList<Integer> reservedSeats, String input)
+    public CinemaView(int rows, int seats, String title, String time, java.util.Date date, int hall, int showID, ArrayList<Integer> reservedSeats, String input)
     {
         this.rows = rows;
         this.seats = seats;
         this.title = title;
+        this.time = time;
+        this.date = date;
+        this.hall = hall;
         this.showID = showID;
 
         this.reservedSeats = reservedSeats;
@@ -55,15 +61,16 @@ public class CinemaView extends JComponent implements ActionListener {
     }
 
     public void makeFrame(CinemaView c){
-        frame.setSize(800, 600);
+        frame.setSize(900, 650);
         //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.getContentPane().add(c);
         frame.setLayout(new BorderLayout());
 
-        JLabel label = new JLabel(title, SwingConstants.CENTER);
+        JLabel label = new JLabel("You have chosen " + title + " on the " + date + " at " + time + " in hall " + hall, SwingConstants.CENTER);
         frame.add(label, BorderLayout.NORTH);
-        label.setFont(new Font("Cambria", Font.BOLD, 22));
+        label.setFont(new Font("Cambria", Font.BOLD, 14));
+        label.setBorder(new EmptyBorder(10,10,10,10));
 
         // cinema.setPreferredSize(new Dimension(100, 100));
         cinema.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -71,6 +78,20 @@ public class CinemaView extends JComponent implements ActionListener {
 
         JPanel seats = makeGrid();
         frame.add(seats, BorderLayout.CENTER);
+
+        JPanel fillerPanel = new JPanel();
+        fillerPanel.setBorder(new EmptyBorder(245, 100, 245, 70));
+        frame.add(fillerPanel, BorderLayout.WEST);
+
+        JPanel screenPanel = new JPanel();
+        screenPanel.setBorder(new EmptyBorder(10,10,10,20));
+        JLabel screen = new JLabel("Screen", SwingConstants.CENTER);
+        screen.setFont(new Font("Cambria", Font.BOLD, 14));
+        screen.setBorder(new LineBorder(Color.BLACK, 2));
+        screen.setPreferredSize(new Dimension(500, 20));
+
+        screenPanel.add(screen);
+        frame.add(screenPanel, BorderLayout.SOUTH);
 
         JPanel bookingButton = new JPanel();
         bookingButton.setLayout(new BorderLayout());
