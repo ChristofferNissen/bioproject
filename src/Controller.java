@@ -29,6 +29,14 @@ public class Controller {
         r.makeFrame(getRervs());
     }
 
+    public static void showReservation(String id) {
+
+        // get reservation specific reserved seats in from of ",12,13,14" strings
+        // pass this to getREservationID
+
+        getReservationByID(id);
+    }
+
     //Convert arrayList to treemap
     private static TreeMap<Integer,String> getShows(){
         getShowings(); // update showings from DB
@@ -69,6 +77,30 @@ public class Controller {
 
     }
 
+    /*
+    public static void getReservationByID(int selectedID, String input) {
+        // convert from reservationID to showID
+        // Get reservations for this show:
+        ArrayList<Integer> reservation_ids = MySqlConnection.getReservationID(selectedID); // Return the reservationID for the chosen showing
+
+        //husk at lave exceptions på null
+        ArrayList<Integer> reserved_seats = new ArrayList<>();
+
+        for(int id : reservation_ids) {
+            // Get seats reserved for this show
+            reserved_seats = MySqlConnection.getReservedSeats(id);
+        }
+
+        // get show info
+        Showing show = MySqlConnection.getShowByID(selectedID);
+        //get info about the hall
+        Hall hall = MySqlConnection.getHallByID(show.getHall_id());
+
+        // Create cinemaView gui based on data from DB
+        CinemaView c = new CinemaView(hall.getRows(), hall.getSeats(),
+                show.getTitle(), show.getTime(), show.getDate(), show.getHall_id(), show.getShow_id(), reserved_seats, input);
+    }
+    */
 
     // Get info and create GUI
     public static void getShowByID(int selectedID, String input) {
@@ -79,13 +111,24 @@ public class Controller {
 
         for(int id : reservation_ids) {
             // Get seats reserved for this show
-            reserved_seats = MySqlConnection.getReservedSeats(id);
+            ArrayList<Integer> temp = new ArrayList<>();
+
+            temp = MySqlConnection.getReservedSeats(id);
+            for(int i : temp) {
+                reserved_seats.add(i);
+            }
+
+            for(int i : reserved_seats) {
+                System.out.println(i + "BUBU");
+            }
+
+
         }
         // get show info
         Showing show = MySqlConnection.getShowByID(selectedID);
         //get info about the hall
         Hall hall = MySqlConnection.getHallByID(show.getHall_id());
-        input= "";
+
         // Create cinemaView gui based on data from DB
         CinemaView c = new CinemaView(hall.getRows(), hall.getSeats(),
                 show.getTitle(), show.getTime(), show.getDate(), show.getHall_id(), show.getShow_id(), reserved_seats, input);

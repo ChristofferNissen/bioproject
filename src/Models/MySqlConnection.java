@@ -191,7 +191,7 @@ public class MySqlConnection {
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
             statement = connection.createStatement();
 
-            ResultSet rs = statement.executeQuery("SELECT * FROM reserved_seats" +
+            ResultSet rs = statement.executeQuery("SELECT seat_id FROM reserved_seats" +
                     " WHERE reserved_seats.reservation_id = " + reservation_id);
 
             // Process data
@@ -208,6 +208,7 @@ public class MySqlConnection {
             e.printStackTrace();
         }
         // return collection
+
         return RSeats;
     }
 

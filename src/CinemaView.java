@@ -45,7 +45,7 @@ public class CinemaView extends JComponent implements ActionListener {
         this.reservedSeats = reservedSeats;
 
         for(int a : reservedSeats) {
-            System.out.println(a);
+            System.out.println(a + "WUWU");
         }
 
         this.input = input;
@@ -145,10 +145,6 @@ public class CinemaView extends JComponent implements ActionListener {
                                     clicked.setIcon(vacantSeat);
                                     if (input.contains(e.getActionCommand())) {
                                         input = input.replace("," + e.getActionCommand(), "");
-                                        System.out.println(input);
-                                    } else  {
-                                        clicked.disable();
-                                        System.out.println("Sorry,you cant book this seat");
                                         System.out.println(input);
                                     }
                                 }
