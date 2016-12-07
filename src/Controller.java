@@ -41,7 +41,7 @@ public class Controller {
         // The TreeMap to be returned
         return showings;
     }
-    private static TreeMap<Integer,String> getRervs() {
+    public static TreeMap<Integer,String> getRervs() {
         getReservations(); // update reservations from DB
 
         // Convert from ArrayList to TreeMap, return the TreeMap

@@ -86,7 +86,9 @@ public class ReservationView{
                         System.out.println(a);
                         //Controller.storeSelectedID(a);
 
+                        // put into controller, then call from here
                         MySqlConnection.deleteRerv(a);
+                        updateList(Controller.getRervs());
                         frame.setVisible(true);
                     }
 
@@ -168,11 +170,8 @@ public class ReservationView{
 
         showList.setModel(stringModel);
 
-        //updatedList.setModel(temp.toArray().toString());
-        showList.setPreferredSize(new Dimension(400,400));
+        //showList.setPreferredSize(new Dimension(400,400));
         System.out.println(showList.size());
-
-        //list.add(showList);
 
         frame.setVisible(true);
 
