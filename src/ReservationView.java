@@ -52,8 +52,6 @@ public class ReservationView{
         JButton changeReservations = new JButton("Change reservation");
         changeReservations.addActionListener(
                 (ActionEvent e ) -> {
-
-
                     if(showList.getSelectedIndex() == -1) { } else {
                         int i = showList.getSelectedIndex();
                         System.out.println(i);
@@ -69,30 +67,6 @@ public class ReservationView{
                         //updateList(Controller.getRervs());
                         frame.setVisible(true);
                     }
-
-                    /*
-                    JPanel myPanel = new JPanel();
-                    JTextField phoneField = new JTextField(12);
-
-                    myPanel.add(new JLabel("Input Phone:"));
-                    myPanel.add(phoneField);
-
-                    int pressed = JOptionPane.showConfirmDialog(null, myPanel,
-                            "Please Enter Customers PhoneNumber", JOptionPane.OK_CANCEL_OPTION);
-                    if (pressed == JOptionPane.OK_OPTION) {
-                        if(phoneField != null){
-                            try{
-                                //Controller.updateReservation(Integer.parseInt(phoneField.getText()));
-                            }catch (IllegalArgumentException iae){
-                                JOptionPane.showMessageDialog(null, "please enter a PhoneNumber");
-                            }
-                        }else{
-                            JOptionPane.showMessageDialog(null, "please enter a PhoneNumber");
-                        }
-                    }
-                    )
-                    */
-
                 }
         );
         JButton deleteReservations = new JButton("Delete reservation");
@@ -111,9 +85,6 @@ public class ReservationView{
                         updateList(Controller.getRervs());
                         frame.setVisible(true);
                     }
-
-
-
                 }
         );
 
