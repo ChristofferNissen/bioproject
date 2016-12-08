@@ -81,7 +81,7 @@ import java.util.Map;
                             int a = (Integer) listModel.get(i).getKey();
                             //System.out.println(a);
                             Controller.storeSelectedID(a);
-                            Controller.getShowByID(a, "");
+                            Controller.getShowByID(a, "",false);
                         }
                     }
             );

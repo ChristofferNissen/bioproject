@@ -98,11 +98,11 @@ public class Controller {
             show = i;
         }
          // show = show_id, input = reserved seats as string
-        getShowByID(show,input);
+        getShowByID(show,input,true);
     }
 
     // Get info and create GUI
-    public static void getShowByID(int selectedID, String input) {
+    public static void getShowByID(int selectedID, String input, boolean changeReservation) {
         // Return the reservationID for the chosen showing
         ArrayList<Integer> reservation_ids = MySqlConnection.getReservationID(selectedID);
         ArrayList<Integer> reserved_seats = new ArrayList<>();
@@ -123,9 +123,23 @@ public class Controller {
         Hall hall = MySqlConnection.getHallByID(show.getHall_id());
 
         // Create cinemaView gui based on data from DB
-        CinemaView c = new CinemaView(hall.getRows(), hall.getSeats(),
-                show.getTitle(), show.getTime(), show.getDate(),
-                show.getHall_id(), show.getShow_id(), reserved_seats, input, true);
+
+
+        if(changeReservation) {
+            CinemaView c = new CinemaView(hall.getRows(), hall.getSeats(),
+                    show.getTitle(), show.getTime(), show.getDate(),
+                    show.getHall_id(), show.getShow_id(), reserved_seats, input, true);
+        } else {
+
+            CinemaView c = new CinemaView(hall.getRows(), hall.getSeats(),
+                    show.getTitle(), show.getTime(), show.getDate(),
+                    show.getHall_id(), show.getShow_id(), reserved_seats, input, false);
+        }
+
+
+
+
+
     }
 
     public static boolean makeReservation(int tlf, int showID, String seats){
