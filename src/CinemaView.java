@@ -99,20 +99,22 @@ public class CinemaView extends JComponent implements ActionListener {
         JButton bookNow = new JButton("Book now!");
         bookNow.addActionListener(
                 (ActionEvent e) ->{
-                    int tlf = book();
+                    int tlf = 0;
+                    try{
+                        tlf = getReservationNumber();
+                    }
+                    catch(IllegalArgumentException iae) {
+                        if (iae.getMessage().equals("Missing phone number"))
+                            JOptionPane.showMessageDialog(null, "Please enter a PhoneNumber");
+                    }
                     //if(String.valueOf(tlf).length() == 8) {
                         if (Controller.makeReservation(tlf, showID, input) && input.length() > 0) {
                             JOptionPane.showMessageDialog(null, "Booking Succes");
-                            input = "";
 
-                        } else if (input.length() <= 0) {
-                            JOptionPane.showMessageDialog(null, "Please enter a number");
-
-                        } else {
+                        }else {
                             JOptionPane.showMessageDialog(null, "Booking failed");
                         }
                         System.out.println("booking succes");
-
                 }
         );
         bookingButton.add(bookNow, BorderLayout.CENTER);
@@ -192,19 +194,6 @@ public class CinemaView extends JComponent implements ActionListener {
 
         }
         return seatArrangement;
-
-    }
-
-    public int book(){
-        int i = 0;
-        try{
-            i = getReservationNumber();
-        }
-        catch(IllegalArgumentException e) {
-            if (e.getMessage().equals("Missing phone number"))
-                JOptionPane.showMessageDialog(null, "Please enter a PhoneNumber");
-        }
-        return i;
 
     }
 
