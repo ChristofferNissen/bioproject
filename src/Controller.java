@@ -38,7 +38,7 @@ public class Controller {
     }
 
     //Convert arrayList to treemap
-    private static TreeMap<Integer,String> getShows(){
+    public static TreeMap<Integer,String> getShows(){
         getShowings(); // update showings from DB
 
         // Convert from arraylist to TreeMap, return the TreeMap.
@@ -187,7 +187,7 @@ public class Controller {
         // Convert from ArrayList to TreeMap, return the TreeMap
         TreeMap<Integer,String> reservations = new TreeMap<>();
         for (Reservation r : reservList) {
-            System.out.println(r.toString());
+            //System.out.println(r.toString());
             reservations.put(r.getReservation_id(),r.toString());
         }
 
@@ -201,5 +201,30 @@ public class Controller {
 
     public static void deleteReservation(String tlf_nr) {
         MySqlConnection.deleteAllReservations(tlf_nr);
+    }
+
+    public static TreeMap<Integer, String> makeSearchTitle(String title) {
+        showingList = MySqlConnection.getShowsByTitle(title);
+
+        TreeMap<Integer,String> showings = new TreeMap();
+        for (Showing s : showingList) {
+            //System.out.println(s.getShow_id() + "" + s.toString());
+            showings.put(s.getShow_id(), s.toString());
+        }
+        // The TreeMap to be returned
+        return showings;
+
+    }
+
+    public static TreeMap<Integer,String> makeSearchTime(String date) {
+        showingList = MySqlConnection.getShowsByDate(date);
+
+        TreeMap<Integer,String> showings = new TreeMap();
+        for (Showing s : showingList) {
+            //System.out.println(s.getShow_id() + "" + s.toString());
+            showings.put(s.getShow_id(), s.toString());
+        }
+        // The TreeMap to be returned
+        return showings;
     }
 }

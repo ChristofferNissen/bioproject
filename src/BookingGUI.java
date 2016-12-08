@@ -10,15 +10,14 @@ import javax.swing.border.*;
 import java.util.TreeMap;
 import java.util.Map;
 
-    public class BookingGUI
-    {
+    public class BookingGUI {
         private JFrame frame;
         private JList<String> showList;
-        private TreeMap<Integer,String> showings;
+        private TreeMap<Integer, String> showings;
         private DefaultListModel<Map.Entry> listModel;
+        private DefaultListModel<String> stringModel;
 
-        public BookingGUI()
-        {
+        public BookingGUI() {
             frame = new JFrame("CinemaView: Book Tickets");
             frame.setSize(800, 600);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -27,7 +26,7 @@ import java.util.Map;
         }
 
         public void makeFrame(TreeMap treemap) {
-            JPanel contentPane = (JPanel)frame.getContentPane();
+            JPanel contentPane = (JPanel) frame.getContentPane();
             contentPane.setLayout(new BorderLayout());
             contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 
@@ -46,8 +45,19 @@ import java.util.Map;
             JButton search = new JButton("Search");
             search.addActionListener(
                     (ActionEvent e) -> {
-                        String a = movie.getText();
-                        System.out.println(a);
+                        String title = movie.getText();
+                        System.out.println(title);
+                        String date = time.getText();
+                        if (!title.isEmpty() && date.isEmpty()) {
+                            updateList(Controller.makeSearchTitle(title));
+                        }
+                        if(!date.isEmpty() && title.isEmpty()){
+                            updateList(Controller.makeSearchTime(date));
+                        }
+                        if(date.isEmpty() && title.isEmpty()){
+                            updateList(Controller.getShows());
+                        }
+                        System.out.println(title);
                     }
             );
             searchBar.add(search);
@@ -64,13 +74,14 @@ import java.util.Map;
             JButton book = new JButton("Book");
             book.addActionListener(
                     (ActionEvent e) -> {
-                        if(showList.getSelectedIndex() == -1) { } else {
+                        if (showList.getSelectedIndex() == -1) {
+                        } else {
                             int i = showList.getSelectedIndex();
                             //System.out.println(i);
                             int a = (Integer) listModel.get(i).getKey();
                             //System.out.println(a);
                             Controller.storeSelectedID(a);
-                            Controller.getShowByID(a,"");
+                            Controller.getShowByID(a, "");
                         }
                     }
             );
@@ -134,18 +145,18 @@ import java.util.Map;
             */
 
             contentPane.add(actionBar, BorderLayout.EAST);
-            contentPane.add(buttomBar,BorderLayout.SOUTH);
+            contentPane.add(buttomBar, BorderLayout.SOUTH);
             frame.pack();
             frame.setVisible(true);
 
         }
 
         // Create list for displaying shows
-        public JPanel makeList(TreeMap<Integer,String> treeMap) {
+        public JPanel makeList(TreeMap<Integer, String> treeMap) {
             JPanel list = new JPanel();
             ArrayList<String> temp = new ArrayList<>();
 
-            for(Map.Entry<Integer,String> entry : treeMap.entrySet()) {
+            for (Map.Entry<Integer, String> entry : treeMap.entrySet()) {
                 String value = entry.getValue();
                 temp.add(value);
                 listModel.addElement(entry);
@@ -154,16 +165,49 @@ import java.util.Map;
             // convert to String[] from arrayList
             int i = 0;
             String[] var = new String[temp.size()];
-            for(String r : temp) {
+            for (String r : temp) {
                 var[i] = r;
                 i++;
             }
 
             showList = new JList<>(var);
             showList.setFont(new Font("Cambria", Font.BOLD, 14));
-            showList.setBorder(new EmptyBorder(10,10,10,10));
+            showList.setBorder(new EmptyBorder(10, 10, 10, 10));
 
             list.add(showList);
             return list;
+        }
+
+        public void updateList(TreeMap<Integer,String> treeMap) {
+            ArrayList<String> temp = new ArrayList<>();
+            listModel = new DefaultListModel<>();
+            stringModel = new DefaultListModel<>();
+            for(Map.Entry<Integer,String> entry : treeMap.entrySet()) {
+                String value = entry.getValue();
+                temp.add(value);
+                stringModel.addElement(value);
+                listModel.addElement(entry);
+
+            }
+
+            // convert to String[] from arrayList
+            int i = 0;
+            String[] var = new String[temp.size()];
+            for(String r : temp) {
+                System.out.println(r);
+                var[i] = r;
+                i++;
+            }
+
+            JList updatedList = new JList<>(var);
+
+            showList.setModel(stringModel);
+
+            //showList.setPreferredSize(new Dimension(400,400));
+            System.out.println(showList.size());
+
+            frame.setVisible(true);
+
+
         }
     }
