@@ -249,7 +249,7 @@ public class MySqlConnection {
         Connection connection = null;
         Statement statement = null;
 
-        try {
+            try {
             //Connect to server
             DriverManager.registerDriver(new com.mysql.jdbc.Driver());
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -259,10 +259,13 @@ public class MySqlConnection {
             // Drop all seats by this ID
             // Create the seats again by this ID
 
-            String sql ="UPDATE reserved_seats WHERE ";
+            //String sql ="UPDATE reserved_seats WHERE ";
 
-            statement.executeUpdate(sql);
-        }
+            //statement.executeUpdate(sql);
+            } catch(Exception e) {
+                //print stack trace if exceptions are thrown
+                e.printStackTrace();
+            }
 
         return false;
     }
