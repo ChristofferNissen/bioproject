@@ -1,8 +1,6 @@
 import Models.MySqlConnection;
-import Models.Reservation;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
@@ -59,12 +57,12 @@ public class ReservationView{
                         System.out.println(a);
                         // a = reservations_id
 
-                        // rename
-                        Controller.reservedSeatsToString(a);
+                        // store reservation_ID for this reservation
+                        Controller.storeReservationID(a);
 
-                        // put into controller, then call from here
-                        //MySqlConnection.deleteRerv(a);
-                        //updateList(Controller.getRervs());
+                        // Display the reselected reservation
+                        Controller.displayReservation(a);
+
                         frame.setVisible(true);
                     }
                 }

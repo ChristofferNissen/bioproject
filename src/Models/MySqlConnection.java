@@ -245,8 +245,24 @@ public class MySqlConnection {
         return RSeats;
     }
 
-    public static boolean updateReservation(){
+    public static boolean updateReservation(int reservationID, String input){
+        Connection connection = null;
+        Statement statement = null;
 
+        try {
+            //Connect to server
+            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            statement = connection.createStatement();
+
+            // UPDATE RESERVED SEATS
+            // Drop all seats by this ID
+            // Create the seats again by this ID
+
+            String sql ="UPDATE reserved_seats WHERE ";
+
+            statement.executeUpdate(sql);
+        }
 
         return false;
     }
@@ -371,13 +387,6 @@ public class MySqlConnection {
         return res;
     }
 
-    public static boolean updateReservation(Reservation r){
-
-
-
-        return false;
-    }
-
     // Delete reservation from reservations && delete reservated seats
     public static void deleteAllReservations(String tlf_nr){
         Connection connection = null;
@@ -397,7 +406,6 @@ public class MySqlConnection {
                 int reservation_id = rs.getInt("reservation_id");
                 r_id.add(reservation_id);
             }
-
 
             // Delete seats by ID
             for(int a : r_id) {
@@ -443,15 +451,10 @@ public class MySqlConnection {
             statement.executeUpdate("DELETE FROM reservations where reservation_id="+id);
 
             // When done processing, close connection
-            /*
-            rs.close();
-            */
             connection.close();
 
         } catch(Exception e) {
             e.printStackTrace();
         }
-
-
     }
 }

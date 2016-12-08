@@ -19,6 +19,7 @@ public class CinemaView extends JComponent implements ActionListener {
     private int hall;
     private int showID;
     private int seatNumber;
+    private boolean changeReservation;
     private String input;
     private ArrayList reservedSeats;
     private ArrayList selectedSeats;
@@ -32,7 +33,8 @@ public class CinemaView extends JComponent implements ActionListener {
     private JPanel cinema;
     private JButton seat;
 
-    public CinemaView(int rows, int seats, String title, String time, java.util.Date date, int hall, int showID, ArrayList<Integer> reservedSeats, String input) {
+    public CinemaView(int rows, int seats, String title, String time, java.util.Date date, int hall,
+                      int showID, ArrayList<Integer> reservedSeats, String input, Boolean changeReservation) {
         this.rows = rows;
         this.seats = seats;
         this.title = title;
@@ -41,6 +43,7 @@ public class CinemaView extends JComponent implements ActionListener {
         this.hall = hall;
         this.showID = showID;
         this.input = input;
+        this.changeReservation = changeReservation;
         this.reservedSeats = reservedSeats;
         // Icons
         vacantSeat = new ImageIcon("VacantSeat.png");
@@ -82,21 +85,39 @@ public class CinemaView extends JComponent implements ActionListener {
         screenPanel.add(screen);
         frame.add(screenPanel, BorderLayout.SOUTH);
 
-        JPanel bookingButton = new JPanel();
-        bookingButton.setLayout(new BorderLayout());
-        bookingButton.setBorder(new EmptyBorder(245, 10, 245, 70));
-        JButton bookNow = new JButton("Book now!");
-        bookNow.addActionListener(
-                (ActionEvent e) ->{
-                    int tlf = 0;
-                    try{
-                        tlf = getReservationNumber();
+        if(changeReservation) {
+            JPanel bookingButton = new JPanel();
+            bookingButton.setLayout(new BorderLayout());
+            bookingButton.setBorder(new EmptyBorder(245, 10, 245, 70));
+            JButton updateReservation= new JButton("Update reservation");
+            updateReservation.addActionListener(
+                    (ActionEvent e) ->{
+                        Controller.updateReservation(input,true);
+
+                        System.out.println("Reservation updated");
+
                     }
-                    catch(IllegalArgumentException iae) {
-                        if (iae.getMessage().equals("Missing phone number"))
-                            JOptionPane.showMessageDialog(null, "Please enter a PhoneNumber");
-                    }
-                    //if(String.valueOf(tlf).length() == 8) {
+            );
+
+            bookingButton.add(updateReservation, BorderLayout.CENTER);
+            frame.add(bookingButton, BorderLayout.EAST);
+
+        } else {
+            JPanel bookingButton = new JPanel();
+            bookingButton.setLayout(new BorderLayout());
+            bookingButton.setBorder(new EmptyBorder(245, 10, 245, 70));
+            JButton bookNow = new JButton("Book now!");
+            bookNow.addActionListener(
+                    (ActionEvent e) ->{
+                        int tlf = 0;
+                        try{
+                            tlf = getReservationNumber();
+                        }
+                        catch(IllegalArgumentException iae) {
+                            if (iae.getMessage().equals("Missing phone number"))
+                                JOptionPane.showMessageDialog(null, "Please enter a PhoneNumber");
+                        }
+                        //if(String.valueOf(tlf).length() == 8) {
                         if (Controller.makeReservation(tlf, showID, input) && input.length() > 0) {
                             JOptionPane.showMessageDialog(null, "Booking Succes");
 
@@ -106,11 +127,14 @@ public class CinemaView extends JComponent implements ActionListener {
                         //System.out.println("booking succes");
 
 
-                }
-        );
-        bookingButton.add(bookNow, BorderLayout.CENTER);
+                    }
+            );
+            bookingButton.add(bookNow, BorderLayout.CENTER);
+            frame.add(bookingButton, BorderLayout.EAST);
+        }
 
-        frame.add(bookingButton, BorderLayout.EAST);
+
+
         //frame.pack();
         frame.setVisible(true);
     }
