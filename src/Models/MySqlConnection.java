@@ -448,13 +448,83 @@ public class MySqlConnection {
 
             statement.executeUpdate("DELETE FROM reserved_seats where reservation_id=" + id);
 
-            statement.executeUpdate("DELETE FROM reservations where reservation_id="+id);
+            statement.executeUpdate("DELETE FROM reservations where reservation_id=" + id);
 
             // When done processing, close connection
+            connection.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    }
+        public static ArrayList<Showing> getShowsByTitle(String givenTitle){
+            Connection connection = null;
+            Statement statement = null;
+            ArrayList<Models.Showing> showings;
+            showings = new ArrayList<>();
+
+            try {
+                // Connect to server
+                DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+                connection = DriverManager.getConnection(DB_URL, USER, PASS);
+                statement = connection.createStatement();
+
+                ResultSet rs = statement.executeQuery("SELECT * FROM shows WHERE title LIKE '%"+ givenTitle + "%'");
+
+                // Process data
+                while(rs.next()) {
+                    int show_id = rs.getInt("show_id");
+                    Date date = rs.getDate("date");
+                    String time = rs.getString("time");
+                    int hall_id = rs.getInt("hall_id");
+                    String title = rs.getString("title");
+                    Showing show = new Showing(show_id, date, time, hall_id, title);
+                    showings.add(show);
+                }
+                // When done processing, close connection
+                rs.close();
+                connection.close();
+
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+            // return collection
+            return showings;
+        }
+
+    public static ArrayList<Showing> getShowsByDate(String givenDate) {
+        Connection connection = null;
+        Statement statement = null;
+        ArrayList<Models.Showing> showings;
+        showings = new ArrayList<>();
+
+        try {
+            // Connect to server
+            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            statement = connection.createStatement();
+
+            ResultSet rs = statement.executeQuery("SELECT * FROM shows WHERE date LIKE '%"+ givenDate + "%'");
+
+            // Process data
+            while(rs.next()) {
+                int show_id = rs.getInt("show_id");
+                Date date = rs.getDate("date");
+                String time = rs.getString("time");
+                int hall_id = rs.getInt("hall_id");
+                String title = rs.getString("title");
+                Showing show = new Showing(show_id, date, time, hall_id, title);
+                showings.add(show);
+            }
+            // When done processing, close connection
+            rs.close();
             connection.close();
 
         } catch(Exception e) {
             e.printStackTrace();
         }
+        // return collection
+        return showings;
     }
 }
