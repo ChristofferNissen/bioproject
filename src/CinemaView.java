@@ -82,6 +82,7 @@ public class CinemaView extends JComponent implements ActionListener {
         screen.setBorder(new LineBorder(Color.BLACK, 2));
         screen.setPreferredSize(new Dimension(500, 20));
 
+
         screenPanel.add(screen);
         frame.add(screenPanel, BorderLayout.SOUTH);
 
