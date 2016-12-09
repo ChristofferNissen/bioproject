@@ -91,10 +91,12 @@ public class CinemaView extends JComponent implements ActionListener {
             bookingButton.setLayout(new BorderLayout());
             //bookingButton.setBorder(new EmptyBorder(245, 10, 245, 70));
             JButton updateReservation= new JButton("Update reservation");
-
             updateReservation.addActionListener(
                     (ActionEvent e) ->{
-                        Controller.updateReservation(input,true);
+                        if(Controller.updateReservation(input,true))
+                            JOptionPane.showMessageDialog(null, "Update Succesfull");
+                        else
+                            JOptionPane.showMessageDialog(null, "Update Failed");
                         System.out.println("Reservation updated");
                     }
             );
