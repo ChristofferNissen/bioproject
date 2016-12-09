@@ -57,7 +57,7 @@ public class CinemaView extends JComponent implements ActionListener {
     }
 
     public void makeFrame(CinemaView c){
-        frame.setSize(900, 650);
+        frame.setSize(900, 750);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.getContentPane().add(c);
         frame.setLayout(new BorderLayout());
@@ -69,6 +69,7 @@ public class CinemaView extends JComponent implements ActionListener {
         cinema.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         JPanel seats = makeGrid();
+        //seats.setPreferredSize(new Dimension(1000,1000));
         frame.add(seats, BorderLayout.CENTER);
 
         JPanel fillerPanel = new JPanel();
@@ -88,12 +89,12 @@ public class CinemaView extends JComponent implements ActionListener {
         if(changeReservation) {
             JPanel bookingButton = new JPanel();
             bookingButton.setLayout(new BorderLayout());
-            bookingButton.setBorder(new EmptyBorder(245, 10, 245, 70));
+            //bookingButton.setBorder(new EmptyBorder(245, 10, 245, 70));
             JButton updateReservation= new JButton("Update reservation");
+
             updateReservation.addActionListener(
                     (ActionEvent e) ->{
                         Controller.updateReservation(input,true);
-
                         System.out.println("Reservation updated");
 
                     }
@@ -195,8 +196,8 @@ public class CinemaView extends JComponent implements ActionListener {
 
                 seat.setPreferredSize(new Dimension(46, 38));
                 c.fill = GridBagConstraints.HORIZONTAL;
-                c.insets = new Insets(6, 2, 6, 2); // External padding around each button
-                c.gridx = j;                    // Position in grid
+                c.insets = new Insets(6, 2, 6, 2);      // External padding around each button
+                c.gridx = j;                         // Position in grid
                 c.gridy = i;
                 seatArrangement.add(seat, c);
                 seatNumber++;
