@@ -1,6 +1,9 @@
 
 import Models.*;
+
+import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.TreeMap;
 
 /**
@@ -31,15 +34,20 @@ public class Controller {
         r.makeFrame(getRervs());
     }
 
+
+    /*public static void showReservation(String id) {
+=======
     /*
     public static void showReservation(String id) {
+>>>>>>> fd284e78bc69fd5999d7e6277fb79c6fd91e50ea
 
         // get reservation specific reserved seats in from of ",12,13,14" strings
         // pass this to getREservationID
 
         getReservationByID(id);
-    }
-    */
+<<<<<<< HEAD
+    }*/
+
 
     //Convert arrayList to treemap
     public static TreeMap<Integer,String> getShows(){
@@ -67,7 +75,7 @@ public class Controller {
 
     }
 
-    private static TreeMap<Integer,String> getRervsByID() {
+   /* private static TreeMap<Integer,String> getRervsByID() {
         getReservations(); // update reservations from DB
 
         // Convert from ArrayList to TreeMap, return the TreeMap
@@ -79,7 +87,7 @@ public class Controller {
 
         return reservations;
 
-    }
+    }*/
 
     public static void displayReservation(int selectedID) {
         //husk at lave exceptions på null
@@ -178,6 +186,19 @@ public class Controller {
         return seat;
     }
 
+
+    /*public static void updateReserv(String phone){
+        ArrayList<Reservation> res = new ArrayList<>();
+        res = Models.MySqlConnection.getReservationsByID(phone);
+
+
+
+
+        //String reservedSeats;
+
+        //getShowByID();
+
+    }*/
     //Load all shows from DB
     private static void getShowings(){
         showingList = MySqlConnection.getShowingQuery("SELECT * FROM shows");
@@ -210,9 +231,9 @@ public class Controller {
         reservationID = a;
     }
 
-    public static void deleteReservation(String tlf_nr) {
+    /*public static void deleteReservation(String tlf_nr) {
         MySqlConnection.deleteAllReservations(tlf_nr);
-    }
+    }*/
 
     public static TreeMap<Integer, String> makeSearchTitle(String title) {
         showingList = MySqlConnection.getShowsByTitle(title);
@@ -238,4 +259,5 @@ public class Controller {
         // The TreeMap to be returned
         return showings;
     }
+
 }

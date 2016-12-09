@@ -138,7 +138,6 @@ public class ReservationView{
         list.add(showList);
 
     }
-
     public void updateList(TreeMap<Integer,String> treeMap) {
         ArrayList<String> temp = new ArrayList<>();
         listModel = new DefaultListModel<>();
@@ -165,7 +164,7 @@ public class ReservationView{
         showList.setModel(stringModel);
 
         //showList.setPreferredSize(new Dimension(400,400));
-        System.out.println(showList.size());
+        //System.out.println(showList.size());
 
         frame.setVisible(true);
 
