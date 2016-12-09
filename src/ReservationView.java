@@ -84,7 +84,7 @@ public class ReservationView{
                         //Controller.storeSelectedID(a);
 
                         // put into controller, then call from here
-                        MySqlConnection.deleteRerv(a);
+                        MySqlConnection.deleteReservation(a);
                         updateList(Controller.getRervs());
                         frame.setVisible(true);
                     }

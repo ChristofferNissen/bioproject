@@ -32,8 +32,8 @@ public class Reservation {
     @Override
     public String toString() {
         return "Reservation: " +
-                "id=" + reservation_id +
-                ", tlf_nr=" + tlf_nr;
+                "Show id: " + show_id +
+                ", Tlf_nr: " + tlf_nr;
 
     }
 

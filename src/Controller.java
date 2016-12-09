@@ -31,6 +31,7 @@ public class Controller {
         r.makeFrame(getRervs());
     }
 
+    /*
     public static void showReservation(String id) {
 
         // get reservation specific reserved seats in from of ",12,13,14" strings
@@ -38,6 +39,7 @@ public class Controller {
 
         getReservationByID(id);
     }
+    */
 
     //Convert arrayList to treemap
     public static TreeMap<Integer,String> getShows(){
@@ -97,6 +99,7 @@ public class Controller {
         for(int i : show_id) {
             show = i;
         }
+
          // show = show_id, input = reserved seats as string
         getShowByID(show,input,true);
     }
@@ -134,11 +137,6 @@ public class Controller {
                     show.getTitle(), show.getTime(), show.getDate(),
                     show.getHall_id(), show.getShow_id(), reserved_seats, input, false);
         }
-
-
-
-
-
     }
 
     public static boolean makeReservation(int tlf, int showID, String seats){
@@ -180,31 +178,18 @@ public class Controller {
         return seat;
     }
 
-    public static void updateReserv(String phone){
-        ArrayList<Reservation> res = new ArrayList<>();
-        res = Models.MySqlConnection.getReservationsByID(phone);
-
-
-
-
-        //String reservedSeats;
-
-        //getShowByID();
-
-    }
-
     //Load all shows from DB
     private static void getShowings(){
-        showingList = MySqlConnection.getShowingQuery("*");
+        showingList = MySqlConnection.getShowingQuery("SELECT * FROM shows");
     }
 
     //Load all reservations from DB
     private static void getReservations(){
-        reservationList = MySqlConnection.getReservationQuery("*");
+        reservationList = MySqlConnection.getFromReservation("*");
     }
 
     public static TreeMap<Integer, String> getReservationByID(String tlf_nr) {
-        reservList= MySqlConnection.getReservationsByID(tlf_nr);
+        reservList= MySqlConnection.getReservationsByPhone(tlf_nr);
 
         // Convert from ArrayList to TreeMap, return the TreeMap
         TreeMap<Integer,String> reservations = new TreeMap<>();
