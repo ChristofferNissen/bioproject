@@ -398,7 +398,7 @@ public class MySqlConnection {
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
             statement = connection.createStatement();
 
-            ResultSet rs = statement.executeQuery("SELECT * FROM reservations WHERE tlf_nr = " + phone);
+            ResultSet rs = statement.executeQuery("SELECT * FROM reservations WHERE tlf_nr LIKE '%"+ phone + "%'");
 
             // Process data
             while(rs.next()) {
