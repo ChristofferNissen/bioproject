@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class CinemaView extends JComponent implements ActionListener {
+public class CinemaView extends JComponent {
 
-    //fields
+    //field variables
     private int rows;
     private int seats;
     private String title;
@@ -23,14 +23,17 @@ public class CinemaView extends JComponent implements ActionListener {
     private String input;
     private ArrayList reservedSeats;
 
+    // Icons
     private ImageIcon vacantSeat;
     private ImageIcon occupiedSeat;
     private ImageIcon selectedSeat;
 
+    // Gui
     private JFrame frame;
     private JPanel cinema;
     private JButton seat;
 
+    // Construktor for creating a cinemaView
     public CinemaView(int rows, int seats, String title, String time, java.util.Date date, int hall,
                       int showID, ArrayList<Integer> reservedSeats, String input, Boolean changeReservation) {
         this.rows = rows;
@@ -55,37 +58,42 @@ public class CinemaView extends JComponent implements ActionListener {
         makeFrame(this);
     }
 
+    // Make the gui, add the components
     public void makeFrame(CinemaView c){
         frame.setMinimumSize(new Dimension(900, 750));
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.getContentPane().add(c);
         frame.setLayout(new BorderLayout());
 
+        // Create show-desciptive label
         JLabel label = new JLabel("You have chosen " + title + " on the " + date + " at " + time + " in hall " + hall, SwingConstants.CENTER);
         frame.add(label, BorderLayout.NORTH);
         label.setFont(new Font("Cambria", Font.BOLD, 14));
         label.setBorder(new EmptyBorder(10,10,10,10));
         cinema.setBorder(new EmptyBorder(10, 10, 10, 10));
 
+        // Create visual representation of seats
         JPanel seats = makeGrid();
         frame.add(seats, BorderLayout.CENTER);
 
+        // filler panel
         JPanel fillerPanel = new JPanel();
         fillerPanel.setBorder(new EmptyBorder(245, 100, 245, 70));
         frame.add(fillerPanel, BorderLayout.WEST);
 
+        // Adds a visualrepresentation of the screen location
         JPanel screenPanel = new JPanel();
         screenPanel.setBorder(new EmptyBorder(10,10,10,20));
         JLabel screen = new JLabel("Screen", SwingConstants.CENTER);
         screen.setFont(new Font("Cambria", Font.BOLD, 14));
         screen.setBorder(new LineBorder(Color.BLACK, 2));
         screen.setPreferredSize(new Dimension(500, 20));
-
-
         screenPanel.add(screen);
         frame.add(screenPanel, BorderLayout.SOUTH);
 
+        // Decide wether to display Book Now or Update reservation botton
         if(changeReservation) {
+            // Adds Update reservation button
             JPanel bookingButton = new JPanel();
             bookingButton.setLayout(new BorderLayout());
             //bookingButton.setBorder(new EmptyBorder(245, 10, 245, 70));
@@ -105,7 +113,7 @@ public class CinemaView extends JComponent implements ActionListener {
             frame.add(bookingButton, BorderLayout.EAST);
 
         } else {
-
+            // Addes Book Now button
             JPanel bookingButton = new JPanel();
             bookingButton.setLayout(new BorderLayout());
             bookingButton.setBorder(new EmptyBorder(245, 10, 245, 70));
@@ -114,13 +122,13 @@ public class CinemaView extends JComponent implements ActionListener {
                     (ActionEvent e) ->{
                         int tlf = 0;
                         try{
-                            tlf = getReservationNumber();
+                            tlf = getCustomerNumber();
                         }
                         catch(IllegalArgumentException iae) {
                             if (iae.getMessage().equals("Missing phone number"))
                                 JOptionPane.showMessageDialog(null, "Please enter a PhoneNumber");
                         }
-                        //if(String.valueOf(tlf).length() == 8) {
+                        // Report back if the reservation was succesfull
                         if (Controller.makeReservation(tlf, showID, input) && input.length() > 0) {
                             JOptionPane.showMessageDialog(null, "Booking Succes");
                             frame.dispose();
@@ -145,7 +153,7 @@ public class CinemaView extends JComponent implements ActionListener {
 
         for (int i = 1; i <= rows; i++) {
             for (int j = 1; j <= seats; j++) {
-                // If it doesnt contain the seatnumber, set the seat to free
+                // If reservedSeats doesnt contain the seatnumber, set the seat to free
                 if (!reservedSeats.contains(seatNumber)) {
                     seat = new JButton(""+seatNumber, vacantSeat);
                     seat.addActionListener(
@@ -155,6 +163,7 @@ public class CinemaView extends JComponent implements ActionListener {
                             });
                 }
 
+                // Check if it is reserved seats, and if it is also in the input string, set it to selected, otherwise to occupied
                 if (reservedSeats.contains(seatNumber)) {
                     String s = "," + seatNumber;
                         if(input.contains(s)){
@@ -183,7 +192,7 @@ public class CinemaView extends JComponent implements ActionListener {
 
     }
 
-    // ActionListener for when you click on a seat
+    // ActionListener for icon selected when you click on a seat
     private void setIcon(JButton clicked, ActionEvent e) {
         if (!clicked.getIcon().equals(selectedSeat)) {
             clicked.setIcon(selectedSeat);
@@ -196,8 +205,8 @@ public class CinemaView extends JComponent implements ActionListener {
         }
     }
 
-
-    private int getReservationNumber(){
+    // Request for the customers phone Number for when booking seats
+    private int getCustomerNumber(){
         JPanel myPanel = new JPanel();
         JTextField phoneField = new JTextField(12);
         myPanel.add(new JLabel("Input Phone:"));
@@ -218,9 +227,4 @@ public class CinemaView extends JComponent implements ActionListener {
         }
         return -1;
     }
-
-    public void actionPerformed(ActionEvent e ) {
-
-    }
 }
-
