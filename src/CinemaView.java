@@ -27,7 +27,6 @@ public class CinemaView extends JComponent implements ActionListener {
     private ImageIcon occupiedSeat;
     private ImageIcon selectedSeat;
 
-
     private JFrame frame;
     private JPanel cinema;
     private JButton seat;
@@ -137,6 +136,7 @@ public class CinemaView extends JComponent implements ActionListener {
         frame.setVisible(true);
     }
 
+    // Make seat grid
     public JPanel makeGrid() {
         JPanel seatArrangement = new JPanel();
         seatArrangement.setLayout(new GridBagLayout());
@@ -151,17 +151,7 @@ public class CinemaView extends JComponent implements ActionListener {
                     seat.addActionListener(
                             (ActionEvent e) -> {
                                 JButton clicked = (JButton) e.getSource();
-                                if (!clicked.getIcon().equals(selectedSeat)) {
-                                    clicked.setIcon(selectedSeat);
-                                    input = input + "," + e.getActionCommand();
-                                    //System.out.println(input);
-                                } else {
-                                    clicked.setIcon(vacantSeat);
-                                    if (input.contains(e.getActionCommand())) {
-                                        input = input.replace("," + e.getActionCommand(), "");
-                                        //System.out.println(input);
-                                    }
-                                }
+                                setIcon(clicked,e);
                             });
                 }
 
@@ -172,15 +162,7 @@ public class CinemaView extends JComponent implements ActionListener {
                             seat.addActionListener(
                                     (ActionEvent e) -> {
                                         JButton clicked = (JButton) e.getSource();
-                                        if (!clicked.getIcon().equals(selectedSeat)) {
-                                            clicked.setIcon(selectedSeat);
-                                            input = input + "," + e.getActionCommand();
-                                        } else {
-                                            clicked.setIcon(vacantSeat);
-                                            if (input.contains(e.getActionCommand())) {
-                                                input = input.replace("," + e.getActionCommand(), "");
-                                            }
-                                        }
+                                        setIcon(clicked,e);
                                     });
                             seat.setIcon(selectedSeat);
                     } else {
@@ -190,16 +172,30 @@ public class CinemaView extends JComponent implements ActionListener {
                 seat.setPreferredSize(new Dimension(46, 38));
                 c.fill = GridBagConstraints.HORIZONTAL;
                 c.insets = new Insets(6, 2, 6, 2);      // External padding around each button
-                c.gridx = j;                         // Position in grid
+                c.gridx = j;                            // Position in grid
                 c.gridy = i;
                 seatArrangement.add(seat, c);
                 seatNumber++;
             }
 
         }
-        return seatArrangement;
+        return seatArrangement;                         // Return the JPanel containing the grid
 
     }
+
+    // ActionListener for when you click on a seat
+    private void setIcon(JButton clicked, ActionEvent e) {
+        if (!clicked.getIcon().equals(selectedSeat)) {
+            clicked.setIcon(selectedSeat);
+            input = input + "," + e.getActionCommand();
+        } else {
+            clicked.setIcon(vacantSeat);
+            if (input.contains(e.getActionCommand())) {
+                input = input.replace("," + e.getActionCommand(), "");
+            }
+        }
+    }
+
 
     private int getReservationNumber(){
         JPanel myPanel = new JPanel();
