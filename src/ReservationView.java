@@ -35,10 +35,13 @@ public class ReservationView{
         frame.setPreferredSize(new Dimension(400, 800));
         contentPane.setLayout(new BorderLayout());
 
+        JPanel search = new JPanel();
+        search.setLayout(new GridLayout(2,1));
+
         JTextField text = new JTextField();
         //text.setText("Enter a phone number");
         text.setToolTipText("Enter a phone number");
-        contentPane.add(text,BorderLayout.SOUTH);
+        search.add(text);
 
         JButton searchReservations = new JButton("Search reservations");
         searchReservations.addActionListener(
@@ -47,6 +50,8 @@ public class ReservationView{
                     updateList(Controller.getReservationByID(tlf_nr));
                 }
         );
+        search.add(searchReservations);
+
         JButton changeReservations = new JButton("Change reservation");
         changeReservations.addActionListener(
                 (ActionEvent e ) -> {
@@ -92,7 +97,7 @@ public class ReservationView{
         buttonPane2.setLayout(new BorderLayout());
         buttonPane.add(buttonPane2,BorderLayout.CENTER);
 
-        buttonPane2.add(searchReservations,BorderLayout.NORTH);
+        buttonPane2.add(search,BorderLayout.NORTH);
         buttonPane2.add(changeReservations,BorderLayout.CENTER);
         buttonPane2.add(deleteReservations,BorderLayout.SOUTH);
 
