@@ -57,7 +57,7 @@ public class CinemaView extends JComponent implements ActionListener {
     }
 
     public void makeFrame(CinemaView c){
-        frame.setSize(900, 750);
+        frame.setMinimumSize(new Dimension(900, 750));
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.getContentPane().add(c);
         frame.setLayout(new BorderLayout());
@@ -69,7 +69,7 @@ public class CinemaView extends JComponent implements ActionListener {
         cinema.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         JPanel seats = makeGrid();
-        //seats.setPreferredSize(new Dimension(1000,1000));
+        //seats.setMinimumSize(new Dimension(1000,1000));
         frame.add(seats, BorderLayout.CENTER);
 
         JPanel fillerPanel = new JPanel();
