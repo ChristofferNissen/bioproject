@@ -92,12 +92,13 @@ public class CinemaView extends JComponent implements ActionListener {
             //bookingButton.setBorder(new EmptyBorder(245, 10, 245, 70));
             JButton updateReservation= new JButton("Update reservation");
             updateReservation.addActionListener(
-                    (ActionEvent e) ->{
-                        if(Controller.updateReservation(input,true))
+                    (ActionEvent e) -> {
+                        if (Controller.updateReservation(input, true)) {
                             JOptionPane.showMessageDialog(null, "Update Succesfull");
-                        else
+                            frame.dispose();
+                        } else {
                             JOptionPane.showMessageDialog(null, "Update Failed");
-                        System.out.println("Reservation updated");
+                        }
                     }
             );
 
@@ -122,7 +123,7 @@ public class CinemaView extends JComponent implements ActionListener {
                         //if(String.valueOf(tlf).length() == 8) {
                         if (Controller.makeReservation(tlf, showID, input) && input.length() > 0) {
                             JOptionPane.showMessageDialog(null, "Booking Succes");
-
+                            frame.dispose();
                         }else {
                             JOptionPane.showMessageDialog(null, "Booking failed");
                         }
