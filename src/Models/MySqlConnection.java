@@ -26,24 +26,24 @@ public class MySqlConnection {
 
             ResultSet rs = statement.executeQuery("SELECT " + sql + " FROM reservations");
 
-            // Process data
-            while(rs.next()) {
+            while (rs.next()) {
                 int reservation_id = rs.getInt("reservation_id");
                 int tlf_nr = rs.getInt("tlf_nr");
                 int showID = rs.getInt("show_id");
-                Reservation reservation = new Reservation(reservation_id,tlf_nr,showID);
+                Reservation reservation = new Reservation(reservation_id, tlf_nr, showID);
                 reservations.add(reservation);
             }
+
             // When done processing, close connection
             rs.close();
             connection.close();
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        // return collection
         return reservations;
     }
+
 
     public static ArrayList<Showing> getShowingQuery(String sql) {
         Connection connection = null;
