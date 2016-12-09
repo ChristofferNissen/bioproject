@@ -20,16 +20,11 @@ public class ReservationView{
     private DefaultListModel<Map.Entry> listModel;
     private DefaultListModel<String> stringModel;
 
-    private int reservation_id;
-
-    private ArrayList<String> kda;
-
     public ReservationView() {
         frame = new JFrame("Reservations");
-        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
     }
 
+    // Creates the gui with elements for displaying the reservation frame
     public void makeFrame(TreeMap treeMap){
         JPanel contentPane = (JPanel)frame.getContentPane();
         frame.setPreferredSize(new Dimension(400, 800));
@@ -109,7 +104,8 @@ public class ReservationView{
         frame.setVisible(true);
 
     }
-// change returntype to JPanel
+
+    // Creates a visual list of reservations
     public void makeReservationList(TreeMap<Integer,String> treeMap) {
         list = new JPanel();
         list.setPreferredSize(new Dimension(400,400));
@@ -120,7 +116,6 @@ public class ReservationView{
             String value = entry.getValue();
             temp.add(value);
             listModel.addElement(entry);
-
         }
 
         // convert to String[] from arrayList
@@ -134,40 +129,20 @@ public class ReservationView{
         showList = new JList<>(var);
         showList.setFont(new Font("Cambria", Font.BOLD, 14));
         showList.setBorder(new EmptyBorder(10,10,10,10));
-
         list.add(showList);
 
     }
+
+    // Updates the visual list of reservations due to search criterias
     public void updateList(TreeMap<Integer,String> treeMap) {
         ArrayList<String> temp = new ArrayList<>();
-        listModel = new DefaultListModel<>();
         stringModel = new DefaultListModel<>();
-        for(Map.Entry<Integer,String> entry : treeMap.entrySet()) {
-            String value = entry.getValue();
-            temp.add(value);
-            stringModel.addElement(value);
-            listModel.addElement(entry);
 
-        }
-
-        // convert to String[] from arrayList
-        int i = 0;
-        String[] var = new String[temp.size()];
-        for(String r : temp) {
-            System.out.println(r);
-            var[i] = r;
-            i++;
-        }
-
-        JList updatedList = new JList<>(var);
+        // Get data from treeMap into arrayList
+        Controller.getDataFromTreeMap(temp,treeMap,stringModel,listModel);
 
         showList.setModel(stringModel);
-
-        //showList.setPreferredSize(new Dimension(400,400));
-        //System.out.println(showList.size());
-
         frame.setVisible(true);
 
     }
-
 }

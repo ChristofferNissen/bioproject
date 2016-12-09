@@ -1,5 +1,6 @@
 
 import Models.*;
+import apple.laf.JRSUIUtils;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -11,16 +12,13 @@ import java.util.TreeMap;
  */
 public class Controller {
 
-    private String name;
     private static int selectID;
     private static int reservationID;
     private static ArrayList<Showing> showingList;
     private static ArrayList<Reservation> reservationList;
     private static ArrayList<Reservation> reservList;
-    private static CinemaView cinemaView;
 
-    public static void main (String[] args){
-        getShowings();
+    public static void main(String[] args) {
         BookingGUI gui = new BookingGUI();
         gui.makeFrame(getShows());
 
@@ -28,7 +26,7 @@ public class Controller {
 
     }
 
-    public static void makeReservationView(){
+    public static void makeReservationView() {
         getReservations();
         ReservationView r = new ReservationView();
         r.makeFrame(getRervs());
@@ -50,25 +48,26 @@ public class Controller {
 
 
     //Convert arrayList to treemap
-    public static TreeMap<Integer,String> getShows(){
+    public static TreeMap<Integer, String> getShows() {
         getShowings(); // update showings from DB
 
         // Convert from arraylist to TreeMap, return the TreeMap.
-        TreeMap<Integer,String> showings = new TreeMap();
+        TreeMap<Integer, String> showings = new TreeMap();
         for (Showing s : showingList) {
             showings.put(s.getShow_id(), s.toString());
         }
         // The TreeMap to be returned
         return showings;
     }
-    public static TreeMap<Integer,String> getRervs() {
+
+    public static TreeMap<Integer, String> getRervs() {
         getReservations(); // update reservations from DB
 
         // Convert from ArrayList to TreeMap, return the TreeMap
-        TreeMap<Integer,String> reservations = new TreeMap<>();
+        TreeMap<Integer, String> reservations = new TreeMap<>();
         for (Reservation r : reservationList) {
             System.out.println(r.toString());
-            reservations.put(r.getReservation_id(),r.toString());
+            reservations.put(r.getReservation_id(), r.toString());
         }
 
         return reservations;
@@ -94,9 +93,9 @@ public class Controller {
         ArrayList<Integer> selected_seats;
         // Get seats reserved for this reservation
         selected_seats = MySqlConnection.getReservedSeats(selectedID);
-        String input ="";
+        String input = "";
 
-        for(int i : selected_seats) {
+        for (int i : selected_seats) {
             input = input + "," + i;
         }
 
@@ -104,12 +103,12 @@ public class Controller {
 
         int show = 0;
         // save id as integer
-        for(int i : show_id) {
+        for (int i : show_id) {
             show = i;
         }
 
-         // show = show_id, input = reserved seats as string
-        getShowByID(show,input,true);
+        // show = show_id, input = reserved seats as string
+        getShowByID(show, input, true);
     }
 
     // Get info and create GUI
@@ -118,12 +117,12 @@ public class Controller {
         ArrayList<Integer> reservation_ids = MySqlConnection.getReservationID(selectedID);
         ArrayList<Integer> reserved_seats = new ArrayList<>();
 
-        for(int id : reservation_ids) {
+        for (int id : reservation_ids) {
             // Get seats reserved for this show
             ArrayList<Integer> temp = new ArrayList<>();
 
             temp = MySqlConnection.getReservedSeats(id);
-            for(int i : temp) {
+            for (int i : temp) {
                 reserved_seats.add(i);
             }
         }
@@ -136,7 +135,7 @@ public class Controller {
         // Create cinemaView gui based on data from DB
 
 
-        if(changeReservation) {
+        if (changeReservation) {
             CinemaView c = new CinemaView(hall.getRows(), hall.getSeats(),
                     show.getTitle(), show.getTime(), show.getDate(),
                     show.getHall_id(), show.getShow_id(), reserved_seats, input, true);
@@ -147,8 +146,8 @@ public class Controller {
         }
     }
 
-    public static boolean makeReservation(int tlf, int showID, String seats){
-        if(tlf > 0) {
+    public static boolean makeReservation(int tlf, int showID, String seats) {
+        if (tlf > 0) {
             Reservation reservation = new Reservation(tlf, showID, splitSeatString(seats));
             if (MySqlConnection.makeReservation(reservation)) {
                 return true;
@@ -158,11 +157,11 @@ public class Controller {
         return false;
     }
 
-    public static boolean updateReservation(String input, Boolean changeUpdate){
+    public static boolean updateReservation(String input, Boolean changeUpdate) {
         int[] inputSplit = splitSeatString(input);
 
-        if(changeUpdate){
-            MySqlConnection.updateReservation(reservationID,inputSplit);
+        if (changeUpdate) {
+            MySqlConnection.updateReservation(reservationID, inputSplit);
             return true;
         } else {
             return false;
@@ -171,14 +170,14 @@ public class Controller {
 
 
     //splits seats to an array
-    public static int[] splitSeatString(String seats){
+    public static int[] splitSeatString(String seats) {
         //seperates at ","
         String[] arr = seats.split(",");
 
         int[] seat = new int[arr.length];
 
-        for(int i = 1; i < arr.length;i++){
-            seat[i-1] = Integer.parseInt(arr[i]);
+        for (int i = 1; i < arr.length; i++) {
+            seat[i - 1] = Integer.parseInt(arr[i]);
         }
 
         System.out.println(seat.toString());
@@ -200,23 +199,23 @@ public class Controller {
 
     }*/
     //Load all shows from DB
-    private static void getShowings(){
+    private static void getShowings() {
         showingList = MySqlConnection.getShowingQuery("SELECT * FROM shows");
     }
 
     //Load all reservations from DB
-    private static void getReservations(){
+    private static void getReservations() {
         reservationList = MySqlConnection.getFromReservation("*");
     }
 
     public static TreeMap<Integer, String> getReservationByID(String tlf_nr) {
-        reservList= MySqlConnection.getReservationsByPhone(tlf_nr);
+        reservList = MySqlConnection.getReservationsByPhone(tlf_nr);
 
         // Convert from ArrayList to TreeMap, return the TreeMap
-        TreeMap<Integer,String> reservations = new TreeMap<>();
+        TreeMap<Integer, String> reservations = new TreeMap<>();
         for (Reservation r : reservList) {
             //System.out.println(r.toString());
-            reservations.put(r.getReservation_id(),r.toString());
+            reservations.put(r.getReservation_id(), r.toString());
         }
 
         return reservations;
@@ -231,14 +230,10 @@ public class Controller {
         reservationID = a;
     }
 
-    /*public static void deleteReservation(String tlf_nr) {
-        MySqlConnection.deleteAllReservations(tlf_nr);
-    }*/
-
     public static TreeMap<Integer, String> makeSearchTitle(String title) {
         showingList = MySqlConnection.getShowsByTitle(title);
 
-        TreeMap<Integer,String> showings = new TreeMap();
+        TreeMap<Integer, String> showings = new TreeMap();
         for (Showing s : showingList) {
             //System.out.println(s.getShow_id() + "" + s.toString());
             showings.put(s.getShow_id(), s.toString());
@@ -248,10 +243,10 @@ public class Controller {
 
     }
 
-    public static TreeMap<Integer,String> makeSearchTime(String date) {
+    public static TreeMap<Integer, String> makeSearchTime(String date) {
         showingList = MySqlConnection.getShowsByDate(date);
 
-        TreeMap<Integer,String> showings = new TreeMap();
+        TreeMap<Integer, String> showings = new TreeMap();
         for (Showing s : showingList) {
             //System.out.println(s.getShow_id() + "" + s.toString());
             showings.put(s.getShow_id(), s.toString());
@@ -259,5 +254,41 @@ public class Controller {
         // The TreeMap to be returned
         return showings;
     }
+
+    // Converts ArrayList to string[]
+    public static String[] arrayListToStringArray(ArrayList<String> temp) {
+        int i = 0;
+        String[] var = new String[temp.size()];
+        for (String r : temp) {
+
+            System.out.println(r);
+            var[i] = r;
+            i++;
+        }
+        return var;
+    }
+
+    // Converts treeMap into datavariables for listView
+    public static void getDataFromTreeMap(ArrayList<String> temp, TreeMap<Integer, String> treeMap,
+                                          DefaultListModel<String> stringModel, DefaultListModel<Map.Entry> listModel) {
+        for (Map.Entry<Integer, String> entry : treeMap.entrySet()) {
+            String value = entry.getValue();
+            temp.add(value);
+            stringModel.addElement(value);
+            listModel.addElement(entry);
+        }
+    }
+
+    // Converts treeMap into datavariables for listView
+    public static void getDataFromTreeMap(ArrayList<String> temp, TreeMap<Integer, String> treeMap,
+                                          DefaultListModel<Map.Entry> listModel){
+
+        for (Map.Entry<Integer, String> entry : treeMap.entrySet()) {
+            String value = entry.getValue();
+            temp.add(value);
+            listModel.addElement(entry);
+        }
+    }
+
 
 }
