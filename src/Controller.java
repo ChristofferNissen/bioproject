@@ -142,9 +142,11 @@ public class Controller {
     }
 
     public static boolean makeReservation(int tlf, int showID, String seats){
-        Reservation reservation = new Reservation(tlf, showID,splitSeatString(seats));
-        if(MySqlConnection.makeReservation(reservation)){
-            return true;
+        if(tlf > 0) {
+            Reservation reservation = new Reservation(tlf, showID, splitSeatString(seats));
+            if (MySqlConnection.makeReservation(reservation)) {
+                return true;
+            }
         }
         System.out.println("make reservation: " + tlf + showID);
         return false;
