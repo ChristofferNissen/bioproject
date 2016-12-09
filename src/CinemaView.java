@@ -22,7 +22,6 @@ public class CinemaView extends JComponent implements ActionListener {
     private boolean changeReservation;
     private String input;
     private ArrayList reservedSeats;
-    private ArrayList selectedSeats;
 
     private ImageIcon vacantSeat;
     private ImageIcon occupiedSeat;
@@ -45,6 +44,7 @@ public class CinemaView extends JComponent implements ActionListener {
         this.input = input;
         this.changeReservation = changeReservation;
         this.reservedSeats = reservedSeats;
+
         // Icons
         vacantSeat = new ImageIcon("VacantSeat.png");
         occupiedSeat = new ImageIcon("occupiedSeat.png");
@@ -69,7 +69,6 @@ public class CinemaView extends JComponent implements ActionListener {
         cinema.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         JPanel seats = makeGrid();
-        //seats.setMinimumSize(new Dimension(1000,1000));
         frame.add(seats, BorderLayout.CENTER);
 
         JPanel fillerPanel = new JPanel();
@@ -107,6 +106,7 @@ public class CinemaView extends JComponent implements ActionListener {
             frame.add(bookingButton, BorderLayout.EAST);
 
         } else {
+
             JPanel bookingButton = new JPanel();
             bookingButton.setLayout(new BorderLayout());
             bookingButton.setBorder(new EmptyBorder(245, 10, 245, 70));
@@ -128,17 +128,11 @@ public class CinemaView extends JComponent implements ActionListener {
                         }else {
                             JOptionPane.showMessageDialog(null, "Booking failed");
                         }
-                        //System.out.println("booking succes");
-
-
                     }
             );
             bookingButton.add(bookNow, BorderLayout.CENTER);
             frame.add(bookingButton, BorderLayout.EAST);
         }
-
-
-
         //frame.pack();
         frame.setVisible(true);
     }
@@ -173,7 +167,6 @@ public class CinemaView extends JComponent implements ActionListener {
 
                 if (reservedSeats.contains(seatNumber)) {
                     String s = "," + seatNumber;
-
                         if(input.contains(s)){
                             seat = new JButton(""+seatNumber, occupiedSeat);
                             seat.addActionListener(
@@ -182,7 +175,6 @@ public class CinemaView extends JComponent implements ActionListener {
                                         if (!clicked.getIcon().equals(selectedSeat)) {
                                             clicked.setIcon(selectedSeat);
                                             input = input + "," + e.getActionCommand();
-                                            //System.out.println(input);
                                         } else {
                                             clicked.setIcon(vacantSeat);
                                             if (input.contains(e.getActionCommand())) {
@@ -194,9 +186,7 @@ public class CinemaView extends JComponent implements ActionListener {
                     } else {
                             seat = new JButton("occupied", occupiedSeat);
                         }
-
                 }
-
                 seat.setPreferredSize(new Dimension(46, 38));
                 c.fill = GridBagConstraints.HORIZONTAL;
                 c.insets = new Insets(6, 2, 6, 2);      // External padding around each button
@@ -214,7 +204,6 @@ public class CinemaView extends JComponent implements ActionListener {
     private int getReservationNumber(){
         JPanel myPanel = new JPanel();
         JTextField phoneField = new JTextField(12);
-
         myPanel.add(new JLabel("Input Phone:"));
         myPanel.add(phoneField);
 
@@ -234,26 +223,8 @@ public class CinemaView extends JComponent implements ActionListener {
         return -1;
     }
 
-
-    /*
-
-    public void storeSelectedSeat(JButton s) {
-        selectedSeats.add(s);
-
-    }
-
-    public void setInput(String input){
-
-
-    }
-
-    */
-
     public void actionPerformed(ActionEvent e ) {
 
     }
-
-
-
 }
 
