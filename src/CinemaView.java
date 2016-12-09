@@ -96,7 +96,6 @@ public class CinemaView extends JComponent implements ActionListener {
                     (ActionEvent e) ->{
                         Controller.updateReservation(input,true);
                         System.out.println("Reservation updated");
-
                     }
             );
 

@@ -152,13 +152,9 @@ public class Controller {
 
     public static boolean updateReservation(String input, Boolean changeUpdate){
         int[] inputSplit = splitSeatString(input);
-        String inputSplitString = "";
-        for(int i : inputSplit){
-            inputSplitString = inputSplitString +","+i;
-        }
 
         if(changeUpdate){
-            MySqlConnection.updateReservation(reservationID,inputSplitString);
+            MySqlConnection.updateReservation(reservationID,inputSplit);
             return true;
         } else {
             return false;
@@ -167,7 +163,7 @@ public class Controller {
 
 
     //splits seats to an array
-    private static int[] splitSeatString(String seats){
+    public static int[] splitSeatString(String seats){
         //seperates at ","
         String[] arr = seats.split(",");
 
