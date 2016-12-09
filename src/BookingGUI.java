@@ -91,59 +91,10 @@ import java.util.Map;
             JButton changeReservation = new JButton("Change Reservation");
             changeReservation.addActionListener(
                     (ActionEvent e) -> {
-
                         Controller.makeReservationView();
-
-                        /*
-                        JPanel myPanel = new JPanel();
-                        JTextField phoneField = new JTextField(12);
-
-                        myPanel.add(new JLabel("Input Phone:"));
-                        myPanel.add(phoneField);
-
-                        int pressed = JOptionPane.showConfirmDialog(null, myPanel,
-                                "Please Enter Customers PhoneNumber", JOptionPane.OK_CANCEL_OPTION);
-                        if (pressed == JOptionPane.OK_OPTION) {
-                            if(phoneField != null){
-                               try{
-                                   //Controller.updateReservation(Integer.parseInt(phoneField.getText()));
-                               }catch (IllegalArgumentException iae){
-                                   JOptionPane.showMessageDialog(null, "please enter a PhoneNumber");
-                               }
-                            }else{
-                                JOptionPane.showMessageDialog(null, "please enter a PhoneNumber");
-                            }
-                        }
-                        */
                     }
-
-
             );
             buttomBar.add(changeReservation);
-
-            /*
-            // Delete reservation
-            JButton deleteAllReservations = new JButton("Delete Reservation");
-            deleteAllReservations.addActionListener(
-                    (ActionEvent e) -> {
-
-                        JPanel myPanel = new JPanel();
-                        JTextField phoneField = new JTextField(8); // 8 digits
-
-                        myPanel.add(new JLabel("Input Phone Number:"));
-                        myPanel.add(phoneField);
-                        int pressed = JOptionPane.showConfirmDialog(null, myPanel,
-                                "Please Enter Customers PhoneNumber", JOptionPane.OK_CANCEL_OPTION);
-
-
-                        String tlf_nr = phoneField.getText();
-
-                        Controller.deleteAllReservations(tlf_nr);
-                    }
-            );
-            buttomBar.add(deleteAllReservations);
-            */
-
             contentPane.add(actionBar, BorderLayout.EAST);
             contentPane.add(buttomBar, BorderLayout.SOUTH);
             frame.pack();
