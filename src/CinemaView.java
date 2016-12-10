@@ -67,11 +67,13 @@ class CinemaView extends JComponent {
         // Create show-desciptive label
         JLabel label = new JLabel("You have chosen " + title, SwingConstants.CENTER);
 
+        //creates labels for describing the show
         JLabel dateLabel = new JLabel("Date: " + date + ".\n" + "Time: " + time, SwingConstants.LEFT);
         frame.add(dateLabel, BorderLayout.CENTER);
         JLabel hallLabel = new JLabel("Hall: " + hall, SwingConstants.LEFT);
         frame.add(hallLabel, BorderLayout.SOUTH);
 
+        //adds labels to frame
         JPanel labelCollection = new JPanel();
         labelCollection.setLayout(new BorderLayout());
         labelCollection.add(label,BorderLayout.NORTH);
