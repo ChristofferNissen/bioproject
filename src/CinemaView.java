@@ -17,6 +17,7 @@ class CinemaView extends JComponent {
     private java.util.Date date;
     private int hall;
     private int showID;
+
     //private int seatNumber;
     private boolean changeReservation;
     private String input;
