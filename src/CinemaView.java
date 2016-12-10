@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class CinemaView extends JComponent {
+class CinemaView extends JComponent {
 
     //field variables
     private int rows;
@@ -17,10 +17,10 @@ public class CinemaView extends JComponent {
     private java.util.Date date;
     private int hall;
     private int showID;
-    private int seatNumber;
+    //private int seatNumber;
     private boolean changeReservation;
     private String input;
-    private ArrayList reservedSeats;
+    private ArrayList<Integer> reservedSeats;
 
     // Icons
     private ImageIcon vacantSeat;
@@ -33,7 +33,7 @@ public class CinemaView extends JComponent {
     private JButton seat;
 
     // Construktor for creating a cinemaView
-    public CinemaView(int rows, int seats, String title, String time, java.util.Date date, int hall,
+    CinemaView(int rows, int seats, String title, String time, java.util.Date date, int hall,
                       int showID, ArrayList<Integer> reservedSeats, String input, Boolean changeReservation) {
         this.rows = rows;
         this.seats = seats;
@@ -58,7 +58,7 @@ public class CinemaView extends JComponent {
     }
 
     // Make the gui, add the components
-    public void makeFrame(CinemaView c){
+    private void makeFrame(CinemaView c){
         frame.setMinimumSize(new Dimension(900, 750));
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.getContentPane().add(c);
@@ -143,40 +143,76 @@ public class CinemaView extends JComponent {
         frame.setVisible(true);
     }
 
-    // Make seat grid
-    public JPanel makeGrid() {
+    // Make seat grid    CLEAN UP
+    private JPanel makeGrid() {
         JPanel seatArrangement = new JPanel();
         seatArrangement.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
-        seatNumber = 1;
+        int seatNumber = 1;
+
 
         for (int i = 1; i <= rows; i++) {
             for (int j = 1; j <= seats; j++) {
+                 boolean buttonSet = false;
                 // If reservedSeats doesnt contain the seatnumber, set the seat to free
-                if (!reservedSeats.contains(seatNumber)) {
-                    seat = new JButton(""+seatNumber, vacantSeat);
-                    seat.addActionListener(
-                            (ActionEvent e) -> {
-                                JButton clicked = (JButton) e.getSource();
-                                setIcon(clicked,e);
-                            });
-                }
 
                 // Check if it is reserved seats, and if it is also in the input string, set it to selected, otherwise to occupied
-                if (reservedSeats.contains(seatNumber)) {
-                    String s = "," + seatNumber;
-                        if(input.contains(s)){
-                            seat = new JButton(""+seatNumber, occupiedSeat);
+
+                // If it is a reservation
+                if(!input.matches("")) {
+                    // Turn string into int[]
+                    int[] var = Controller.splitSeatString(input);
+
+                    // For every variable in var, check if it matches seatNumber
+                    for (int k : var) {
+                        if (k == seatNumber) {
+                            seat = new JButton("" + seatNumber, occupiedSeat);
                             seat.addActionListener(
                                     (ActionEvent e) -> {
                                         JButton clicked = (JButton) e.getSource();
-                                        setIcon(clicked,e);
+                                        setIcon(clicked, e);
                                     });
                             seat.setIcon(selectedSeat);
-                    } else {
-                            seat = new JButton("occupied", occupiedSeat);
+                            buttonSet = true;
                         }
+
+                        if(!buttonSet && reservedSeats.contains(seatNumber)) {
+                            seat = new JButton("occupied", occupiedSeat);
+                            buttonSet = true;
+                        }
+
+                        if (!buttonSet) {
+                            seat = new JButton("" + seatNumber, vacantSeat);
+                            seat.addActionListener(
+                                    (ActionEvent e) -> {
+                                        JButton clicked = (JButton) e.getSource();
+                                        setIcon(clicked, e);
+                                    });
+                            buttonSet = true;
+                        }
+
+                    }
+                } else { // If it is a showing
+                    if (!reservedSeats.contains(seatNumber)) {
+                        seat = new JButton("" + seatNumber, vacantSeat);
+                        seat.addActionListener(
+                                (ActionEvent e) -> {
+                                    JButton clicked = (JButton) e.getSource();
+                                    setIcon(clicked, e);
+                                });
+                        buttonSet = true;
+                    } else {
+                        seat = new JButton("occupied", occupiedSeat);
+                        buttonSet = true;
+                    }
                 }
+
+
+                    if(!buttonSet) {
+                    seat = new JButton("occupied", occupiedSeat);
+                }
+
+
                 seat.setPreferredSize(new Dimension(46, 38));
                 c.fill = GridBagConstraints.HORIZONTAL;
                 c.insets = new Insets(6, 2, 6, 2);      // External padding around each button
@@ -184,12 +220,13 @@ public class CinemaView extends JComponent {
                 c.gridy = i;
                 seatArrangement.add(seat, c);
                 seatNumber++;
+
             }
-
         }
-        return seatArrangement;                         // Return the JPanel containing the grid
 
+        return seatArrangement;                         // Return the JPanel containing the grid
     }
+
 
     // ActionListener for icon selected when you click on a seat
     private void setIcon(JButton clicked, ActionEvent e) {

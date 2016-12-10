@@ -38,15 +38,15 @@ public class Reservation {
         return reservation_id;
     }
 
-    public int getTlf_nr() {
+    int getTlf_nr() {
         return tlf_nr;
     }
 
-    public int[] getReserved_seats() {
+    int[] getReserved_seats() {
         return reserved_seats;
     }
 
-    public int getShow_id() {
+    int getShow_id() {
         return show_id;
     }
 }

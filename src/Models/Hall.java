@@ -9,7 +9,7 @@ public class Hall {
     private int rows;
 
     // Constructor for a Hall object
-    public Hall(int hall_id, int seats, int rows) {
+    Hall(int hall_id, int seats, int rows) {
         this.hall_id = hall_id;
         this.seats = seats;
         this.rows = rows;

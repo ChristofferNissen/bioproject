@@ -255,7 +255,7 @@ public class MySqlConnection {
     }
 
     // Deletes the reserved seats to the specified id
-    public static boolean deleteReservedSeats(int id){
+    private static boolean deleteReservedSeats(int id){
         Connection connection;
         Statement statement;
 

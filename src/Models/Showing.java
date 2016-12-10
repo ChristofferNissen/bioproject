@@ -13,7 +13,7 @@ public class Showing {
     private String title;
 
     // Constructor
-    public Showing(int show_id, Date date, String time, int hall_id, String title) {
+    Showing(int show_id, Date date, String time, int hall_id, String title) {
         this.show_id = show_id;
         this.date = date;
         this.time = time;

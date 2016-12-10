@@ -9,7 +9,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.util.Map;
 
-public class BookingGUI {
+class BookingGUI {
 
         //fields
         private JFrame frame;                                       //frame
@@ -18,7 +18,7 @@ public class BookingGUI {
         private DefaultListModel<String> stringModel;               //list for storing indicies
 
         //Constructor
-        public BookingGUI() {
+        BookingGUI() {
             frame = new JFrame("CinemaView: Book Tickets");         //initialize frame
             frame.setSize(800, 600);                                //set size
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   //and close
@@ -26,7 +26,7 @@ public class BookingGUI {
         }
 
         //Create frame
-        public void makeFrame(TreeMap treemap) {
+        void makeFrame(TreeMap treemap) {
             //get contentpane
             JPanel contentPane = (JPanel) frame.getContentPane();
 
@@ -114,7 +114,7 @@ public class BookingGUI {
         }
 
         // Create list for displaying shows
-        public JPanel makeList(TreeMap<Integer, String> treeMap) {
+        private JPanel makeList(TreeMap<Integer, String> treeMap) {
             JPanel list = new JPanel();                 //make panel for showing list
             ArrayList<String> temp = new ArrayList<>(); //temporary arraylist
 
@@ -134,7 +134,7 @@ public class BookingGUI {
         }
 
         // Update list
-        public void updateList(TreeMap<Integer,String> treeMap) {
+        private void updateList(TreeMap<Integer,String> treeMap) {
             ArrayList<String> temp = new ArrayList<>();         //creates a temp arraylist
             listModel = new DefaultListModel<>();               //cleans listmodel and stringmodel
             stringModel = new DefaultListModel<>();

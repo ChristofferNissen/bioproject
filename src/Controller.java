@@ -24,14 +24,14 @@ public class Controller {
     }
 
     //creates view of reservations
-    public static void makeReservationView(){
+    static void makeReservationView(){
         getReservationsFromDB();                          //gets all reservations
         ReservationView r = new ReservationView();  //initializes view
         r.makeFrame(getReserv());                    //makes frame with reservations
     }
 
     //Convert from db to treeMap
-    public static TreeMap<Integer, String> getShows() {
+    static TreeMap<Integer, String> getShows() {
         getShowingsFromDB(); // update showings from DB
 
         // Convert from arraylist to TreeMap, return the TreeMap.
@@ -44,7 +44,7 @@ public class Controller {
     }
 
     //Converts reservations from db to treemap
-    public static TreeMap<Integer, String> getReserv() {
+    static TreeMap<Integer, String> getReserv() {
         getReservationsFromDB(); // update reservations from DB
 
         // Convert from ArrayList to TreeMap, return the TreeMap
@@ -56,7 +56,7 @@ public class Controller {
     }
 
     // Create a cinemaView preloaded with selected seats
-    public static void displayReservation(int selectedID) {
+    static void displayReservation(int selectedID) {
         //
         //
         //husk at lave exceptions på null
@@ -86,7 +86,7 @@ public class Controller {
     }
 
     // Get info and create GUI
-    public static void CreateShowViewByID(int selectedID, String input, boolean changeReservation) {
+    static void CreateShowViewByID(int selectedID, String input, boolean changeReservation) {
         // Return the reservationID for the chosen showing
         ArrayList<Integer> reservation_ids = MySqlConnection.getReservationID(selectedID);
         ArrayList<Integer> reserved_seats = new ArrayList<>();
@@ -107,18 +107,18 @@ public class Controller {
 
         // Create cinemaView gui based on data from DB
         if(changeReservation) {
-            CinemaView c = new CinemaView(hall.getRows(), hall.getSeats(),
+             new CinemaView(hall.getRows(), hall.getSeats(),
                     show.getTitle(), show.getTime(), show.getDate(),
                     show.getHall_id(), show.getShow_id(), reserved_seats, input, true);
         } else {
-            CinemaView c = new CinemaView(hall.getRows(), hall.getSeats(),
+             new CinemaView(hall.getRows(), hall.getSeats(),
                     show.getTitle(), show.getTime(), show.getDate(),
                     show.getHall_id(), show.getShow_id(), reserved_seats, input, false);
         }
     }
 
     //create reservation in db
-    public static boolean makeReservation(int tlf, int showID, String seats){
+    static boolean makeReservation(int tlf, int showID, String seats){
         if(tlf > 0) {                                                                           //if tlf number isn't empty
             // splitstring splits a string into an array of ints
             Reservation reservation = new Reservation(tlf, showID, splitSeatString(seats));     //create a reservation object
@@ -131,7 +131,7 @@ public class Controller {
     }
 
     //update a reservation
-    public static boolean updateReservation(String input, Boolean changeUpdate){
+    static boolean updateReservation(String input, Boolean changeUpdate){
         //split string of selected seats to int array
         int[] inputSplit = splitSeatString(input);
 
@@ -145,7 +145,7 @@ public class Controller {
     }
 
     //splits seats to an array
-    public static int[] splitSeatString(String seats) {
+    static int[] splitSeatString(String seats) {
         //seperates at ","
         String[] arr = seats.split(",");
 
@@ -172,7 +172,7 @@ public class Controller {
     }
 
     //Returns a TreeMap over reservations made by specified ID
-    public static TreeMap<Integer, String> getReservationByID(String tlf_nr) {
+    static TreeMap<Integer, String> getReservationByID(String tlf_nr) {
         reservationList= MySqlConnection.getReservationsByPhone(tlf_nr);
 
         // Convert from ArrayList to TreeMap, return the TreeMap
@@ -185,17 +185,17 @@ public class Controller {
     }
 
     // a selectedID from a view
-    public static void storeSelectedID(int a) {
+    static void storeSelectedID(int a) {
         selectID = a;
     }
 
     // Stores a reservationID from a view
-    public static void storeReservationID(int a) {
+    static void storeReservationID(int a) {
         reservationID = a;
     }
 
     // Returns a treeMap over showings which title contained search word
-    public static TreeMap<Integer, String> makeSearchTitle(String title) {
+    static TreeMap<Integer, String> makeSearchTitle(String title) {
         showingList = MySqlConnection.getShowsByTitle(title);
 
         TreeMap<Integer, String> showings = new TreeMap();
@@ -207,7 +207,7 @@ public class Controller {
     }
 
     // Returns a treeMap over showings which date matched the specified date
-    public static TreeMap<Integer, String> makeSearchTime(String date) {
+    static TreeMap<Integer, String> makeSearchTime(String date) {
         showingList = MySqlConnection.getShowsByDate(date);
 
         TreeMap<Integer, String> showings = new TreeMap();
@@ -219,7 +219,7 @@ public class Controller {
     }
 
     // Converts ArrayList to string[]
-    public static String[] arrayListToStringArray(ArrayList<String> temp) {
+    static String[] arrayListToStringArray(ArrayList<String> temp) {
         int i = 0;
         String[] var = new String[temp.size()];
         for (String r : temp) {
@@ -230,7 +230,7 @@ public class Controller {
     }
 
     // Converts treeMap into datavariables for listView
-    public static void getDataFromTreeMap(ArrayList<String> temp, TreeMap<Integer, String> treeMap,
+    static void getDataFromTreeMap(ArrayList<String> temp, TreeMap<Integer, String> treeMap,
                                           DefaultListModel<String> stringModel, DefaultListModel<Map.Entry> listModel) {
         for (Map.Entry<Integer, String> entry : treeMap.entrySet()) {
             String value = entry.getValue();
@@ -240,7 +240,7 @@ public class Controller {
         }
     }
     // Converts treeMap into datavariables for listView
-    public static void getDataFromTreeMap(ArrayList<String> temp, TreeMap<Integer, String> treeMap,
+    static void getDataFromTreeMap(ArrayList<String> temp, TreeMap<Integer, String> treeMap,
                                           DefaultListModel<Map.Entry> listModel){
 
         for (Map.Entry<Integer, String> entry : treeMap.entrySet()) {

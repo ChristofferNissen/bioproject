@@ -7,24 +7,20 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
-/**
- * Created by cn on 06/12/2016.
- */
-public class ReservationView{
+class ReservationView{
 
     // Field variables
     private JFrame frame;
     private JPanel list;
     private JList<String> reservationList;
     private DefaultListModel<Map.Entry> listModel;
-    private DefaultListModel<String> stringModel;
 
-    public ReservationView() {
+    ReservationView() {
         frame = new JFrame("Reservations");
     }
 
     // Creates the gui with elements for displaying the reservation frame
-    public void makeFrame(TreeMap treeMap){
+    void makeFrame(TreeMap treeMap){
         JPanel contentPane = (JPanel)frame.getContentPane();
         frame.setPreferredSize(new Dimension(400, 800));
         contentPane.setLayout(new BorderLayout());
@@ -50,7 +46,9 @@ public class ReservationView{
         JButton changeReservations = new JButton("Change reservation");
         changeReservations.addActionListener(
                 (ActionEvent e ) -> {
-                    if(reservationList.getSelectedIndex() == -1) { } else {
+                    if(reservationList.getSelectedIndex() == -1) {
+
+                    } else {
                         int i = reservationList.getSelectedIndex();
                         int a = (Integer) listModel.get(i).getKey();
 
@@ -120,7 +118,7 @@ public class ReservationView{
     // Updates the visual list of reservations due to search criterias
     private void updateList(TreeMap<Integer,String> treeMap) {
         ArrayList<String> temp = new ArrayList<>();
-        stringModel = new DefaultListModel<>();
+        DefaultListModel<String> stringModel = new DefaultListModel<>();
         listModel = new DefaultListModel<>();
 
         // Get data from treeMap into arrayList
