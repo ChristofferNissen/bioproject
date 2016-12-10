@@ -1,7 +1,5 @@
 package Models;
 
-import java.util.Collection;
-
 /**
  * Created by phili on 11/30/2016.
  */

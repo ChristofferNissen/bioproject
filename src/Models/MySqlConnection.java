@@ -3,19 +3,16 @@ import java.sql.*;
 import java.sql.Date;
 import java.util.*;
 
-/**
- * Created by cn on 30/11/2016.
- */
 public class MySqlConnection {
     private static final String MYDB = "ccpbioDB";
     private static final String USER = "ccpbio";
     private static final String PASS = "password";
-    static final String DB_URL = "jdbc:mysql://mydb.itu.dk/" + MYDB;
+    private static final String DB_URL = "jdbc:mysql://mydb.itu.dk/" + MYDB;
 
     // Returns an arrayList of reservations based on the sql-input provided
     public static ArrayList<Reservation> getFromReservation(String sql) {
-        Connection connection = null;
-        Statement statement = null;
+        Connection connection;
+        Statement statement;
         ArrayList<Models.Reservation> reservations;
         reservations = new ArrayList<>();
 
@@ -48,8 +45,8 @@ public class MySqlConnection {
 
     // Returns an arraylist of showings based on the sql-input provided
     public static ArrayList<Showing> getShowingQuery(String sql) {
-        Connection connection = null;
-        Statement statement = null;
+        Connection connection;
+        Statement statement;
         ArrayList<Models.Showing> shows = new ArrayList<>();
 
         try {
@@ -84,8 +81,8 @@ public class MySqlConnection {
 
     // Return a hall-object based on a hall_id
     public static Hall getHallByID(int hall_id) {
-        Connection connection = null;
-        Statement statement = null;
+        Connection connection ;
+        Statement statement;
         Hall h = null;
 
         try {
@@ -117,8 +114,8 @@ public class MySqlConnection {
 
     // Return a showing-object based on a show_id
     public static Showing getShowByID(int show_id) {
-            Connection connection = null;
-            Statement statement = null;
+            Connection connection;
+            Statement statement;
             Showing show = null;
 
             try {
@@ -153,8 +150,8 @@ public class MySqlConnection {
 
     // Return an arraylist of Reservation_ID's, based on a given show.
     public static ArrayList<Integer> getReservationID(int show_id) {
-        Connection connection = null;
-        Statement statement = null;
+        Connection connection;
+        Statement statement;
         ArrayList<Integer> reservationID = new ArrayList<>();
 
         try {
@@ -184,8 +181,8 @@ public class MySqlConnection {
 
     // Return an arralist of show_ID's based on a given reservation
     public static ArrayList<Integer> getShowID(int reservation_id) {
-        Connection connection = null;
-        Statement statement = null;
+        Connection connection;
+        Statement statement;
         ArrayList<Integer> showID;
         showID = new ArrayList<>();
 
@@ -216,8 +213,8 @@ public class MySqlConnection {
 
     // Returns the reserved seats associated to the specified reservation_id
     public static ArrayList<Integer> getReservedSeats(int reservation_id){
-        Connection connection = null;
-        Statement statement = null;
+        Connection connection;
+        Statement statement;
         ArrayList<Integer> RSeats = new ArrayList<>();
 
         try {
@@ -254,14 +251,13 @@ public class MySqlConnection {
             createReservedSeats(input,reservationID);
             return true;
         }
-
         return false;
     }
 
     // Deletes the reserved seats to the specified id
     public static boolean deleteReservedSeats(int id){
-        Connection connection = null;
-        Statement statement = null;
+        Connection connection;
+        Statement statement;
 
         try {
             // Connect to server
@@ -286,8 +282,8 @@ public class MySqlConnection {
 
     //make reservation
     public static boolean makeReservation(Reservation r) {
-        Connection connection = null;
-        Statement statement = null;
+        Connection connection;
+        Statement statement;
 
         //get tlf, and showID from reservation
         int tlfNr = r.getTlf_nr();
@@ -344,8 +340,8 @@ public class MySqlConnection {
 
     //create reservation for seats
     private static boolean createReservedSeats(int[] seats, int reservation_id) {
-        Connection connection = null;
-        Statement statement = null;
+        Connection connection;
+        Statement statement;
 
         //check variable
         int lines = 1;
@@ -374,8 +370,8 @@ public class MySqlConnection {
 
     // Returns an arralist of reservations made by the specified customer
     public static ArrayList<Reservation> getReservationsByPhone(String phone) {
-        Connection connection = null;
-        Statement statement = null;
+        Connection connection;
+        Statement statement;
         ArrayList<Models.Reservation> res;
         res = new ArrayList<>();
 
@@ -408,11 +404,12 @@ public class MySqlConnection {
         return res;
     }
 
+    /*
     // Might be the same as deleteReservation
     // Delete reservation from reservations && delete reservated seats
     public static void deleteAllReservations(String tlf_nr){
-        Connection connection = null;
-        Statement statement = null;
+        Connection connection;
+        Statement statement;
         ArrayList<Integer> r_id = new ArrayList<>();
 
         try {
@@ -444,10 +441,12 @@ public class MySqlConnection {
 
     }
 
+    */
+
     // Deletes the reservation specified as id. First it will remove the seats from DB, then the reservation
     public static void deleteReservation(int id) {
-        Connection connection = null;
-        Statement statement = null;
+        Connection connection;
+        Statement statement;
 
         try {
             // Connect to server

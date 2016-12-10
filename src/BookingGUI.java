@@ -9,13 +9,11 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.util.Map;
 
-    public class BookingGUI {
+public class BookingGUI {
 
         //fields
         private JFrame frame;                                       //frame
         private JList<String> showList;                             //list of shows
-
-        //private TreeMap<Integer, String> showings;
         private DefaultListModel<Map.Entry> listModel;              //list for storing shows
         private DefaultListModel<String> stringModel;               //list for storing indicies
 
@@ -93,7 +91,7 @@ import java.util.Map;
                                 int i = showList.getSelectedIndex();            //get index of selection
                                 int a = (Integer) listModel.get(i).getKey();    //get key for showing
                                 Controller.storeSelectedID(a);                  //store key in Controller
-                                Controller.getShowByID(a, "",false);            //get the show with chosen id
+                                Controller.CreateShowViewByID(a, "",false);            //get the show with chosen id
                             }
                         }
                 );
@@ -152,4 +150,4 @@ import java.util.Map;
 
 
         }
-    }
+}

@@ -1,7 +1,4 @@
-
 import Models.*;
-import apple.laf.JRSUIUtils;
-
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Map;
@@ -13,9 +10,9 @@ import java.util.TreeMap;
 public class Controller {
 
     private static int selectID;
-    private static int reservationID;                       //stores id from view
+    private static int reservationID;                       // stores id from view
     private static ArrayList<Showing> showingList;          // stores showings from db
-    private static ArrayList<Reservation> reservationList;  //
+    private static ArrayList<Reservation> reservationList;  // stores reservations from db
 
     // Program starts here
     public static void main(String[] args) {
@@ -28,14 +25,14 @@ public class Controller {
 
     //creates view of reservations
     public static void makeReservationView(){
-        getReservations();                          //gets all reservations
+        getReservationsFromDB();                          //gets all reservations
         ReservationView r = new ReservationView();  //initializes view
-        r.makeFrame(getRervs());                    //makes frame with reservations
+        r.makeFrame(getReserv());                    //makes frame with reservations
     }
 
     //Convert from db to treeMap
     public static TreeMap<Integer, String> getShows() {
-        getShowings(); // update showings from DB
+        getShowingsFromDB(); // update showings from DB
 
         // Convert from arraylist to TreeMap, return the TreeMap.
         TreeMap<Integer, String> showings = new TreeMap();
@@ -46,9 +43,9 @@ public class Controller {
         return showings;
     }
 
-    //
-    public static TreeMap<Integer, String> getRervs() {
-        getReservations(); // update reservations from DB
+    //Converts reservations from db to treemap
+    public static TreeMap<Integer, String> getReserv() {
+        getReservationsFromDB(); // update reservations from DB
 
         // Convert from ArrayList to TreeMap, return the TreeMap
         TreeMap<Integer, String> reservations = new TreeMap<>();
@@ -59,7 +56,7 @@ public class Controller {
         return reservations;
     }
 
-    //
+    // Create a cinemaView preloaded with selected seats
     public static void displayReservation(int selectedID) {
         //
         //
@@ -86,11 +83,11 @@ public class Controller {
         }
 
         // show = show_id, input = reserved seats as string
-        getShowByID(show, input, true);
+        CreateShowViewByID(show, input, true);
     }
 
     // Get info and create GUI
-    public static void getShowByID(int selectedID, String input, boolean changeReservation) {
+    public static void CreateShowViewByID(int selectedID, String input, boolean changeReservation) {
         // Return the reservationID for the chosen showing
         ArrayList<Integer> reservation_ids = MySqlConnection.getReservationID(selectedID);
         ArrayList<Integer> reserved_seats = new ArrayList<>();
@@ -172,15 +169,16 @@ public class Controller {
     }
 
     //Load all shows from DB
-    private static void getShowings() {
+    private static void getShowingsFromDB() {
         showingList = MySqlConnection.getShowingQuery("SELECT * FROM shows");
     }
 
     //Load all reservations from DB
-    private static void getReservations() {
+    private static void getReservationsFromDB() {
         reservationList = MySqlConnection.getFromReservation("*");
     }
 
+    //Returns a TreeMap over reservations made by specified ID
     public static TreeMap<Integer, String> getReservationByID(String tlf_nr) {
         reservationList= MySqlConnection.getReservationsByPhone(tlf_nr);
 
@@ -204,7 +202,7 @@ public class Controller {
         reservationID = a;
     }
 
-    //
+    // Returns a treeMap over showings which title contained search word
     public static TreeMap<Integer, String> makeSearchTitle(String title) {
         showingList = MySqlConnection.getShowsByTitle(title);
 
@@ -218,7 +216,7 @@ public class Controller {
 
     }
 
-    //
+    // Returns a treeMap over showings which date matched the specified date
     public static TreeMap<Integer, String> makeSearchTime(String date) {
         showingList = MySqlConnection.getShowsByDate(date);
 

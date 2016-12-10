@@ -1,5 +1,4 @@
 import Models.MySqlConnection;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -78,7 +77,7 @@ public class ReservationView{
 
                         // put into controller, then call from here
                         MySqlConnection.deleteReservation(a);
-                        updateList(Controller.getRervs());
+                        updateList(Controller.getReserv());
                         frame.setVisible(true);
                     }
                 }
