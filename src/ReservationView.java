@@ -15,7 +15,7 @@ public class ReservationView{
     // Field variables
     private JFrame frame;
     private JPanel list;
-    private JList<String> showList;
+    private JList<String> reservationList;
     private DefaultListModel<Map.Entry> listModel;
     private DefaultListModel<String> stringModel;
 
@@ -50,11 +50,9 @@ public class ReservationView{
         JButton changeReservations = new JButton("Change reservation");
         changeReservations.addActionListener(
                 (ActionEvent e ) -> {
-                    if(showList.getSelectedIndex() == -1) { } else {
-                        int i = showList.getSelectedIndex();
-                        System.out.println(i);
+                    if(reservationList.getSelectedIndex() == -1) { } else {
+                        int i = reservationList.getSelectedIndex();
                         int a = (Integer) listModel.get(i).getKey();
-                        System.out.println(a);
 
                         // store reservation_ID for this reservation
                         Controller.storeReservationID(a);
@@ -69,11 +67,9 @@ public class ReservationView{
         deleteReservations.addActionListener(
                 (ActionEvent e ) -> {
 
-                    if(showList.getSelectedIndex() == -1) { } else {
-                        int i = showList.getSelectedIndex();
-                        System.out.println(i);
+                    if(reservationList.getSelectedIndex() == -1) { } else {
+                        int i = reservationList.getSelectedIndex();
                         int a = (Integer) listModel.get(i).getKey();
-                        System.out.println(a);
 
                         // put into controller, then call from here
                         MySqlConnection.deleteReservation(a);
@@ -103,42 +99,34 @@ public class ReservationView{
     }
 
     // Creates a visual list of reservations
-    public void makeReservationList(TreeMap<Integer,String> treeMap) {
+    private void makeReservationList(TreeMap<Integer,String> treeMap) {
         list = new JPanel();
         list.setPreferredSize(new Dimension(400,400));
         listModel = new DefaultListModel<>();
         ArrayList<String> temp = new ArrayList<>();
 
-        for(Map.Entry<Integer,String> entry : treeMap.entrySet()) {
-            String value = entry.getValue();
-            temp.add(value);
-            listModel.addElement(entry);
-        }
+        Controller.getDataFromTreeMap(temp,treeMap,listModel);
 
         // convert to String[] from arrayList
-        int i = 0;
-        String[] var = new String[temp.size()];
-        for(String r : temp) {
-            var[i] = r;
-            i++;
-        }
+        String[] var = Controller.arrayListToStringArray(temp);
 
-        showList = new JList<>(var);
-        showList.setFont(new Font("Cambria", Font.BOLD, 14));
-        showList.setBorder(new EmptyBorder(10,10,10,10));
-        list.add(showList);
+        reservationList = new JList<>(var);
+        reservationList.setFont(new Font("Cambria", Font.BOLD, 14));
+        reservationList.setBorder(new EmptyBorder(10,10,10,10));
+        list.add(reservationList);
 
     }
 
     // Updates the visual list of reservations due to search criterias
-    public void updateList(TreeMap<Integer,String> treeMap) {
+    private void updateList(TreeMap<Integer,String> treeMap) {
         ArrayList<String> temp = new ArrayList<>();
         stringModel = new DefaultListModel<>();
+        listModel = new DefaultListModel<>();
 
         // Get data from treeMap into arrayList
         Controller.getDataFromTreeMap(temp,treeMap,stringModel,listModel);
 
-        showList.setModel(stringModel);
+        reservationList.setModel(stringModel);
         frame.setVisible(true);
 
     }

@@ -55,7 +55,6 @@ public class BookingGUI {
             search.addActionListener(
                     (ActionEvent e) -> {                                    //lambda for functionality
                         String title = movie.getText();                     //get text from movie field
-                        //System.out.println(title);
                         String date = time.getText();                       //and get date field
                         if (!title.isEmpty() && date.isEmpty()) {           //if there is movie text, but no data text
                             //update list searching for title
@@ -68,7 +67,6 @@ public class BookingGUI {
                         if(date.isEmpty() && title.isEmpty()){              //if both are empty, get complete list of shows
                             updateList(Controller.getShows());
                         }
-                        System.out.println(title);
                     }
             );
             searchBar.add(search);  //add search button

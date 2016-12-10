@@ -50,7 +50,6 @@ public class Controller {
         // Convert from ArrayList to TreeMap, return the TreeMap
         TreeMap<Integer, String> reservations = new TreeMap<>();
         for (Reservation r : reservationList) {
-            System.out.println(r.toString());
             reservations.put(r.getReservation_id(), r.toString());
         }
         return reservations;
@@ -120,14 +119,14 @@ public class Controller {
 
     //create reservation in db
     public static boolean makeReservation(int tlf, int showID, String seats){
-        if(tlf > 0) {       //if tlf number isn't empty
-            //splitstring splits a string into an array of ints
-            Reservation reservation = new Reservation(tlf, showID, splitSeatString(seats)); //create a reservation object
-            if (MySqlConnection.makeReservation(reservation)) { //make a reservation
-                return true;    //return true if succesfull
+        if(tlf > 0) {                                                                           //if tlf number isn't empty
+            // splitstring splits a string into an array of ints
+            Reservation reservation = new Reservation(tlf, showID, splitSeatString(seats));     //create a reservation object
+            if (MySqlConnection.makeReservation(reservation)) {                                 //make a reservation
+                return true;                                                                    //return true if succesfull
             }
         }
-        System.out.println("make reservation: " + tlf + showID);
+        System.out.println("Booking failed");
         return false;   //else return false
     }
 
@@ -153,16 +152,10 @@ public class Controller {
         //create an int array same length as string array
         int[] seat = new int[arr.length];
 
-
-
-
-
         //loop through the array, until length
         for(int i = 1; i < arr.length;i++){
             seat[i-1] = Integer.parseInt(arr[i]);
         }
-
-        System.out.println(seat.toString());
 
         //return array
         return seat;
@@ -185,7 +178,6 @@ public class Controller {
         // Convert from ArrayList to TreeMap, return the TreeMap
         TreeMap<Integer,String> reservations = new TreeMap<>();
         for (Reservation r : reservationList) {
-            //System.out.println(r.toString());
             reservations.put(r.getReservation_id(), r.toString());
         }
 
@@ -208,12 +200,10 @@ public class Controller {
 
         TreeMap<Integer, String> showings = new TreeMap();
         for (Showing s : showingList) {
-            //System.out.println(s.getShow_id() + "" + s.toString());
             showings.put(s.getShow_id(), s.toString());
         }
         // The TreeMap to be returned
         return showings;
-
     }
 
     // Returns a treeMap over showings which date matched the specified date
@@ -222,7 +212,6 @@ public class Controller {
 
         TreeMap<Integer, String> showings = new TreeMap();
         for (Showing s : showingList) {
-            //System.out.println(s.getShow_id() + "" + s.toString());
             showings.put(s.getShow_id(), s.toString());
         }
         // The TreeMap to be returned
@@ -234,8 +223,6 @@ public class Controller {
         int i = 0;
         String[] var = new String[temp.size()];
         for (String r : temp) {
-
-            System.out.println(r);
             var[i] = r;
             i++;
         }

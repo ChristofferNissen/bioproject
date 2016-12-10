@@ -318,7 +318,6 @@ public class MySqlConnection {
             while(rs.next()) { //should return, only 1 entry
                 //save id
                 reservation_id = rs.getInt("reservation_id");
-                System.out.println(reservation_id +"");
             }
 
             //reserved the seats related to this reservation in datebase
@@ -403,45 +402,6 @@ public class MySqlConnection {
         // return collection
         return res;
     }
-
-    /*
-    // Might be the same as deleteReservation
-    // Delete reservation from reservations && delete reservated seats
-    public static void deleteAllReservations(String tlf_nr){
-        Connection connection;
-        Statement statement;
-        ArrayList<Integer> r_id = new ArrayList<>();
-
-        try {
-            // Connect to server
-            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-            connection = DriverManager.getConnection(DB_URL, USER, PASS);
-            statement = connection.createStatement();
-
-            ResultSet rs = statement.executeQuery("SELECT reservation_id  FROM reservations where tlf_nr=" + tlf_nr);
-            // Process data
-            while(rs.next()) {
-                int reservation_id = rs.getInt("reservation_id");
-                r_id.add(reservation_id);
-            }
-
-            // Delete seats by ID
-            for(int a : r_id) {
-                statement.executeUpdate("DELETE FROM reserved_seats where reservation_id=" + a);
-            }
-            statement.executeUpdate("DELETE FROM reservations where tlf_nr="+tlf_nr);
-
-            // When done processing, close connection
-            rs.close();
-            connection.close();
-
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    */
 
     // Deletes the reservation specified as id. First it will remove the seats from DB, then the reservation
     public static void deleteReservation(int id) {
