@@ -20,7 +20,6 @@ public class ControllerTest {
     public void setUp(){
         split = ",1,2";
         arr = new int[]{1,2};
-        c = new Controller();
     }
 
     @Test
