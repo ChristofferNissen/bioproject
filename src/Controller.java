@@ -14,8 +14,8 @@ public class Controller {
 
     private static int selectID;
     private static int reservationID;                       //stores id from view
-    private static ArrayList<Showing> showingList; //       // stores showings from db
-    private static ArrayList<Reservation> reservationList; //
+    private static ArrayList<Showing> showingList;          // stores showings from db
+    private static ArrayList<Reservation> reservationList;  //
 
     // Program starts here
     public static void main(String[] args) {
@@ -26,7 +26,6 @@ public class Controller {
         reservationID = 0;
     }
 
-
     //creates view of reservations
     public static void makeReservationView(){
         getReservations();                          //gets all reservations
@@ -34,7 +33,7 @@ public class Controller {
         r.makeFrame(getRervs());                    //makes frame with reservations
     }
 
-    //Convert arrayList to treemap
+    //Convert from db to treeMap
     public static TreeMap<Integer, String> getShows() {
         getShowings(); // update showings from DB
 
@@ -47,6 +46,7 @@ public class Controller {
         return showings;
     }
 
+    //
     public static TreeMap<Integer, String> getRervs() {
         getReservations(); // update reservations from DB
 
@@ -59,10 +59,8 @@ public class Controller {
         return reservations;
     }
 
+    //
     public static void displayReservation(int selectedID) {
-
-
-
         //
         //
         //husk at lave exceptions på null
@@ -150,7 +148,6 @@ public class Controller {
         }
     }
 
-
     //splits seats to an array
     public static int[] splitSeatString(String seats) {
         //seperates at ","
@@ -207,6 +204,7 @@ public class Controller {
         reservationID = a;
     }
 
+    //
     public static TreeMap<Integer, String> makeSearchTitle(String title) {
         showingList = MySqlConnection.getShowsByTitle(title);
 
@@ -220,6 +218,7 @@ public class Controller {
 
     }
 
+    //
     public static TreeMap<Integer, String> makeSearchTime(String date) {
         showingList = MySqlConnection.getShowsByDate(date);
 
@@ -255,7 +254,6 @@ public class Controller {
             listModel.addElement(entry);
         }
     }
-
     // Converts treeMap into datavariables for listView
     public static void getDataFromTreeMap(ArrayList<String> temp, TreeMap<Integer, String> treeMap,
                                           DefaultListModel<Map.Entry> listModel){
@@ -266,6 +264,4 @@ public class Controller {
             listModel.addElement(entry);
         }
     }
-
-
 }

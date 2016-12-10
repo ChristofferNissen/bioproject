@@ -11,17 +11,13 @@ public class Reservation {
     private int[] reserved_seats;
 
     // Constructor
-
     public Reservation(int tlf_nr, int show_id, int[] reserved_seats) {
         this.show_id = show_id;
         this.tlf_nr = tlf_nr;
         this.reserved_seats = reserved_seats;
     }
 
-    public Reservation( int tlf_nr) {
-        this.tlf_nr = tlf_nr;
-    }
-
+    // Constructor
     public Reservation(int reservation_id, int tlf_nr, int show_id) {
         this.reservation_id = reservation_id;
         this.tlf_nr = tlf_nr;
@@ -38,8 +34,6 @@ public class Reservation {
     }
 
     //getters
-
-
     public int getReservation_id() {
         return reservation_id;
     }

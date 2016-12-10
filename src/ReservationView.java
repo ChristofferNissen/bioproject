@@ -13,9 +13,9 @@ import java.util.TreeMap;
  */
 public class ReservationView{
 
+    // Field variables
     private JFrame frame;
     private JPanel list;
-    private JPanel contentPane;
     private JList<String> showList;
     private DefaultListModel<Map.Entry> listModel;
     private DefaultListModel<String> stringModel;
@@ -34,14 +34,15 @@ public class ReservationView{
         search.setLayout(new GridLayout(2,1));
 
         JTextField text = new JTextField();
-        //text.setText("Enter a phone number");
         text.setToolTipText("Enter a phone number");
         search.add(text);
 
         JButton searchReservations = new JButton("Search reservations");
+        frame.getRootPane().setDefaultButton(searchReservations);
         searchReservations.addActionListener(
                 (ActionEvent e ) -> {
                     String tlf_nr = text.getText();
+                    // When search is pressed, look up the phoneNumber and if it exists in DB, get a result back
                     updateList(Controller.getReservationByID(tlf_nr));
                 }
         );
@@ -55,14 +56,12 @@ public class ReservationView{
                         System.out.println(i);
                         int a = (Integer) listModel.get(i).getKey();
                         System.out.println(a);
-                        // a = reservations_id
 
                         // store reservation_ID for this reservation
                         Controller.storeReservationID(a);
 
                         // Display the reselected reservation
                         Controller.displayReservation(a);
-
                         frame.setVisible(true);
                     }
                 }
@@ -76,7 +75,6 @@ public class ReservationView{
                         System.out.println(i);
                         int a = (Integer) listModel.get(i).getKey();
                         System.out.println(a);
-                        //Controller.storeSelectedID(a);
 
                         // put into controller, then call from here
                         MySqlConnection.deleteReservation(a);

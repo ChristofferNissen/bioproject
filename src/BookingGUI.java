@@ -19,7 +19,7 @@ import java.util.Map;
         private DefaultListModel<Map.Entry> listModel;              //list for storing shows
         private DefaultListModel<String> stringModel;               //list for storing indicies
 
-        //constructor
+        //Constructor
         public BookingGUI() {
             frame = new JFrame("CinemaView: Book Tickets");         //initialize frame
             frame.setSize(800, 600);                                //set size
@@ -74,10 +74,9 @@ import java.util.Map;
                     }
             );
             searchBar.add(search);  //add search button
-
+            frame.getRootPane().setDefaultButton(search);
             contentPane.add(searchBar, BorderLayout.NORTH);                 //add all to contentpane
             contentPane.add(makeList(treemap), BorderLayout.CENTER);        //add list of shows by makeList method
-
 
             //Jpanels for buttons: book and change reservation
             JPanel actionBar = new JPanel();
@@ -87,35 +86,35 @@ import java.util.Map;
 
             // Make reservation
             JButton book = new JButton("Book");
-            book.addActionListener(
-                    (ActionEvent e) -> {
-                        if (showList.getSelectedIndex() == -1) {
-                        } else {
-                            int i = showList.getSelectedIndex();            //get index of selection
-                            //System.out.println(i);
-                            int a = (Integer) listModel.get(i).getKey();    //get key for showing
-                            //System.out.println(a);
-                            Controller.storeSelectedID(a);                  //store key in Controller
-                            Controller.getShowByID(a, "",false);            //get the show with chosen id
+                book.addActionListener(
+                        (ActionEvent e) -> {
+                            if (showList.getSelectedIndex() == -1) {
+                            } else {
+                                int i = showList.getSelectedIndex();            //get index of selection
+                                int a = (Integer) listModel.get(i).getKey();    //get key for showing
+                                Controller.storeSelectedID(a);                  //store key in Controller
+                                Controller.getShowByID(a, "",false);            //get the show with chosen id
+                            }
                         }
-                    }
-            );
+                );
+
             actionBar.add(book, BorderLayout.CENTER);                       //add button to layout
 
             // Change reservation
             JButton changeReservation = new JButton("Change Reservation");
-            changeReservation.addActionListener(
-                    (ActionEvent e) -> {
-                        Controller.makeReservationView();                   //switch view to reservationview
-                    }
-            );
-            buttomBar.add(changeReservation);                               //add button
+                changeReservation.addActionListener(
+                        (ActionEvent e) -> {
+                            Controller.makeReservationView();                //switch view to reservationview
+                        }
+                );
+
+            buttomBar.add(changeReservation);                                //add button
             contentPane.add(actionBar, BorderLayout.EAST);                   //add buttons to contentpane
             contentPane.add(buttomBar, BorderLayout.SOUTH);
+
             //pack and set visible
             frame.pack();
             frame.setVisible(true);
-
         }
 
         // Create list for displaying shows

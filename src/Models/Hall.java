@@ -10,21 +10,17 @@ public class Hall {
     private int seats;
     private int rows;
 
-
+    // Constructor for a Hall object
     public Hall(int hall_id, int seats, int rows) {
         this.hall_id = hall_id;
         this.seats = seats;
         this.rows = rows;
     }
 
-    public int getHall_id() {
-        return hall_id;
-    }
-
+    // getters
     public int getSeats() {
         return seats;
     }
-
     public int getRows() {
         return rows;
     }

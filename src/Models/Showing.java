@@ -12,18 +12,13 @@ public class Showing {
     private int hall_id;
     private String title;
 
+    // Constructor
     public Showing(int show_id, Date date, String time, int hall_id, String title) {
         this.show_id = show_id;
         this.date = date;
         this.time = time;
         this.hall_id = hall_id;
         this.title = title;
-    }
-
-    // Methods
-    public Date setDate(String date){
-        String myDate = date;
-        return new Date(myDate);
     }
 
     // Getters
