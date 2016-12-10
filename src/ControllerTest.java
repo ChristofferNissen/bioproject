@@ -14,16 +14,19 @@ public class ControllerTest {
 
     Controller c;
     String split;
+    int[] arr;
 
     @Before
     public void setUp(){
         split = ",1,2";
+        arr = new int[]{1,2};
         c = new Controller();
     }
 
     @Test
     public void testSplitString(){
-
+        assertEquals(arr[0],Controller.splitSeatString(split)[0]);
+        assertEquals(arr[1],Controller.splitSeatString(split)[1]);
     }
 
 
