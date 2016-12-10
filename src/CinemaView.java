@@ -65,8 +65,21 @@ class CinemaView extends JComponent {
         frame.setLayout(new BorderLayout());
 
         // Create show-desciptive label
-        JLabel label = new JLabel("You have chosen " + title + " on the " + date + " at " + time + " in hall " + hall, SwingConstants.CENTER);
-        frame.add(label, BorderLayout.NORTH);
+        JLabel label = new JLabel("You have chosen " + title, SwingConstants.CENTER);
+
+        JLabel dateLabel = new JLabel("Date: " + date + ".\n" + "Time: " + time, SwingConstants.LEFT);
+        frame.add(dateLabel, BorderLayout.CENTER);
+        JLabel hallLabel = new JLabel("Hall: " + hall, SwingConstants.LEFT);
+        frame.add(hallLabel, BorderLayout.SOUTH);
+
+        JPanel labelCollection = new JPanel();
+        labelCollection.setLayout(new BorderLayout());
+        labelCollection.add(label,BorderLayout.NORTH);
+        labelCollection.add(dateLabel,BorderLayout.CENTER);
+        labelCollection.add(hallLabel,BorderLayout.SOUTH);
+
+        frame.add(labelCollection, BorderLayout.NORTH);
+
         label.setFont(new Font("Cambria", Font.BOLD, 14));
         label.setBorder(new EmptyBorder(10,10,10,10));
         cinema.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -190,8 +203,8 @@ class CinemaView extends JComponent {
                                     });
                             buttonSet = true;
                         }
-
                     }
+
                 } else { // If it is a showing
                     if (!reservedSeats.contains(seatNumber)) {
                         seat = new JButton("" + seatNumber, vacantSeat);
@@ -206,8 +219,6 @@ class CinemaView extends JComponent {
                         buttonSet = true;
                     }
                 }
-
-
                     if(!buttonSet) {
                     seat = new JButton("occupied", occupiedSeat);
                 }
