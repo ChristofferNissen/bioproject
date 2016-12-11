@@ -17,14 +17,13 @@ import org.junit.Test;
  * @author  (your name)
  * @version (a version number or a date)
  */
-public class ReservationTest
-{
-    int phone;
-    int showID;
-    int[] seats;
-    int resID;
-    Reservation r;
-    Reservation rID;
+public class ReservationTest {
+    private int phone;
+    private int showID;
+    private int[] seats;
+    private int resID;
+    private Reservation r;
+    private Reservation rID;
 
     /**
      * Sets up the test fixture.

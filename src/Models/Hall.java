@@ -22,6 +22,9 @@ public class Hall {
     public int getRows() {
         return rows;
     }
+    public int getHall_id() {
+        return hall_id;
+    }
 
     @Override
     public String toString() {
