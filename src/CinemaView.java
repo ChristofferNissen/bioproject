@@ -17,6 +17,7 @@ class CinemaView extends JComponent {
     private java.util.Date date;
     private int hall;
     private int showID;
+
     //private int seatNumber;
     private boolean changeReservation;
     private String input;
@@ -67,11 +68,13 @@ class CinemaView extends JComponent {
         // Create show-desciptive label
         JLabel label = new JLabel("You have chosen " + title, SwingConstants.CENTER);
 
+        //creates labels for describing the show
         JLabel dateLabel = new JLabel("Date: " + date + ".\n" + "Time: " + time, SwingConstants.LEFT);
         frame.add(dateLabel, BorderLayout.CENTER);
         JLabel hallLabel = new JLabel("Hall: " + hall, SwingConstants.LEFT);
         frame.add(hallLabel, BorderLayout.SOUTH);
 
+        //adds labels to frame
         JPanel labelCollection = new JPanel();
         JPanel labelCollectionTwo = new JPanel();
         labelCollection.setLayout(new BorderLayout());
