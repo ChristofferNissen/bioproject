@@ -2,7 +2,14 @@ package Models;
 import java.util.Date;
 
 /**
- * Created by cn on 02/12/2016.
+ * Describes a showing or screening of a movie
+ * has one constructor and getter methods for variables
+ *
+ * show_id
+ * date
+ * time
+ * hall_id
+ * title
  */
 public class Showing {
 
@@ -12,7 +19,14 @@ public class Showing {
     private int hall_id;
     private String title;
 
-    // Constructor
+    /**
+     * Constructor
+     * @param show_id   stores id of the showing
+     * @param date      Date of the showing
+     * @param time      Time of day
+     * @param hall_id   which hall its showing in
+     * @param title     Title of the movie
+     */
     Showing(int show_id, Date date, String time, int hall_id, String title) {
         this.show_id = show_id;
         this.date = date;

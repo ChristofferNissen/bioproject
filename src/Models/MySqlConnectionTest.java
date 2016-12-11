@@ -48,9 +48,6 @@ public class MySqlConnectionTest {
         arrayList.add(reservation_id);
 
         assertEquals(arrayList,MySqlConnection.getReservationID(show_id));
-
-
-
     }
 
     // tests if the arrayList contains the show_id for the specified reservation
