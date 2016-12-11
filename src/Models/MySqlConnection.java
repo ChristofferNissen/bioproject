@@ -9,7 +9,7 @@ public class MySqlConnection {
     private static final String PASS = "password";
     private static final String DB_URL = "jdbc:mysql://mydb.itu.dk/" + MYDB;
 
-    // Returns an arrayList of reservations based on the sql-input provided
+    // Returns an arrayList of all reservations
     public static ArrayList<Reservation> getFromReservation(String sql) {
         Connection connection;
         Statement statement;
@@ -43,7 +43,7 @@ public class MySqlConnection {
     }
 
     // Returns an arraylist of showings based on the sql-input provided
-    public static ArrayList<Showing> getShowingQuery(String sql) {
+    public static ArrayList<Showing> getShowings(String sql) {
         Connection connection;
         Statement statement;
         ArrayList<Models.Showing> shows = new ArrayList<>();
@@ -229,8 +229,8 @@ public class MySqlConnection {
             while(rs.next()) {
                 int reserved_seat = rs.getInt("seat_id");
                 RSeats.add(reserved_seat);
-
             }
+
             // When done processing, close connection
             rs.close();
             connection.close();
@@ -254,7 +254,7 @@ public class MySqlConnection {
     }
 
     // Deletes the reserved seats to the specified id
-    private static boolean deleteReservedSeats(int id){
+    public static boolean deleteReservedSeats(int id){
         Connection connection;
         Statement statement;
 
@@ -337,12 +337,12 @@ public class MySqlConnection {
     }
 
     //create reservation for seats
-    private static boolean createReservedSeats(int[] seats, int reservation_id) {
+    public static boolean createReservedSeats(int[] seats, int reservation_id) {
         Connection connection;
         Statement statement;
 
         //check variable
-        int lines = 1;
+        int lines = 0;
         try {
             // Connect to server
             DriverManager.registerDriver(new com.mysql.jdbc.Driver());
@@ -350,7 +350,7 @@ public class MySqlConnection {
             statement = connection.createStatement();
 
             //creates an entry for each seat selected
-            for (int i = 0; i < seats.length-1; i++) {
+            for (int i = 0; i < seats.length; i++) {
                 String reserveSeat = "INSERT INTO reserved_seats (reservation_id, seat_id) VALUES (" + reservation_id + "," + seats[i]+ ")";
                 lines += statement.executeUpdate(reserveSeat);
             }
@@ -379,7 +379,7 @@ public class MySqlConnection {
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
             statement = connection.createStatement();
 
-            ResultSet rs = statement.executeQuery("SELECT * FROM reservations WHERE tlf_nr LIKE '%"+ phone + "%'");
+            ResultSet rs = statement.executeQuery("SELECT * FROM reservations WHERE tlf_nr = " + phone);
 
             // Process data
             while(rs.next()) {
@@ -403,7 +403,7 @@ public class MySqlConnection {
     }
 
     // Deletes the reservation specified as id. First it will remove the seats from DB, then the reservation
-    public static void deleteReservation(int id) {
+    public static boolean deleteReservation(int id) {
         Connection connection;
         Statement statement;
 
@@ -413,27 +413,34 @@ public class MySqlConnection {
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
             statement = connection.createStatement();
 
+            int entitiesDeleted = 0;
+
             // Delete seats by ID
-            statement.executeUpdate("DELETE FROM reserved_seats where reservation_id=" + id);
-            statement.executeUpdate("DELETE FROM reservations where reservation_id=" + id);
+            entitiesDeleted = entitiesDeleted + statement.executeUpdate("DELETE FROM reserved_seats where reservation_id=" + id);
+            entitiesDeleted = entitiesDeleted + statement.executeUpdate("DELETE FROM reservations where reservation_id=" + id);
 
             // When done processing, close connection
             connection.close();
 
+            if(entitiesDeleted > 0) {
+                return true;
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     // Returns an arralist of shows, by a specified title
     public static ArrayList<Showing> getShowsByTitle(String givenTitle) {
         String sql = "SELECT * FROM shows WHERE title LIKE '%"+ givenTitle + "%'";
-        return getShowingQuery(sql);
+        return getShowings(sql);
     }
 
     // Returns an arralist of shows on a specified date
     public static ArrayList<Showing> getShowsByDate(String givenDate) {
         String sql = "SELECT * FROM shows WHERE DATE LIKE '%"+ givenDate + "%'";
-        return getShowingQuery(sql);
+        return getShowings(sql);
     }
 }

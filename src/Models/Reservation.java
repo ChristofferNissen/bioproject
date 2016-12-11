@@ -14,7 +14,8 @@ public class Reservation {
     public Reservation(int tlf_nr, int show_id, int[] reserved_seats) {
         this.show_id = show_id;
         this.tlf_nr = tlf_nr;
-        this.reserved_seats = reserved_seats;
+        this.reserved_seats = new int[reserved_seats.length];
+        getReservedSeats(reserved_seats);
     }
 
     // Constructor
@@ -44,6 +45,15 @@ public class Reservation {
 
     int[] getReserved_seats() {
         return reserved_seats;
+    }
+
+    private void getReservedSeats(int[] reserved_seats) {
+        for(int i = 0; i <=reserved_seats.length-1; i++){
+            this.reserved_seats[i] = reserved_seats[i];
+
+        }
+
+
     }
 
     int getShow_id() {

@@ -163,7 +163,7 @@ public class Controller {
 
     //Load all shows from DB
     private static void getShowingsFromDB() {
-        showingList = MySqlConnection.getShowingQuery("SELECT * FROM shows");
+        showingList = MySqlConnection.getShowings("SELECT * FROM shows");
     }
 
     //Load all reservations from DB
