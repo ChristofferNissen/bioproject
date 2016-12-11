@@ -9,7 +9,7 @@ import java.util.TreeMap;
  */
 public class Controller {
 
-    private static int selectID;
+    private static int selectID;                            // Used to store show_ID from view
     private static int reservationID;                       // stores id from view
     private static ArrayList<Showing> showingList;          // stores showings from db
     private static ArrayList<Reservation> reservationList;  // stores reservations from db
@@ -182,6 +182,11 @@ public class Controller {
         }
 
         return reservations;
+    }
+
+    //Delete reservation by ID
+    static void deleteReservation(int a) {
+        MySqlConnection.deleteReservation(a);
     }
 
     // a selectedID from a view

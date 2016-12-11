@@ -73,10 +73,13 @@ class CinemaView extends JComponent {
         frame.add(hallLabel, BorderLayout.SOUTH);
 
         JPanel labelCollection = new JPanel();
+        JPanel labelCollectionTwo = new JPanel();
         labelCollection.setLayout(new BorderLayout());
+        labelCollectionTwo.setLayout(new BorderLayout());
         labelCollection.add(label,BorderLayout.NORTH);
-        labelCollection.add(dateLabel,BorderLayout.CENTER);
-        labelCollection.add(hallLabel,BorderLayout.SOUTH);
+        labelCollectionTwo.add(dateLabel,BorderLayout.CENTER);
+        labelCollectionTwo.add(hallLabel,BorderLayout.SOUTH);
+        labelCollection.add(labelCollectionTwo,BorderLayout.CENTER);
 
         frame.add(labelCollection, BorderLayout.NORTH);
 

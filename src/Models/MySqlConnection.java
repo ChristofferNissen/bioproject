@@ -13,8 +13,7 @@ public class MySqlConnection {
     public static ArrayList<Reservation> getFromReservation(String sql) {
         Connection connection;
         Statement statement;
-        ArrayList<Models.Reservation> reservations;
-        reservations = new ArrayList<>();
+        ArrayList<Models.Reservation> reservations = new ArrayList<>();
 
         try {
             // Connect to server

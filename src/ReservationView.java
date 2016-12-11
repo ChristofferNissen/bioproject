@@ -1,4 +1,3 @@
-import Models.MySqlConnection;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -47,7 +46,7 @@ class ReservationView{
         changeReservations.addActionListener(
                 (ActionEvent e ) -> {
                     if(reservationList.getSelectedIndex() == -1) {
-
+                        // Do nothing
                     } else {
                         int i = reservationList.getSelectedIndex();
                         int a = (Integer) listModel.get(i).getKey();
@@ -61,16 +60,16 @@ class ReservationView{
                     }
                 }
         );
+
         JButton deleteReservations = new JButton("Delete reservation");
         deleteReservations.addActionListener(
                 (ActionEvent e ) -> {
-
                     if(reservationList.getSelectedIndex() == -1) { } else {
                         int i = reservationList.getSelectedIndex();
                         int a = (Integer) listModel.get(i).getKey();
 
                         // put into controller, then call from here
-                        MySqlConnection.deleteReservation(a);
+                        Controller.deleteReservation(a);
                         updateList(Controller.getReserv());
                         frame.setVisible(true);
                     }
@@ -111,6 +110,7 @@ class ReservationView{
         reservationList = new JList<>(var);
         reservationList.setFont(new Font("Cambria", Font.BOLD, 14));
         reservationList.setBorder(new EmptyBorder(10,10,10,10));
+
         list.add(reservationList);
 
     }
