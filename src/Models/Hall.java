@@ -1,14 +1,21 @@
 package Models;
 
 /**
- * Created by phili on 11/30/2016.
+ * Describes a hall
+ * Stores appropriate data
  */
 public class Hall {
     private int hall_id;
     private int seats;
     private int rows;
 
-    // Constructor for a Hall object
+/**
+ *
+ * Constructor takes param
+ * @param hall_id stores unique id of the hall
+ * @param seats stores the number of seats pr row
+ * @param rows  stores the number of rows
+ */
     Hall(int hall_id, int seats, int rows) {
         this.hall_id = hall_id;
         this.seats = seats;

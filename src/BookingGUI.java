@@ -1,5 +1,6 @@
 /**
- * Created by caecilieiversen on 30/11/2016.
+ * Initial user interface
+ * loaded on start
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -25,8 +26,14 @@ class BookingGUI {
             listModel = new DefaultListModel();                                 //make listmodel
         }
 
-        //Create frame
-        void makeFrame(TreeMap treemap) {
+    /**
+     * Makes frame setup with all panels
+     * Search bar
+     * panel for list of showings
+     * buttons for opening booking screen and change of reservation
+     * @param treemap takes a treemap of showings
+     */
+    void makeFrame(TreeMap treemap) {
             JPanel contentPane = (JPanel) frame.getContentPane();               // Get contentPane
             contentPane.setLayout(new BorderLayout());                          // Set Layout
             contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));             // Set Border
@@ -106,8 +113,12 @@ class BookingGUI {
             frame.setVisible(true);
         }
 
-        // Create list for displaying shows
-        private JPanel makeList(TreeMap<Integer, String> treeMap) {
+    /**
+     * makes a jpanel with a list of showings
+     * @param treeMap takes treemap of showings
+     * @return returns a list of showing
+     */
+    private JPanel makeList(TreeMap<Integer, String> treeMap) {
             JPanel list = new JPanel();                                         //make panel for showing list
             ArrayList<String> temp = new ArrayList<>();                         //temporary arraylist
 
@@ -126,8 +137,11 @@ class BookingGUI {
             return list;
         }
 
-        // Update list
-        private void updateList(TreeMap<Integer,String> treeMap) {
+    /**
+     * updates the list in jpanel from makelist
+     * @param treeMap takes a treemap of showings
+     */
+    private void updateList(TreeMap<Integer,String> treeMap) {
             ArrayList<String> temp = new ArrayList<>();                         //creates a temp arraylist
             listModel = new DefaultListModel<>();                               //cleans listmodel and stringmodel
             stringModel = new DefaultListModel<>();

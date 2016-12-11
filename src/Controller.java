@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * Created by cn on 30/11/2016.
+ * Controls flow of data through the program and handles input from gui
  */
 public class Controller {
 
@@ -14,10 +14,12 @@ public class Controller {
     private static ArrayList<Showing> showingList;          // stores showings from db
     private static ArrayList<Reservation> reservationList;  // stores reservations from db
 
-    // Program starts here
+    /**
+     * Start of the program
+     */
     public static void main(String[] args) {
         BookingGUI gui = new BookingGUI();  // get creates initial UI
-        gui.makeFrame(getShows()); // get Creaetes the frame showing showings
+        gui.makeFrame(getShows()); // get Creates the frame showing showings
 
         //initializes variable
         reservationID = 0;
@@ -30,7 +32,10 @@ public class Controller {
         r.makeFrame(getReserv());                    //makes frame with reservations
     }
 
-    //Convert from db to treeMap
+    /**
+     * Convert showings from db to treeMap
+     * @return treemap of shows
+     */
     static TreeMap<Integer, String> getShows() {
         getShowingsFromDB(); // update showings from DB
 
@@ -43,7 +48,10 @@ public class Controller {
         return showings;
     }
 
-    //Converts reservations from db to treemap
+    /**
+     * Converts reservations from db to treemap
+     * @return treemap of reservations
+     */
     static TreeMap<Integer, String> getReserv() {
         getReservationsFromDB(); // update reservations from DB
 
@@ -117,7 +125,14 @@ public class Controller {
         }
     }
 
-    //create reservation in db
+    /**
+     * create reservation in db
+     * @param tlf       tlf as customer id
+     * @param showID    showID
+     * @param seats     string of seats
+     * @return  true if reservation successful
+     * @return  false if reservation failed
+     */
     static boolean makeReservation(int tlf, int showID, String seats){
         if(tlf > 0) {                                                                           //if tlf number isn't empty
             // splitstring splits a string into an array of ints
@@ -130,7 +145,13 @@ public class Controller {
         return false;   //else return false
     }
 
-    //update a reservation
+    /**
+     * update a reservation
+     * @param input         String with seats
+     * @param changeUpdate  if seats should be updated this must be true
+     * @return true if successful
+     * @return false if unsuccessful
+     */
     static boolean updateReservation(String input, Boolean changeUpdate){
         //split string of selected seats to int array
         int[] inputSplit = splitSeatString(input);
@@ -144,7 +165,11 @@ public class Controller {
         }
     }
 
-    //splits seats to an array
+    /**
+     * splits string seats to an array
+     * @param seats     String of seats seperated by ","
+     * @return  return an array of ints being seats
+     */
     static int[] splitSeatString(String seats) {
         //seperates at ","
         String[] arr = seats.split(",");
@@ -161,12 +186,16 @@ public class Controller {
         return seat;
     }
 
-    //Load all shows from DB
+    /**
+     * Load all shows from DB into showinglist
+     */
     private static void getShowingsFromDB() {
         showingList = MySqlConnection.getShowings("SELECT * FROM shows");
     }
 
-    //Load all reservations from DB
+    /**
+     * Load all reservations from DB into reservationlist
+     */
     private static void getReservationsFromDB() {
         reservationList = MySqlConnection.getFromReservation("*");
     }
@@ -184,22 +213,35 @@ public class Controller {
         return reservations;
     }
 
-    //Delete reservation by ID
+    /**
+     * Delete reservation by ID
+     * @param a id of reservation to delete
+     */
     static void deleteReservation(int a) {
         MySqlConnection.deleteReservation(a);
     }
 
-    // a selectedID from a view
+    /**
+     * Stores an id in class variable
+     * @param a id to store
+     */
     static void storeSelectedID(int a) {
         selectID = a;
     }
 
-    // Stores a reservationID from a view
+    /**
+     * Stores a reservationID from view
+     * @param a id to store
+     */
     static void storeReservationID(int a) {
         reservationID = a;
     }
 
-    // Returns a treeMap over showings which title contained search word
+    /**
+     * Returns a treeMap of showings which title contained search word
+     * @param title title searched
+     * @return Treemap of showings
+     */
     static TreeMap<Integer, String> makeSearchTitle(String title) {
         showingList = MySqlConnection.getShowsByTitle(title);
 
@@ -211,7 +253,11 @@ public class Controller {
         return showings;
     }
 
-    // Returns a treeMap over showings which date matched the specified date
+    /**
+     * Returns a treeMap over showings which date matched the specified date
+     * @param date String describing date searched
+     * @return  Treemap of showings
+     */
     static TreeMap<Integer, String> makeSearchTime(String date) {
         showingList = MySqlConnection.getShowsByDate(date);
 
@@ -223,7 +269,11 @@ public class Controller {
         return showings;
     }
 
-    // Converts ArrayList to string[]
+    /**
+     * Converts ArrayList to string[]
+     * @param temp Arraylist to be converted
+     * @return  String array
+     */
     static String[] arrayListToStringArray(ArrayList<String> temp) {
         int i = 0;
         String[] var = new String[temp.size()];
@@ -234,7 +284,13 @@ public class Controller {
         return var;
     }
 
-    // Converts treeMap into datavariables for listView
+    /**
+     * Converts treeMap into datavariables for listView
+     * @param temp          temporary arraylist
+     * @param treeMap       Treemap of values
+     * @param stringModel   ListModel
+     * @param listModel     listmodel
+     */
     static void getDataFromTreeMap(ArrayList<String> temp, TreeMap<Integer, String> treeMap,
                                           DefaultListModel<String> stringModel, DefaultListModel<Map.Entry> listModel) {
         for (Map.Entry<Integer, String> entry : treeMap.entrySet()) {
@@ -244,7 +300,13 @@ public class Controller {
             listModel.addElement(entry);
         }
     }
-    // Converts treeMap into datavariables for listView
+
+    /**
+     * Converts treeMap into datavariables for listView
+     * @param temp
+     * @param treeMap
+     * @param listModel
+     */
     static void getDataFromTreeMap(ArrayList<String> temp, TreeMap<Integer, String> treeMap,
                                           DefaultListModel<Map.Entry> listModel){
 
