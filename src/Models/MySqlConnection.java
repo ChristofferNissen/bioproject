@@ -16,7 +16,10 @@ public class MySqlConnection {
     // Getters
     //
 
-    // Returns an arrayList of all reservations
+    /**
+     * Retried all reservations from the database
+     * @return An arrayylist<Rerservation> containing all reservations currenly in the db
+     */
     public static ArrayList<Reservation> getReservations() {
         Connection connection;
         Statement statement;
@@ -49,7 +52,11 @@ public class MySqlConnection {
         return reservations;
     }
 
-    // Returns an arraylist of showings based on the sql-input provided
+    /**
+     * Retrieves all showings maching the sql command
+     * @param sql SQL-command as string
+     * @return An arraylist containing showings macbing the sql-command
+     */
     public static ArrayList<Showing> getShowings(String sql) {
         Connection connection;
         Statement statement;
@@ -84,7 +91,11 @@ public class MySqlConnection {
         return shows;
     }
 
-    // Return a hall-object based on a hall_id
+    /**
+     * Gets the hall object specied by hall_id from the db
+     * @param hall_id hall_ID
+     * @return Hall object
+     */
     public static Hall getHallByHallID(int hall_id) {
         Connection connection ;
         Statement statement;
@@ -117,7 +128,11 @@ public class MySqlConnection {
         return h;
     }
 
-    // Return a showing-object based on a show_id
+    /**
+     * Retired information about a show specified by show_id
+     * @param show_id Show_ID
+     * @return a showing about corresponsing to the show_id given as a parameter
+     */
     public static Showing getShowByShowID(int show_id) {
             Connection connection;
             Statement statement;
@@ -153,7 +168,11 @@ public class MySqlConnection {
 
         }
 
-    // Return an arraylist of Reservation_ID's, based on a given show.
+    /**
+     * Retrieves all reservations for a given show
+     * @param show_id Show_ID
+     * @return returns an arrayList<Integer> containing reservation_ids
+     */
     public static ArrayList<Integer> getReservationByShowID(int show_id) {
         Connection connection;
         Statement statement;
@@ -184,7 +203,11 @@ public class MySqlConnection {
         return reservationID;
     }
 
-    // Return an arralist of show_ID's based on a given reservation
+    /**
+     * Retrives the show_id for a particular reservation_id
+     * @param reservation_id Reservation_ID
+     * @return an arrayList containing a show_id
+     */
     public static ArrayList<Integer> GetShowByReservationId(int reservation_id) {
         Connection connection;
         Statement statement;
@@ -216,7 +239,11 @@ public class MySqlConnection {
         return showID;
     }
 
-    // Returns the reserved seats associated to the specified reservation_id
+    /**
+     * Retrieves the seats reserved by a particular ID
+     * @param reservation_id Reservation_ID
+     * @return An arrayList<Integer> containing the reserved seats
+     */
     public static ArrayList<Integer> getReservedSeats(int reservation_id){
         Connection connection;
         Statement statement;
@@ -249,8 +276,12 @@ public class MySqlConnection {
         return RSeats;
     }
 
-    // Returns an arralist of reservations made by the specified customer
-    public static ArrayList<Reservation> getReservationsByPhone(String phone) {
+    /**
+     * Retrieves the reservation made under a particular phonenumber
+     * @param phoneNumber PhoneNumber of the reservation
+     * @return  An arrayList<Reservations>
+     */
+    public static ArrayList<Reservation> getReservationsByPhone(String phoneNumber) {
         Connection connection;
         Statement statement;
         ArrayList<Models.Reservation> res;
@@ -262,7 +293,7 @@ public class MySqlConnection {
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
             statement = connection.createStatement();
 
-            ResultSet rs = statement.executeQuery("SELECT * FROM reservations WHERE tlf_nr = " + phone);
+            ResultSet rs = statement.executeQuery("SELECT * FROM reservations WHERE tlf_nr = " + phoneNumber);
 
             // Process data
             while(rs.next()) {
@@ -285,15 +316,23 @@ public class MySqlConnection {
         return res;
     }
 
-    // Returns an arralist of shows, by a specified title
-    public static ArrayList<Showing> getShowsByTitle(String givenTitle) {
-        String sql = "SELECT * FROM shows WHERE title LIKE '%"+ givenTitle + "%'";
+    /**
+     * Retrieves showings maching a given title
+     * @param Title Title to search for
+     * @return An ArrayList<Showing>
+     */
+    public static ArrayList<Showing> getShowsByTitle(String Title) {
+        String sql = "SELECT * FROM shows WHERE title LIKE '%"+ Title + "%'";
         return getShowings(sql);
     }
 
-    // Returns an arralist of shows on a specified date
-    public static ArrayList<Showing> getShowsByDate(String givenDate) {
-        String sql = "SELECT * FROM shows WHERE DATE LIKE '%"+ givenDate + "%'";
+    /**
+     * Retrives showings on a particular date
+     * @param Date Date for which to find showings
+     * @return an ArrayList<Showing>
+     */
+    public static ArrayList<Showing> getShowsByDate(String Date) {
+        String sql = "SELECT * FROM shows WHERE DATE LIKE '%"+ Date + "%'";
         return getShowings(sql);
     }
 
@@ -301,8 +340,12 @@ public class MySqlConnection {
     // Inserts
     //
 
-
-    //create reservation for seats
+    /**
+     * creates entities in the database for the seats reserved by the particular id
+     * @param seats int[] containing seats
+     * @param reservation_id Reservation ID
+     * @return boolean
+     */
     public static boolean createReservedSeats(int[] seats, int reservation_id) {
         Connection connection;
         Statement statement;
@@ -332,7 +375,11 @@ public class MySqlConnection {
             return false;
     }
 
-    //create reservation
+    /**
+     * creates the reservation in the database
+     * @param r Reservation Object
+     * @return boolean
+     */
     public static boolean createReservation(Reservation r) {
         Connection connection;
         Statement statement;
@@ -389,8 +436,12 @@ public class MySqlConnection {
         return false;
     }
 
-    // Updates the reserved_seats to a reservation id. First: Delete the reserved seats prior
-    // to this update, insert new
+    /**
+     * update reservation with new seats
+     * @param reservationID The reservationID for the reservation to update
+     * @param input The new seats as a string of from ",1,2" for seat 1 and 2
+     * @return boolean
+     */
     public static boolean updateReservation(int reservationID, int[] input){
         if(deleteReservedSeats(reservationID)){
             createReservedSeats(input,reservationID);
@@ -403,7 +454,11 @@ public class MySqlConnection {
     // Deletes
     //
 
-    // Deletes the reservation specified as id. First it will remove the seats from DB, then the reservation
+    /**
+     * Removes a reservation and its seats from the database
+     * @param id ReservationID of the reservation to remove
+     * @return boolean
+     */
     public static boolean deleteReservation(int id) {
         Connection connection;
         Statement statement;
@@ -433,7 +488,11 @@ public class MySqlConnection {
         return false;
     }
 
-    // Deletes the reserved seats to the specified id
+    /**
+     * Deletes the entities in reserved_seats in DB for the specified ID
+     * @param id
+     * @return boolean
+     */
     public static boolean deleteReservedSeats(int id){
         Connection connection;
         Statement statement;

@@ -10,6 +10,9 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.util.Map;
 
+/**
+ * Creates the BookingGUI window
+ */
 class BookingGUI {
 
         //fields
