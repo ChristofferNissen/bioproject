@@ -51,25 +51,24 @@ public class ReservationTest {
         assertEquals(showID, r.getShow_id());
     }
 
+
     @Test
     public void testGetReservedSeats(){
-        assertEquals(seats, r.getReserved_seats());
+        for(int i = 0; i < r.getReserved_seats().length; i++)
+        assertEquals(seats[i], r.getReserved_seats()[i]);
     }
+
 
     @Test
     public void testGetReservationID(){
-        assertEquals(resID, rID.getReservation_id());
+        assertEquals(resID,rID.getReservation_id());
     }
 
     @Test
     public void testNonEqualResID(){
         assertFalse(resID == r.getReservation_id());
     }
-    /**
-     * Tears down the test fixture.
-     *
-     * Called after every test case method.
-     */
+
     @After
     public void tearDown()
     {

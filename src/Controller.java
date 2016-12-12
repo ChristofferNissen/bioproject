@@ -148,7 +148,6 @@ public class Controller {
                 return true;                                                                    //return true if succesfull
             }
         }
-        System.out.println("Booking failed");
         return false;   //else return false
     }
 
