@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.*;
 
+/**
+ * Class CinemaView contains the code for creating the GUI for showing reservations and showings
+ */
+
 class CinemaView extends JComponent {
 
     //field variables
@@ -33,7 +37,19 @@ class CinemaView extends JComponent {
     private JPanel cinema;
     private JButton seat;
 
-    // Construktor for creating a cinemaView
+    /**
+     * Creates a new CinemaView with all the data to be displayed
+     * @param rows  Number of rows in hall
+     * @param seats Number of seats per row
+     * @param title Movietitle thats being shown
+     * @param time  Time of the showing
+     * @param date  Date of the showing
+     * @param hall  In which hall the showing is shown (hall_id)
+     * @param showID The ID of the show in DB
+     * @param reservedSeats ArrayList<Integer> of reserved seats
+     * @param input reservedSeats as String of from ",1,2" (For when preloading a reservation with seats allready selected)
+     * @param changeReservation Boolean true if its a reservation being changed rather than showing available seats
+     */
     CinemaView(int rows, int seats, String title, String time, java.util.Date date, int hall,
                       int showID, ArrayList<Integer> reservedSeats, String input, Boolean changeReservation) {
         this.rows = rows;
@@ -58,7 +74,10 @@ class CinemaView extends JComponent {
         makeFrame(this);
     }
 
-    // Make the gui, add the components
+    /**
+     * Creates the gui elements and makes the frame visible
+     * @param c a CinemaView object containing all information needed for building the gui
+     */
     private void makeFrame(CinemaView c){
         frame.setMinimumSize(new Dimension(900, 750));
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -162,13 +181,15 @@ class CinemaView extends JComponent {
         frame.setVisible(true);
     }
 
-    // Make seat grid    CLEAN UP
+    /**
+     * Creates a grid of seats
+     * @return Returns a JPanel containing the seat grid
+     */
     private JPanel makeGrid() {
         JPanel seatArrangement = new JPanel();
         seatArrangement.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         int seatNumber = 1;
-
 
         for (int i = 1; i <= rows; i++) {
             for (int j = 1; j <= seats; j++) {
@@ -177,13 +198,14 @@ class CinemaView extends JComponent {
 
                 // Check if it is reserved seats, and if it is also in the input string, set it to selected, otherwise to occupied
 
-                // If it is a reservation
+                // If it is a reservation and not a new booking
                 if(!input.matches("")) {
-                    // Turn string into int[]
+                    // Turn string into int[], to check if a seat is both in input and is a reserved seat
                     int[] var = Controller.splitSeatString(input);
 
                     // For every variable in var, check if it matches seatNumber
                     for (int k : var) {
+                        // If k, a seatNumber in input, set it to selected seat, set buttonSet to true
                         if (k == seatNumber) {
                             seat = new JButton("" + seatNumber, occupiedSeat);
                             seat.addActionListener(
@@ -195,11 +217,13 @@ class CinemaView extends JComponent {
                             buttonSet = true;
                         }
 
+                        // If buttonSet is still false, and the seatNumber is in reservedSeasts, set it to occupied, and buttonSet to true
                         if(!buttonSet && reservedSeats.contains(seatNumber)) {
                             seat = new JButton("occupied", occupiedSeat);
                             buttonSet = true;
                         }
 
+                        // If buttonSet is still false, set the seat to be a free seat
                         if (!buttonSet) {
                             seat = new JButton("" + seatNumber, vacantSeat);
                             seat.addActionListener(
@@ -212,6 +236,7 @@ class CinemaView extends JComponent {
                     }
 
                 } else { // If it is a showing
+                    // if seatNumber is not in reservedSeats, set it to free, set buttonSet to true
                     if (!reservedSeats.contains(seatNumber)) {
                         seat = new JButton("" + seatNumber, vacantSeat);
                         seat.addActionListener(
@@ -220,11 +245,10 @@ class CinemaView extends JComponent {
                                     setIcon(clicked, e);
                                 });
                         buttonSet = true;
-                    } else {
-                        seat = new JButton("occupied", occupiedSeat);
-                        buttonSet = true;
                     }
+
                 }
+                    // if buttonSet is false, set it to occupied
                     if(!buttonSet) {
                     seat = new JButton("occupied", occupiedSeat);
                 }
@@ -244,8 +268,11 @@ class CinemaView extends JComponent {
         return seatArrangement;                         // Return the JPanel containing the grid
     }
 
-
-    // ActionListener for icon selected when you click on a seat
+    /**
+     * Determines wether to set the icon to free or to selectedSeat, and it will record the actionCommands so that the seats marked selected will get saved
+     * @param clicked JButton to setIcon
+     * @param e ActionEvent
+     */
     private void setIcon(JButton clicked, ActionEvent e) {
         if (!clicked.getIcon().equals(selectedSeat)) {
             clicked.setIcon(selectedSeat);
@@ -258,7 +285,10 @@ class CinemaView extends JComponent {
         }
     }
 
-    // Request for the customers phone Number for when booking seats
+    /**
+     * Requests the number to make a reservation
+     * @return int Customer's number
+     */
     private int getCustomerNumber(){
         JPanel myPanel = new JPanel();
         JTextField phoneField = new JTextField(12);

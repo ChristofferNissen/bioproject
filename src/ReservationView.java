@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * ReservationView creates the gui element "Reservations" which will be created when "Change Reseration" is pressed in bookingGUI
+ */
 class ReservationView{
 
     // Field variables
@@ -18,7 +21,11 @@ class ReservationView{
         frame = new JFrame("Reservations");
     }
 
-    // Creates the gui with elements for displaying the reservation frame
+    /**
+     * Constructs the gui elements of ReservationView
+     * @param treeMap A treeMap containing Reservations
+     * @return boolean on condition if frame was created
+     */
     boolean makeFrame(TreeMap treeMap){
         JPanel contentPane = (JPanel)frame.getContentPane();
         frame.setPreferredSize(new Dimension(400, 800));
@@ -96,7 +103,10 @@ class ReservationView{
 
     }
 
-    // Creates a visual list of reservations
+    /**
+     * Creates the gui element list which contains displays all reservations
+     * @param treeMap Treemap<Integer,String> consisting of the reservation_id as key, and reservation.toString() as value
+     */
     private void makeReservationList(TreeMap<Integer,String> treeMap) {
         list = new JPanel();
         list.setPreferredSize(new Dimension(400,400));
@@ -117,6 +127,11 @@ class ReservationView{
     }
 
     // Updates the visual list of reservations due to search criterias
+
+    /**
+     * Updates the gui-element list based on a new treeMap containing reservations
+     * @param treeMap New treeMap to be displayed
+     */
     private void updateList(TreeMap<Integer,String> treeMap) {
         ArrayList<String> temp = new ArrayList<>();
         DefaultListModel<String> stringModel = new DefaultListModel<>();
