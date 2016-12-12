@@ -28,7 +28,7 @@ public class MySqlConnectionTest {
     @Test
     public void getHallByIDTest() {
         for(int i = 1; i < 3; i++) {
-            assertEquals(MySqlConnection.getHallByID(i).getHall_id(),i);
+            assertEquals(MySqlConnection.getHallByHallID(i).getHall_id(),i);
         }
 
     }
@@ -38,7 +38,7 @@ public class MySqlConnectionTest {
     public void getShowByIDTest() {
         for(int i = 10; i < 16; i++) {
             int show_id = i;
-            assertEquals(MySqlConnection.getShowByID(show_id).getShow_id(),show_id);
+            assertEquals(MySqlConnection.getShowByShowID(show_id).getShow_id(),show_id);
         }
     }
 
@@ -50,7 +50,7 @@ public class MySqlConnectionTest {
         ArrayList<Integer> arrayList = new ArrayList<>();
         arrayList.add(reservation_id);
 
-        assertEquals(arrayList,MySqlConnection.getReservationID(show_id));
+        assertEquals(arrayList,MySqlConnection.getReservationByShowID(show_id));
     }
 
     // tests if the arrayList contains the show_id for the specified reservation
@@ -59,12 +59,12 @@ public class MySqlConnectionTest {
         int reservation_id = 148;
         ArrayList<Integer> id = new ArrayList<>();
         id.add(10);
-        assertEquals(id,MySqlConnection.getShowID(reservation_id));
+        assertEquals(id,MySqlConnection.GetShowByReservationId(reservation_id));
 
     }
 
     // In this testmethod we test the fuctionality of MySqlConnection.deleteReservation()
-    // , MySqlConnection.makeReservation,
+    // , MySqlConnection.createReservation,
     // and MySqlConnection.updateReservation
     @Test
     public void makeUpdateDeleteReservationTest() {
@@ -83,7 +83,7 @@ public class MySqlConnectionTest {
         Reservation r = new Reservation(666,10,b);
 
         // send reservation to DB
-        assertEquals(true,MySqlConnection.makeReservation(r));
+        assertEquals(true,MySqlConnection.createReservation(r));
 
         // retrieve reservation from DB
         ArrayList<Reservation> resMake = MySqlConnection.getReservationsByPhone("666");
@@ -197,9 +197,9 @@ public class MySqlConnectionTest {
     @Test
     public void getShowsByDateTest() {
         ArrayList<Showing> show_ids = new ArrayList<>();
-        Showing one = (MySqlConnection.getShowByID(14));
+        Showing one = (MySqlConnection.getShowByShowID(14));
         show_ids.add(one);
-        Showing two = (MySqlConnection.getShowByID(15));
+        Showing two = (MySqlConnection.getShowByShowID(15));
         show_ids.add(two);
 
         ArrayList<Showing> result_ids = MySqlConnection.getShowsByDate("01-01");
@@ -214,9 +214,9 @@ public class MySqlConnectionTest {
     public void getShowsByTitleTest() {
         // we know that the shows in the DB that will be returned when the string "casino" is passed as an argument is 10,11
         ArrayList<Showing> show_ids = new ArrayList<>();
-        Showing one = (MySqlConnection.getShowByID(10));
+        Showing one = (MySqlConnection.getShowByShowID(10));
         show_ids.add(one);
-        Showing two = (MySqlConnection.getShowByID(11));
+        Showing two = (MySqlConnection.getShowByShowID(11));
         show_ids.add(two);
 
         ArrayList<Showing> result_ids = MySqlConnection.getShowsByTitle("casino");

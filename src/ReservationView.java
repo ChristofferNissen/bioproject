@@ -19,7 +19,7 @@ class ReservationView{
     }
 
     // Creates the gui with elements for displaying the reservation frame
-    void makeFrame(TreeMap treeMap){
+    boolean makeFrame(TreeMap treeMap){
         JPanel contentPane = (JPanel)frame.getContentPane();
         frame.setPreferredSize(new Dimension(400, 800));
         contentPane.setLayout(new BorderLayout());
@@ -92,6 +92,7 @@ class ReservationView{
 
         frame.pack();
         frame.setVisible(true);
+        return true;
 
     }
 

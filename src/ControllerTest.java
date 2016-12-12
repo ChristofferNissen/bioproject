@@ -2,6 +2,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Map;
+import java.util.TreeMap;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
@@ -10,9 +13,8 @@ import static org.junit.Assert.assertFalse;
  */
 public class ControllerTest {
 
-    Controller c;
-    String split;
-    int[] arr;
+    private String split;
+    private int[] arr;
 
     @Before
     public void setUp(){
@@ -26,6 +28,42 @@ public class ControllerTest {
         assertEquals(arr[1],Controller.splitSeatString(split)[1]);
     }
 
+    // tests if the displayReservationView creates a view
+    @Test
+    public void displayReservationTest(){
+        assertEquals(true,Controller.displayReservation(144));
+    }
+
+    // tests if it can load a view both with and without selected seats
+    @Test
+    public void CreateShowViewByIDTest(){
+        assertEquals(true,Controller.CreateShowViewByID(10,"",false));
+        assertEquals(true,Controller.CreateShowViewByID(10,",30,31,32",true));
+    }
+
+    // tests if it manages to create a reservation
+    @Test
+    public void createReservationTest() {
+        assertFalse(Controller.createReservation(-1,10,"10,11"));
+        assertEquals(true,Controller.createReservation(99,11,",10,11"));
+
+        // delete reservation after use
+        TreeMap k = Controller.getReservationByID("99");
+        Integer i = (Integer) k.firstKey();
+        assertEquals(true,Controller.deleteReservation(i));
+    }
+
+    // test if it manages to create a reservationView
+    @Test
+    public void makeReservationViewTest() {
+        assertEquals(true,Controller.makeReservationView());
+    }
+
+    // tests if it manages to update a reservation
+    @Test
+    public void updateReservationTest() {
+        assertEquals(true,Controller.updateReservation("47,48,49",true,202));
+    }
 
     @After
     public void tearDown(){}

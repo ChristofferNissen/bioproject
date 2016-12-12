@@ -147,7 +147,7 @@ class CinemaView extends JComponent {
                                 JOptionPane.showMessageDialog(null, "Please enter a PhoneNumber");
                         }
                         // Report back if the reservation was succesfull
-                        if (Controller.makeReservation(tlf, showID, input) && input.length() > 0) {
+                        if (Controller.createReservation(tlf, showID, input) && input.length() > 0) {
                             JOptionPane.showMessageDialog(null, "Booking Succes");
                             frame.dispose();
                         }else {

@@ -3,14 +3,21 @@ import java.sql.*;
 import java.sql.Date;
 import java.util.*;
 
+/**
+ * MySqlConnection contains all the methods being used to pull data from the database
+ */
 public class MySqlConnection {
     private static final String MYDB = "ccpbioDB";
     private static final String USER = "ccpbio";
     private static final String PASS = "password";
     private static final String DB_URL = "jdbc:mysql://mydb.itu.dk/" + MYDB;
 
+    //
+    // Getters
+    //
+
     // Returns an arrayList of all reservations
-    public static ArrayList<Reservation> getFromReservation(String sql) {
+    public static ArrayList<Reservation> getReservations() {
         Connection connection;
         Statement statement;
         ArrayList<Models.Reservation> reservations = new ArrayList<>();
@@ -20,7 +27,7 @@ public class MySqlConnection {
             DriverManager.registerDriver(new com.mysql.jdbc.Driver());
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
             statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT " + sql + " FROM reservations");
+            ResultSet rs = statement.executeQuery("SELECT * FROM reservations");
 
             // Process result set from database
             while (rs.next()) {
@@ -53,7 +60,6 @@ public class MySqlConnection {
             DriverManager.registerDriver(new com.mysql.jdbc.Driver());
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
             statement = connection.createStatement();
-
             ResultSet rs = statement.executeQuery(sql);
 
             // Process data
@@ -79,7 +85,7 @@ public class MySqlConnection {
     }
 
     // Return a hall-object based on a hall_id
-    public static Hall getHallByID(int hall_id) {
+    public static Hall getHallByHallID(int hall_id) {
         Connection connection ;
         Statement statement;
         Hall h = null;
@@ -112,7 +118,7 @@ public class MySqlConnection {
     }
 
     // Return a showing-object based on a show_id
-    public static Showing getShowByID(int show_id) {
+    public static Showing getShowByShowID(int show_id) {
             Connection connection;
             Statement statement;
             Showing show = null;
@@ -148,7 +154,7 @@ public class MySqlConnection {
         }
 
     // Return an arraylist of Reservation_ID's, based on a given show.
-    public static ArrayList<Integer> getReservationID(int show_id) {
+    public static ArrayList<Integer> getReservationByShowID(int show_id) {
         Connection connection;
         Statement statement;
         ArrayList<Integer> reservationID = new ArrayList<>();
@@ -179,7 +185,7 @@ public class MySqlConnection {
     }
 
     // Return an arralist of show_ID's based on a given reservation
-    public static ArrayList<Integer> getShowID(int reservation_id) {
+    public static ArrayList<Integer> GetShowByReservationId(int reservation_id) {
         Connection connection;
         Statement statement;
         ArrayList<Integer> showID;
@@ -243,20 +249,12 @@ public class MySqlConnection {
         return RSeats;
     }
 
-    // Updates the reserved_seats to a reservation id. First: Delete the reserved seats prior
-    // to this update, insert new
-    public static boolean updateReservation(int reservationID, int[] input){
-        if(deleteReservedSeats(reservationID)){
-            createReservedSeats(input,reservationID);
-            return true;
-        }
-        return false;
-    }
-
-    // Deletes the reserved seats to the specified id
-    public static boolean deleteReservedSeats(int id){
+    // Returns an arralist of reservations made by the specified customer
+    public static ArrayList<Reservation> getReservationsByPhone(String phone) {
         Connection connection;
         Statement statement;
+        ArrayList<Models.Reservation> res;
+        res = new ArrayList<>();
 
         try {
             // Connect to server
@@ -264,23 +262,78 @@ public class MySqlConnection {
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
             statement = connection.createStatement();
 
-            if(statement.executeUpdate("DELETE FROM reserved_seats WHERE reservation_id = " + id) > 0) {
-                connection.close();
-                return true;
-            }
+            ResultSet rs = statement.executeQuery("SELECT * FROM reservations WHERE tlf_nr = " + phone);
 
-            //close connection
+            // Process data
+            while(rs.next()) {
+                int show_id = rs.getInt("show_id");
+                int reservation_id = rs.getInt("reservation_id");
+                int tlf_nr = rs.getInt("tlf_nr");
+                Reservation r = new Reservation(reservation_id, tlf_nr, show_id);
+                res.add(r);
+
+            }
+            // When done processing, close connection
+            rs.close();
             connection.close();
 
-        } catch(Exception e) {
-            //print stack trace if exceptions are thrown
-            e.printStackTrace();
-        }
-        return false;
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+
+        // return collection
+        return res;
     }
 
-    //make reservation
-    public static boolean makeReservation(Reservation r) {
+    // Returns an arralist of shows, by a specified title
+    public static ArrayList<Showing> getShowsByTitle(String givenTitle) {
+        String sql = "SELECT * FROM shows WHERE title LIKE '%"+ givenTitle + "%'";
+        return getShowings(sql);
+    }
+
+    // Returns an arralist of shows on a specified date
+    public static ArrayList<Showing> getShowsByDate(String givenDate) {
+        String sql = "SELECT * FROM shows WHERE DATE LIKE '%"+ givenDate + "%'";
+        return getShowings(sql);
+    }
+
+    //
+    // Inserts
+    //
+
+
+    //create reservation for seats
+    public static boolean createReservedSeats(int[] seats, int reservation_id) {
+        Connection connection;
+        Statement statement;
+
+        //check variable
+        int lines = 0;
+        try {
+            // Connect to server
+            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            statement = connection.createStatement();
+
+            //creates an entry for each seat selected
+            for (int i = 0; i < seats.length; i++) {
+                String reserveSeat = "INSERT INTO reserved_seats (reservation_id, seat_id) VALUES (" + reservation_id + "," + seats[i]+ ")";
+                lines += statement.executeUpdate(reserveSeat);
+            }
+
+            //catches exceptions and prints
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //if the number of entried is the same as number of seats
+        if(lines == seats.length)
+            return true;
+        else
+            return false;
+    }
+
+    //create reservation
+    public static boolean createReservation(Reservation r) {
         Connection connection;
         Statement statement;
 
@@ -336,71 +389,19 @@ public class MySqlConnection {
         return false;
     }
 
-    //create reservation for seats
-    public static boolean createReservedSeats(int[] seats, int reservation_id) {
-        Connection connection;
-        Statement statement;
-
-        //check variable
-        int lines = 0;
-        try {
-            // Connect to server
-            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-            connection = DriverManager.getConnection(DB_URL, USER, PASS);
-            statement = connection.createStatement();
-
-            //creates an entry for each seat selected
-            for (int i = 0; i < seats.length; i++) {
-                String reserveSeat = "INSERT INTO reserved_seats (reservation_id, seat_id) VALUES (" + reservation_id + "," + seats[i]+ ")";
-                lines += statement.executeUpdate(reserveSeat);
-            }
-
-            //catches exceptions and prints
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        //if the number of entried is the same as number of seats
-        if(lines == seats.length)
+    // Updates the reserved_seats to a reservation id. First: Delete the reserved seats prior
+    // to this update, insert new
+    public static boolean updateReservation(int reservationID, int[] input){
+        if(deleteReservedSeats(reservationID)){
+            createReservedSeats(input,reservationID);
             return true;
-        else
-            return false;
+        }
+        return false;
     }
 
-    // Returns an arralist of reservations made by the specified customer
-    public static ArrayList<Reservation> getReservationsByPhone(String phone) {
-        Connection connection;
-        Statement statement;
-        ArrayList<Models.Reservation> res;
-        res = new ArrayList<>();
-
-        try {
-            // Connect to server
-            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-            connection = DriverManager.getConnection(DB_URL, USER, PASS);
-            statement = connection.createStatement();
-
-            ResultSet rs = statement.executeQuery("SELECT * FROM reservations WHERE tlf_nr = " + phone);
-
-            // Process data
-            while(rs.next()) {
-                int show_id = rs.getInt("show_id");
-                int reservation_id = rs.getInt("reservation_id");
-                int tlf_nr = rs.getInt("tlf_nr");
-                Reservation r = new Reservation(reservation_id, tlf_nr, show_id);
-                res.add(r);
-
-            }
-            // When done processing, close connection
-            rs.close();
-            connection.close();
-
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
-
-        // return collection
-        return res;
-    }
+    //
+    // Deletes
+    //
 
     // Deletes the reservation specified as id. First it will remove the seats from DB, then the reservation
     public static boolean deleteReservation(int id) {
@@ -432,15 +433,30 @@ public class MySqlConnection {
         return false;
     }
 
-    // Returns an arralist of shows, by a specified title
-    public static ArrayList<Showing> getShowsByTitle(String givenTitle) {
-        String sql = "SELECT * FROM shows WHERE title LIKE '%"+ givenTitle + "%'";
-        return getShowings(sql);
+    // Deletes the reserved seats to the specified id
+    public static boolean deleteReservedSeats(int id){
+        Connection connection;
+        Statement statement;
+
+        try {
+            // Connect to server
+            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            statement = connection.createStatement();
+
+            if(statement.executeUpdate("DELETE FROM reserved_seats WHERE reservation_id = " + id) > 0) {
+                connection.close();
+                return true;
+            }
+
+            //close connection
+            connection.close();
+
+        } catch(Exception e) {
+            //print stack trace if exceptions are thrown
+            e.printStackTrace();
+        }
+        return false;
     }
 
-    // Returns an arralist of shows on a specified date
-    public static ArrayList<Showing> getShowsByDate(String givenDate) {
-        String sql = "SELECT * FROM shows WHERE DATE LIKE '%"+ givenDate + "%'";
-        return getShowings(sql);
-    }
 }
