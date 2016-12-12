@@ -2,7 +2,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Map;
 import java.util.TreeMap;
 
 import static org.junit.Assert.assertEquals;
@@ -37,8 +36,8 @@ public class ControllerTest {
     // tests if it can load a view both with and without selected seats
     @Test
     public void CreateShowViewByIDTest(){
-        assertEquals(true,Controller.CreateShowViewByID(10,"",false));
-        assertEquals(true,Controller.CreateShowViewByID(10,",30,31,32",true));
+        assertEquals(true,Controller.CreateCinemaViewByShowID(10,"",false));
+        assertEquals(true,Controller.CreateCinemaViewByShowID(10,",30,31,32",true));
     }
 
     // tests if it manages to create a reservation
@@ -48,7 +47,7 @@ public class ControllerTest {
         assertEquals(true,Controller.createReservation(99,11,",10,11"));
 
         // delete reservation after use
-        TreeMap k = Controller.getReservationByID("99");
+        TreeMap k = Controller.getReservationsByPhone("99");
         Integer i = (Integer) k.firstKey();
         assertEquals(true,Controller.deleteReservation(i));
     }
@@ -56,7 +55,7 @@ public class ControllerTest {
     // test if it manages to create a reservationView
     @Test
     public void makeReservationViewTest() {
-        assertEquals(true,Controller.makeReservationView());
+        assertEquals(true,Controller.createReservationView());
     }
 
     // tests if it manages to update a reservation

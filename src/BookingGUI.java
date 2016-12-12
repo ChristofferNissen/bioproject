@@ -60,14 +60,14 @@ class BookingGUI {
                         String date = time.getText();                           //and get date field
                         if (!title.isEmpty() && date.isEmpty()) {               //if there is movie text, but no data text
                             //update list searching for title
-                            updateList(Controller.makeSearchTitle(title));      // Update list with titles maching input in textField
+                            updateList(Controller.showsMatchingSearchTitle(title));      // Update list with titles maching input in textField
                         }
                         if(!date.isEmpty() && title.isEmpty()){                 // If only the date field is nonempty
                             //update list searching for date
-                            updateList(Controller.makeSearchTime(date));        // Update list with dates maching input in textField
+                            updateList(Controller.showsMatchingSearchDate(date));        // Update list with dates maching input in textField
                         }
                         if(date.isEmpty() && title.isEmpty()){                  // If both are empty, get complete list of shows
-                            updateList(Controller.getShows());
+                            updateList(Controller.updateShowingList());
                         }
                     }
             );
@@ -92,7 +92,7 @@ class BookingGUI {
                                 int i = showList.getSelectedIndex();            //get index of selection
                                 int a = (Integer) listModel.get(i).getKey();    //get key for showing
                                 Controller.storeShowID(a);                  //store key in Controller
-                                Controller.CreateShowViewByID(a, "",false);     //get the show with chosen id
+                                Controller.CreateCinemaViewByShowID(a, "",false);     //get the show with chosen id
                             }
                         }
                 );
@@ -103,7 +103,7 @@ class BookingGUI {
             JButton changeReservation = new JButton("Change Reservation");
                 changeReservation.addActionListener(
                         (ActionEvent e) -> {
-                            Controller.makeReservationView();                   //switch view to reservationview
+                            Controller.createReservationView();                   //switch view to reservationview
                         }
                 );
 
@@ -126,7 +126,7 @@ class BookingGUI {
             ArrayList<String> temp = new ArrayList<>();                         //temporary arraylist
 
             //for each løkke over det givne treemap
-            Controller.getDataFromTreeMap(temp,treeMap,listModel);
+            Controller.processTreeMapForView(temp,treeMap,listModel);
 
             // convert to String[] from arrayList
             String[] var = Controller.arrayListToStringArray(temp);
@@ -150,7 +150,7 @@ class BookingGUI {
             stringModel = new DefaultListModel<>();
 
             //Convert treeMap to usefull data
-            Controller.getDataFromTreeMap(temp,treeMap,stringModel,listModel);
+            Controller.processTreeMapForView(temp,treeMap,stringModel,listModel);
 
             showList.setModel(stringModel);                                     //sets list of model
             frame.setVisible(true);

@@ -19,7 +19,7 @@ public class Controller {
      */
     public static void main(String[] args) {
         BookingGUI gui = new BookingGUI();  // get creates initial UI
-        gui.makeFrame(getShows()); // get Creates the frame showing showings
+        gui.makeFrame(updateShowingList()); // get Creates the frame showing showings
 
         //initializes variable
         reservationID = 0;
@@ -28,17 +28,17 @@ public class Controller {
     /**
      * Creates the Reservation Window when "Change reservation" is pressed
      */
-    static boolean makeReservationView(){
+    static boolean createReservationView(){
         getReservationsFromDB();                          //gets all reservations
         ReservationView r = new ReservationView();  //initializes view
-        return r.makeFrame(getReserv());                    //makes frame with reservations
+        return r.makeFrame(updateReservationList());                    //makes frame with reservations
     }
 
     /**
      * Convert showings from db to treeMap <Integer,String>
      * @return treemap of shows in format <show_id,s.toString()>
      */
-    static TreeMap<Integer, String> getShows() {
+    static TreeMap<Integer, String> updateShowingList() {
         getShowingsFromDB(); // update showings from DB
 
         // Convert from arraylist to TreeMap, return the TreeMap.
@@ -54,7 +54,7 @@ public class Controller {
      * Converts reservations from db to treemap <Integer,String>
      * @return treemap of reservations as <reservation_id,r.toString()>
      */
-    static TreeMap<Integer, String> getReserv() {
+    static TreeMap<Integer, String> updateReservationList() {
         getReservationsFromDB(); // update reservations from DB
 
         // Convert from ArrayList to TreeMap, return the TreeMap
@@ -67,7 +67,7 @@ public class Controller {
 
     /**
      * Loads a cinnemaView with selected_seats accordingly to a reservation_id for when updating a reservation
-     * @param reservationID
+     * @param reservationID Unique reservation ID
      */
     static boolean displayReservation(int reservationID) {
         ArrayList<Integer> selected_seats;
@@ -91,14 +91,14 @@ public class Controller {
 
         // show = show_id, input = reserved seats as string
 
-        if(CreateShowViewByID(show, input, true)){
+        if(CreateCinemaViewByShowID(show, input, true)){
             return true;
         }
         return false;
     }
 
     // Get info and create GUI
-    static boolean CreateShowViewByID(int showID, String input, boolean changeReservation) {
+    static boolean CreateCinemaViewByShowID(int showID, String input, boolean changeReservation) {
         // Return the reservationID for the chosen showing
         ArrayList<Integer> reservation_ids = MySqlConnection.getReservationByShowID(showID);
         ArrayList<Integer> reserved_seats = new ArrayList<>();
@@ -123,7 +123,7 @@ public class Controller {
                     show.getTitle(), show.getTime(), show.getDate(),
                     show.getHall_id(), show.getShow_id(), reserved_seats, input, true);
                     return true;
-        } else if (!changeReservation) {
+        } else if (changeReservation == false) {
              new CinemaView(hall.getRows(), hall.getSeats(),
                     show.getTitle(), show.getTime(), show.getDate(),
                     show.getHall_id(), show.getShow_id(), reserved_seats, input, false);
@@ -156,7 +156,6 @@ public class Controller {
      * @param input         String with seats
      * @param changeUpdate  if seats should be updated this must be true
      * @return true if successful
-     * @return false if unsuccessful
      */
     static boolean updateReservation(String input, Boolean changeUpdate){
         //split string of selected seats to int array
@@ -171,13 +170,13 @@ public class Controller {
         }
     }
     // for testing
-    static boolean updateReservation(String input, Boolean changeUpdate,int reservation_id){
+    static boolean updateReservation(String input, Boolean changeUpdate,int reservationid){
         //split string of selected seats to int array
         int[] inputSplit = splitSeatString(input);
 
         //update reservation using reservation id
         if(changeUpdate){
-            MySqlConnection.updateReservation(reservationID,inputSplit);
+            MySqlConnection.updateReservation(reservationid,inputSplit);
             return true;    //return true if succesful
         } else {
             return false;   //return false if fail
@@ -220,7 +219,7 @@ public class Controller {
     }
 
     //Returns a TreeMap over reservations made by specified ID
-    static TreeMap<Integer, String> getReservationByID(String tlf_nr) {
+    static TreeMap<Integer, String> getReservationsByPhone(String tlf_nr) {
         reservationList= MySqlConnection.getReservationsByPhone(tlf_nr);
 
         // Convert from ArrayList to TreeMap, return the TreeMap
@@ -261,7 +260,7 @@ public class Controller {
      * @param title         title searched
      * @return Treemap      of showings
      */
-    static TreeMap<Integer, String> makeSearchTitle(String title) {
+    static TreeMap<Integer, String> showsMatchingSearchTitle(String title) {
         showingList = MySqlConnection.getShowsByTitle(title);
 
         TreeMap<Integer, String> showings = new TreeMap();
@@ -277,7 +276,7 @@ public class Controller {
      * @param date String describing date searched
      * @return  Treemap of showings
      */
-    static TreeMap<Integer, String> makeSearchTime(String date) {
+    static TreeMap<Integer, String> showsMatchingSearchDate(String date) {
         showingList = MySqlConnection.getShowsByDate(date);
 
         TreeMap<Integer, String> showings = new TreeMap();
@@ -307,11 +306,11 @@ public class Controller {
      * Converts treeMap into datavariables for listView
      * @param temp          temporary arraylist
      * @param treeMap       Treemap of values
-     * @param stringModel   ListModel
+     * @param stringModel   listModel (The elements displayed)
      * @param listModel     listmodel
      */
-    static void getDataFromTreeMap(ArrayList<String> temp, TreeMap<Integer, String> treeMap,
-                                          DefaultListModel<String> stringModel, DefaultListModel<Map.Entry> listModel) {
+    static void processTreeMapForView(ArrayList<String> temp, TreeMap<Integer, String> treeMap,
+                                      DefaultListModel<String> stringModel, DefaultListModel<Map.Entry> listModel) {
         for (Map.Entry<Integer, String> entry : treeMap.entrySet()) {
             String value = entry.getValue();
             temp.add(value);
@@ -326,8 +325,8 @@ public class Controller {
      * @param treeMap
      * @param listModel
      */
-    static void getDataFromTreeMap(ArrayList<String> temp, TreeMap<Integer, String> treeMap,
-                                          DefaultListModel<Map.Entry> listModel){
+    static void processTreeMapForView(ArrayList<String> temp, TreeMap<Integer, String> treeMap,
+                                      DefaultListModel<Map.Entry> listModel){
 
         for (Map.Entry<Integer, String> entry : treeMap.entrySet()) {
             String value = entry.getValue();

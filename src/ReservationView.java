@@ -44,7 +44,7 @@ class ReservationView{
                 (ActionEvent e ) -> {
                     String tlf_nr = text.getText();
                     // When search is pressed, look up the phoneNumber and if it exists in DB, get a result back
-                    updateList(Controller.getReservationByID(tlf_nr));
+                    updateList(Controller.getReservationsByPhone(tlf_nr));
                 }
         );
         search.add(searchReservations);
@@ -77,7 +77,7 @@ class ReservationView{
 
                         // put into controller, then call from here
                         Controller.deleteReservation(a);
-                        updateList(Controller.getReserv());
+                        updateList(Controller.updateReservationList());
                         frame.setVisible(true);
                     }
                 }
@@ -113,7 +113,7 @@ class ReservationView{
         listModel = new DefaultListModel<>();
         ArrayList<String> temp = new ArrayList<>();
 
-        Controller.getDataFromTreeMap(temp,treeMap,listModel);
+        Controller.processTreeMapForView(temp,treeMap,listModel);
 
         // convert to String[] from arrayList
         String[] var = Controller.arrayListToStringArray(temp);
@@ -138,7 +138,7 @@ class ReservationView{
         listModel = new DefaultListModel<>();
 
         // Get data from treeMap into arrayList
-        Controller.getDataFromTreeMap(temp,treeMap,stringModel,listModel);
+        Controller.processTreeMapForView(temp,treeMap,stringModel,listModel);
 
         reservationList.setModel(stringModel);
         frame.setVisible(true);
