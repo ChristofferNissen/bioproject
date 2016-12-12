@@ -1,7 +1,4 @@
-/**
- * Initial user interface
- * loaded on start
- */
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -10,9 +7,12 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.util.Map;
 
+
 /**
- * Creates the BookingGUI window
+ * Initial user interface
+ * loaded on start
  */
+
 class BookingGUI {
 
         //fields
