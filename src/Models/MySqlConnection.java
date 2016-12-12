@@ -332,7 +332,8 @@ public class MySqlConnection {
      * @return an ArrayList<Showing>
      */
     public static ArrayList<Showing> getShowsByDate(String Date) {
-        String sql = "SELECT * FROM shows WHERE DATE LIKE '%"+ Date + "%'";
+        String dateDB = Date.replace("/","-");
+        String sql = "SELECT * FROM shows WHERE DATE LIKE '%"+ dateDB + "%'";
         return getShowings(sql);
     }
 

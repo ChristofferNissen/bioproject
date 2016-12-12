@@ -61,9 +61,9 @@ public class Showing {
 
         return
                 title +
-                " on the " + date +
-                " at " + time +
-                " in hall " + hall_id;
+                "  |  " + date.toString().replace("-","/") +
+                "  |  " + time +
+                "  |  Hall: " + hall_id;
 
     }
 }

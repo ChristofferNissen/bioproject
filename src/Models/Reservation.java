@@ -42,9 +42,9 @@ public class Reservation {
     // methods
     @Override
     public String toString() {
-        return "Reservation: " +
-                "Show id: " + show_id +
-                ", Tlf_nr: " + tlf_nr;
+        return "Reservation: " + reservation_id +
+                "  |  Show id: " + show_id +
+                "  |  tlf: " + tlf_nr;
 
     }
 
