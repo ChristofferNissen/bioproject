@@ -27,7 +27,7 @@ class ReservationView{
      * @param treeMap A treeMap containing Reservations
      * @return boolean on condition if frame was created
      */
-    boolean makeFrame(TreeMap<Integer,String> treeMap){
+    public boolean makeFrame(TreeMap<Integer,String> treeMap){
         JPanel contentPane = (JPanel)frame.getContentPane();
         frame.setPreferredSize(new Dimension(400, 800));
         contentPane.setLayout(new BorderLayout());
