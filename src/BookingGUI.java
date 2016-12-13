@@ -83,7 +83,8 @@ class BookingGUI {
             actionBar.setBorder(new EmptyBorder(50, 10, 350, 10));
 
             // Make reservation
-            JButton book = new JButton("Book");
+            JButton book = new JButton("Reserve seats");
+            book.setMinimumSize(new Dimension(50,20));
                 book.addActionListener(
                         (ActionEvent e) -> {
                             if (showList.getSelectedIndex() == -1) {
@@ -97,6 +98,7 @@ class BookingGUI {
                 );
 
             actionBar.add(book, BorderLayout.CENTER);                           //add button to layout
+            actionBar.setMinimumSize(new Dimension(50,20));
 
             // Change reservation
             JButton changeReservation = new JButton("Change Reservation");

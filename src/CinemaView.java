@@ -185,6 +185,8 @@ class CinemaView extends JComponent {
     private JPanel makeGrid() {
         JPanel seatArrangement = new JPanel();
         seatArrangement.setLayout(new GridBagLayout());
+        seatArrangement.setBorder(BorderFactory.createLineBorder(Color.black));
+        seatArrangement.setBackground(Color.DARK_GRAY);
         GridBagConstraints c = new GridBagConstraints();
         int seatNumber = 1;
 
@@ -252,6 +254,7 @@ class CinemaView extends JComponent {
 
 
                 seat.setPreferredSize(new Dimension(46, 38));
+                seat.setBorder(BorderFactory.createLineBorder(Color.black));
                 c.fill = GridBagConstraints.HORIZONTAL;
                 c.insets = new Insets(6, 2, 6, 2);      // External padding around each button
                 c.gridx = j;                            // Position in grid
