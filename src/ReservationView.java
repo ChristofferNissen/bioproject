@@ -64,7 +64,6 @@ class ReservationView{
 
                         // Display the reselected reservation
                         Controller.displayReservation(a);
-                        frame.setVisible(true);
                     }
                 }
         );

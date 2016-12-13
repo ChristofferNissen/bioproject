@@ -67,7 +67,7 @@ public class MySqlConnectionTest {
     // , MySqlConnection.createReservation,
     // and MySqlConnection.updateReservation
     @Test
-    public void makeUpdateDeleteReservationTest() {
+    public void createUpdateDeleteReservationTest() {
         // initialise b and populate with seats we want to reserve
         int[] b = new int [3];
         b[0] = 50;
