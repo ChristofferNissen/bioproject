@@ -37,18 +37,22 @@ class BookingGUI {
      */
     public void makeFrame(TreeMap<Integer, String> treeMap) {
             JPanel contentPane = (JPanel) frame.getContentPane();               // Get contentPane
+            contentPane.setBackground(Color.darkGray);
             contentPane.setLayout(new BorderLayout());                          // Set Layout
             contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));             // Set Border
 
             JPanel searchBar = new JPanel();                                    // Create new JPanel
+            searchBar.setBackground(Color.darkGray);
             searchBar.setLayout(new FlowLayout());                              // Set Layout
             searchBar.setBorder(new EtchedBorder(EtchedBorder.LOWERED));        // Set Border
 
             JTextField movie = new JTextField(20);                              // Create textField
+            movie.setBackground(Color.LIGHT_GRAY);
             movie.setBorder(new TitledBorder("Movie"));                         // Set border with title "Movie"
             searchBar.add(movie);                                               // add textField to JPanel searchBar
 
             JTextField time = new JTextField(20);                               // Create textField
+            time.setBackground(Color.LIGHT_GRAY);
             time.setBorder(new TitledBorder("Date"));                           // Set border with title "Date"
             searchBar.add(time);                                                // Add textField to JPanel searchBar
 
@@ -78,7 +82,9 @@ class BookingGUI {
 
             //Jpanels for buttons: book and change reservation
             JPanel actionBar = new JPanel();
+            actionBar.setBackground(Color.darkGray);
             JPanel buttomBar = new JPanel();
+            buttomBar.setBackground(Color.darkGray);
             actionBar.setLayout(new BorderLayout());
             actionBar.setBorder(new EmptyBorder(50, 10, 350, 10));
 
@@ -124,6 +130,7 @@ class BookingGUI {
      */
     private JPanel makeList(TreeMap<Integer, String> treeMap) {
             JPanel list = new JPanel();                                         //make panel for showing list
+            list.setBackground(Color.darkGray);
             ArrayList<String> temp = new ArrayList<>();                         //temporary arraylist
 
             //for each løkke over det givne treemap
@@ -133,6 +140,7 @@ class BookingGUI {
             String[] var = Controller.arrayListToStringArray(temp);
 
             showList = new JList<>(var);                                        //new list of String array
+            showList.setBackground(Color.lightGray);
             showList.setFont(new Font("Cambria", Font.BOLD, 14));               //set cont
             showList.setBorder(new EmptyBorder(10, 10, 10, 10));
 

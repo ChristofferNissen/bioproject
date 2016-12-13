@@ -34,8 +34,10 @@ class ReservationView{
 
         JPanel search = new JPanel();
         search.setLayout(new GridLayout(2,1));
+        search.setBackground(Color.darkGray);
 
         JTextField text = new JTextField();
+        text.setBackground(Color.lightGray);
         text.setToolTipText("Enter a phone number");
         search.add(text);
 
@@ -83,8 +85,10 @@ class ReservationView{
         );
 
         JPanel buttonPane = new JPanel();
+        buttonPane.setBackground(Color.darkGray);
         buttonPane.setLayout(new BorderLayout());
         JPanel buttonPane2 = new JPanel();
+        buttonPane2.setBackground(Color.darkGray);
         buttonPane2.setLayout(new BorderLayout());
         buttonPane.add(buttonPane2,BorderLayout.CENTER);
 
@@ -108,6 +112,7 @@ class ReservationView{
      */
     private void makeReservationList(TreeMap<Integer,String> treeMap) {
         list = new JPanel();
+        list.setBackground(Color.darkGray);
         list.setPreferredSize(new Dimension(400,400));
         listModel = new DefaultListModel<>();
         ArrayList<String> temp = new ArrayList<>();
@@ -118,6 +123,7 @@ class ReservationView{
         String[] var = Controller.arrayListToStringArray(temp);
 
         reservationList = new JList<>(var);
+        reservationList.setBackground(Color.lightGray);
         reservationList.setFont(new Font("Cambria", Font.BOLD, 14));
         reservationList.setBorder(new EmptyBorder(10,10,10,10));
 

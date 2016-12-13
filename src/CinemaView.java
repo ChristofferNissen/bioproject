@@ -78,7 +78,7 @@ class CinemaView extends JComponent {
     private void makeFrame(CinemaView c){
         frame.setMinimumSize(new Dimension(900, 750));
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.getContentPane().add(c);
+        frame.getContentPane().add(c);;
         frame.setLayout(new BorderLayout());
 
         // Create show-desciptive label
@@ -92,7 +92,9 @@ class CinemaView extends JComponent {
 
         //adds labels to frame
         JPanel labelCollection = new JPanel();
+        labelCollection.setBackground(Color.darkGray);
         JPanel labelCollectionTwo = new JPanel();
+        labelCollectionTwo.setBackground(Color.darkGray);
         labelCollection.setLayout(new BorderLayout());
         labelCollectionTwo.setLayout(new BorderLayout());
         labelCollection.add(label,BorderLayout.NORTH);
@@ -112,11 +114,13 @@ class CinemaView extends JComponent {
 
         // filler panel
         JPanel fillerPanel = new JPanel();
+        fillerPanel.setBackground(Color.darkGray);
         fillerPanel.setBorder(new EmptyBorder(245, 100, 245, 70));
         frame.add(fillerPanel, BorderLayout.WEST);
 
         // Adds a visualrepresentation of the screen location
         JPanel screenPanel = new JPanel();
+        screenPanel.setBackground(Color.darkGray);
         screenPanel.setBorder(new EmptyBorder(10,10,10,20));
         JLabel screen = new JLabel("Screen", SwingConstants.CENTER);
         screen.setFont(new Font("Cambria", Font.BOLD, 14));
@@ -129,9 +133,13 @@ class CinemaView extends JComponent {
         if(changeReservation) {
             // Adds Update reservation button
             JPanel bookingButton = new JPanel();
+            bookingButton.setBackground(Color.darkGray);
             bookingButton.setLayout(new BorderLayout());
+
             bookingButton.setBorder(new EmptyBorder(260, 30, 260, 70));
             JButton updateReservation= new JButton("Update");
+            updateReservation.setBackground(Color.darkGray);
+
             updateReservation.addActionListener(
                     (ActionEvent e) -> {
                         if (Controller.updateReservation(input, true)) {
@@ -149,9 +157,12 @@ class CinemaView extends JComponent {
         } else {
             // Addes Book Now button
             JPanel bookingButton = new JPanel();
+            bookingButton.setBackground(Color.darkGray);
             bookingButton.setLayout(new BorderLayout());
             bookingButton.setBorder(new EmptyBorder(260, 10, 260, 70));
             JButton bookNow = new JButton("Book now!");
+            bookNow.setBackground(Color.darkGray);
+            bookNow.setBorderPainted(true);
             bookNow.addActionListener(
                     (ActionEvent e) ->{
                         int tlf = 0;
