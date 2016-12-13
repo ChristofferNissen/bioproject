@@ -85,9 +85,9 @@ class CinemaView extends JComponent {
         JLabel label = new JLabel("You have chosen " + title, SwingConstants.CENTER);
 
         //creates labels for describing the show
-        JLabel dateLabel = new JLabel("Date: " + date + ".\n" + "Time: " + time, SwingConstants.LEFT);
+        JLabel dateLabel = new JLabel("   Date: " + date + ".\n" + "Time: " + time, SwingConstants.LEFT);
         frame.add(dateLabel, BorderLayout.CENTER);
-        JLabel hallLabel = new JLabel("Hall: " + hall, SwingConstants.LEFT);
+        JLabel hallLabel = new JLabel("   Hall: " + hall, SwingConstants.LEFT);
         frame.add(hallLabel, BorderLayout.SOUTH);
 
         //adds labels to frame
@@ -135,9 +135,11 @@ class CinemaView extends JComponent {
             JPanel bookingButton = new JPanel();
             bookingButton.setBackground(Color.darkGray);
             bookingButton.setLayout(new BorderLayout());
-            //bookingButton.setBorder(new EmptyBorder(245, 10, 245, 70));
-            JButton updateReservation= new JButton("Update reservation");
+
+            bookingButton.setBorder(new EmptyBorder(260, 30, 260, 70));
+            JButton updateReservation= new JButton("Update");
             updateReservation.setBackground(Color.darkGray);
+
             updateReservation.addActionListener(
                     (ActionEvent e) -> {
                         if (Controller.updateReservation(input, true)) {
@@ -157,7 +159,7 @@ class CinemaView extends JComponent {
             JPanel bookingButton = new JPanel();
             bookingButton.setBackground(Color.darkGray);
             bookingButton.setLayout(new BorderLayout());
-            bookingButton.setBorder(new EmptyBorder(245, 10, 245, 70));
+            bookingButton.setBorder(new EmptyBorder(260, 10, 260, 70));
             JButton bookNow = new JButton("Book now!");
             bookNow.setBackground(Color.darkGray);
             bookNow.setBorderPainted(true);
