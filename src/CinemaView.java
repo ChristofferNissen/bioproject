@@ -1,6 +1,3 @@
-/**
- * Created by caecilieiversen on 30/11/2016.
- */
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;

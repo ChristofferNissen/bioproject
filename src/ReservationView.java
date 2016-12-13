@@ -26,7 +26,7 @@ class ReservationView{
      * @param treeMap A treeMap containing Reservations
      * @return boolean on condition if frame was created
      */
-    boolean makeFrame(TreeMap treeMap){
+    boolean makeFrame(TreeMap<Integer,String> treeMap){
         JPanel contentPane = (JPanel)frame.getContentPane();
         frame.setPreferredSize(new Dimension(400, 800));
         contentPane.setLayout(new BorderLayout());
@@ -52,9 +52,7 @@ class ReservationView{
         JButton changeReservations = new JButton("Change reservation");
         changeReservations.addActionListener(
                 (ActionEvent e ) -> {
-                    if(reservationList.getSelectedIndex() == -1) {
-                        // Do nothing
-                    } else {
+                    if (reservationList.getSelectedIndex() != -1) {
                         int i = reservationList.getSelectedIndex();
                         int a = (Integer) listModel.get(i).getKey();
 
@@ -71,7 +69,7 @@ class ReservationView{
         JButton deleteReservations = new JButton("Delete reservation");
         deleteReservations.addActionListener(
                 (ActionEvent e ) -> {
-                    if(reservationList.getSelectedIndex() == -1) { } else {
+                    if (reservationList.getSelectedIndex() != -1) {
                         int i = reservationList.getSelectedIndex();
                         int a = (Integer) listModel.get(i).getKey();
 

@@ -12,21 +12,20 @@ import java.util.Map;
  * Initial user interface
  * loaded on start
  */
-
 class BookingGUI {
 
         //fields
         private JFrame frame;                                                   //frame
         private JList<String> showList;                                         //list of shows
         private DefaultListModel<Map.Entry> listModel;                          //list for storing shows
-        private DefaultListModel<String> stringModel;                           //list for storing indicies
+        //private DefaultListModel<String> stringModel;                           //list for storing indicies
 
         //Constructor
         BookingGUI() {
             frame = new JFrame("CinemaView: Book Tickets");                     //initialize frame
             frame.setSize(800, 600);                                            //set size
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);               //and close
-            listModel = new DefaultListModel();                                 //make listmodel
+            listModel = new DefaultListModel<>();                               //make listmodel
         }
 
     /**
@@ -34,9 +33,9 @@ class BookingGUI {
      * Search bar
      * panel for list of showings
      * buttons for opening booking screen and change of reservation
-     * @param treemap takes a treemap of showings
+     * @param treeMap takes a treemap of showings
      */
-    void makeFrame(TreeMap treemap) {
+    public void makeFrame(TreeMap<Integer, String> treeMap) {
             JPanel contentPane = (JPanel) frame.getContentPane();               // Get contentPane
             contentPane.setLayout(new BorderLayout());                          // Set Layout
             contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));             // Set Border
@@ -75,7 +74,7 @@ class BookingGUI {
             searchBar.add(search);                                              //add search button to searchBar
             frame.getRootPane().setDefaultButton(search);                       // Set defaultButton to "Search"
             contentPane.add(searchBar, BorderLayout.NORTH);                     //add all to contentpane
-            contentPane.add(makeList(treemap), BorderLayout.CENTER);            //add list of shows by makeList method
+            contentPane.add(makeList(treeMap), BorderLayout.CENTER);            //add list of shows by makeList method
 
             //Jpanels for buttons: book and change reservation
             JPanel actionBar = new JPanel();
@@ -88,12 +87,12 @@ class BookingGUI {
                 book.addActionListener(
                         (ActionEvent e) -> {
                             if (showList.getSelectedIndex() == -1) {
-                            } else {
-                                int i = showList.getSelectedIndex();            //get index of selection
-                                int a = (Integer) listModel.get(i).getKey();    //get key for showing
-                                Controller.storeShowID(a);                  //store key in Controller
-                                Controller.CreateCinemaViewByShowID(a, "",false);     //get the show with chosen id
+                                return;
                             }
+                            int i = showList.getSelectedIndex();            //get index of selection
+                            int a = (Integer) listModel.get(i).getKey();    //get key for showing
+                            Controller.storeShowID(a);                  //store key in Controller
+                            Controller.CreateCinemaViewByShowID(a, "",false);     //get the show with chosen id
                         }
                 );
 
@@ -147,7 +146,7 @@ class BookingGUI {
     private void updateList(TreeMap<Integer,String> treeMap) {
             ArrayList<String> temp = new ArrayList<>();                         //creates a temp arraylist
             listModel = new DefaultListModel<>();                               //cleans listmodel and stringmodel
-            stringModel = new DefaultListModel<>();
+            DefaultListModel<String> stringModel = new DefaultListModel<>();
 
             //Convert treeMap to usefull data
             Controller.processTreeMapForView(temp,treeMap,stringModel,listModel);

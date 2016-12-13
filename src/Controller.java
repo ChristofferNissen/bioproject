@@ -42,10 +42,8 @@ public class Controller {
         getShowingsFromDB(); // update showings from DB
 
         // Convert from arraylist to TreeMap, return the TreeMap.
-        TreeMap<Integer, String> showings = new TreeMap();
-        for (Showing s : showingList) {
-            showings.put(s.getShow_id(), s.toString());
-        }
+        TreeMap<Integer, String> showings = new TreeMap<>();
+        for (Showing s : showingList) showings.put(s.getShow_id(), s.toString());
         // The TreeMap to be returned
         return showings;
     }
@@ -91,10 +89,8 @@ public class Controller {
 
         // show = show_id, input = reserved seats as string
 
-        if(CreateCinemaViewByShowID(show, input, true)){
-            return true;
-        }
-        return false;
+        return CreateCinemaViewByShowID(show, input, true);
+
     }
 
     // Get info and create GUI
@@ -105,11 +101,10 @@ public class Controller {
 
         for (int id : reservation_ids) {
             // Get seats reserved for this show
-            ArrayList<Integer> temp = new ArrayList<>();
+            ArrayList<Integer> temp;
             temp = MySqlConnection.getReservedSeats(id);
-            for (int i : temp) {
-                reserved_seats.add(i);
-            }
+            reserved_seats.addAll(temp);
+
         }
 
         // get show info
@@ -123,7 +118,8 @@ public class Controller {
                     show.getTitle(), show.getTime(), show.getDate(),
                     show.getHall_id(), show.getShow_id(), reserved_seats, input, true);
                     return true;
-        } else if (changeReservation == false) {
+        }
+        if (!changeReservation) {
              new CinemaView(hall.getRows(), hall.getSeats(),
                     show.getTitle(), show.getTime(), show.getDate(),
                     show.getHall_id(), show.getShow_id(), reserved_seats, input, false);
@@ -138,7 +134,6 @@ public class Controller {
      * @param showID    showID
      * @param seats     string of seats
      * @return  true if reservation successful
-     * @return  false if reservation failed
      */
     static boolean createReservation(int tlf, int showID, String seats){
         if(tlf > 0) {                                                                           //if tlf number isn't empty
@@ -263,7 +258,7 @@ public class Controller {
     static TreeMap<Integer, String> showsMatchingSearchTitle(String title) {
         showingList = MySqlConnection.getShowsByTitle(title);
 
-        TreeMap<Integer, String> showings = new TreeMap();
+        TreeMap<Integer, String> showings = new TreeMap<>();
         for (Showing s : showingList) {
             showings.put(s.getShow_id(), s.toString());
         }
@@ -279,7 +274,7 @@ public class Controller {
     static TreeMap<Integer, String> showsMatchingSearchDate(String date) {
         showingList = MySqlConnection.getShowsByDate(date);
 
-        TreeMap<Integer, String> showings = new TreeMap();
+        TreeMap<Integer, String> showings = new TreeMap<>();
         for (Showing s : showingList) {
             showings.put(s.getShow_id(), s.toString());
         }
@@ -321,9 +316,9 @@ public class Controller {
 
     /**
      * Converts treeMap into datavariables for listView
-     * @param temp
-     * @param treeMap
-     * @param listModel
+     * @param temp ArrayList<String>
+     * @param treeMap TreeMap<Integer,String>
+     * @param listModel DefaultListModel<Map.Entry>
      */
     static void processTreeMapForView(ArrayList<String> temp, TreeMap<Integer, String> treeMap,
                                       DefaultListModel<Map.Entry> listModel){
