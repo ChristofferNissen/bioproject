@@ -82,6 +82,7 @@ class CinemaView extends JComponent {
         frame.setLayout(new BorderLayout());
 
         // Create show-desciptive label
+
         JLabel label = new JLabel("You have chosen " + title, SwingConstants.CENTER);
 
         //creates labels for describing the show
@@ -105,6 +106,11 @@ class CinemaView extends JComponent {
         frame.add(labelCollection, BorderLayout.NORTH);
 
         label.setFont(new Font("Cambria", Font.BOLD, 14));
+        label.setForeground(Color.WHITE);
+        hallLabel.setFont(new Font("Cambria", Font.PLAIN, 12));
+        hallLabel.setForeground(Color.WHITE);
+        dateLabel.setFont(new Font("Cambria", Font.PLAIN, 12));
+        dateLabel.setForeground(Color.WHITE);
         label.setBorder(new EmptyBorder(10,10,10,10));
         cinema.setBorder(new EmptyBorder(10, 10, 10, 10));
 
