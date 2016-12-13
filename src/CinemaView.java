@@ -298,7 +298,7 @@ class CinemaView extends JComponent {
         int pressed = JOptionPane.showConfirmDialog(null, myPanel,
                 "Please Enter Customers PhoneNumber", JOptionPane.OK_CANCEL_OPTION);
         if (pressed == JOptionPane.OK_OPTION) {
-            if(phoneField != null){
+            if(phoneField.getText() != null){
                 return Integer.parseInt(phoneField.getText());
             }else{
                 throw new IllegalArgumentException("Missing phone number");

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="617.0309119010819" y="1330.7557959814526">com</node>
+    <node x="-652.482998454405" y="-371.6700154559504">ReservationView</node>
+    <node x="1357.7998454404944" y="158.13446676970614">Models.Hall</node>
+    <node x="942.0" y="1281.0">netscape</node>
+    <node x="1472.5636421030038" y="-934.4764212566371">Models.ShowingTest</node>
+    <node x="1293.697063369397" y="-477.3840803709429">Models.Showing</node>
+    <node x="2367.5832965896507" y="-671.0402441668817">Models.ReservationTest</node>
+    <node x="1966.134634673384" y="-927.2022880534722">Models.MySqlConnectionTest</node>
+    <node x="1352.8087978379929" y="691.7565687789802">Models.HallTest</node>
+    <node x="280.0" y="1281.0">toolbarButtonGraphics</node>
+    <node x="933.0309119010819" y="1330.7557959814526">sun</node>
+    <node x="1470.0" y="1281.0">apple</node>
+    <node x="776.0309119010819" y="1330.7557959814526">java</node>
+    <node x="291.03091190108194" y="1330.7557959814526">javax</node>
+    <node x="1300.0" y="1281.0">javafx</node>
+    <node x="-667.4513137557959" y="-120.11051004636806">BookingGUI</node>
+    <node x="456.03091190108194" y="1330.7557959814526">junit</node>
+    <node x="1293.9459041731063" y="-163.3709428129829">Models.Reservation</node>
+    <node x="1130.0" y="1281.0">oracle</node>
+    <node x="1088.030911901082" y="1330.7557959814526">org</node>
+    <node x="749.0" y="1281.0">resources</node>
+    <node x="2120.651468315302" y="-18.834621329211643">Models.MySqlConnection</node>
+    <node x="442.158423493045" y="-444.5680061823802">Controller</node>
+    <node x="553.0" y="1281.0">META-INF</node>
+    <node x="1241.030911901082" y="1330.7557959814526">jdk</node>
+    <node x="-655.4381761978361" y="-894.8052550231839">CinemaView</node>
+    <node x="262.9064914992273" y="767.9327666151469">ControllerTest</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Models.ShowingTest" target="Models.Showing">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="Controller" target="CinemaView">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="Models.ReservationTest" target="Models.Reservation">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="Models.MySqlConnection" target="Models.Hall">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="Controller" target="Models.Showing">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="Models.MySqlConnection" target="Models.Reservation">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="Models.MySqlConnection" target="Models.Showing">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="Controller" target="ReservationView">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="Models.MySqlConnectionTest" target="Models.Reservation">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="Controller" target="BookingGUI">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="Models.HallTest" target="Models.Hall">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="Controller" target="Models.Reservation">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.5188452285485164" x="1075.2959814528595" y="62.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
