@@ -18,7 +18,7 @@ public class MySqlConnection {
 
     /**
      * Retried all reservations from the database
-     * @return An arrayylist<Rerservation> containing all reservations currenly in the db
+     * @return An ArrayList<Rerservation> containing all reservations currently in the db
      */
     public static ArrayList<Reservation> getReservations() {
         Connection connection;

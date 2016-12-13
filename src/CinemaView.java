@@ -144,7 +144,7 @@ class CinemaView extends JComponent {
 
             bookingButton.setBorder(new EmptyBorder(260, 30, 260, 70));
             JButton updateReservation= new JButton("Update");
-            updateReservation.setBackground(Color.darkGray);
+            updateReservation.setBackground(Color.lightGray);
 
             updateReservation.addActionListener(
                     (ActionEvent e) -> {
@@ -167,7 +167,7 @@ class CinemaView extends JComponent {
             bookingButton.setLayout(new BorderLayout());
             bookingButton.setBorder(new EmptyBorder(260, 10, 260, 70));
             JButton bookNow = new JButton("Book now!");
-            bookNow.setBackground(Color.darkGray);
+            bookNow.setBackground(Color.lightGray);
             bookNow.setBorderPainted(true);
             bookNow.addActionListener(
                     (ActionEvent e) ->{
