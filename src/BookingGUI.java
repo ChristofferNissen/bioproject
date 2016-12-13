@@ -23,7 +23,7 @@ class BookingGUI {
         //Constructor
         BookingGUI() {
             frame = new JFrame("CinemaView: Book Tickets");                     //initialize frame
-            frame.setSize(800, 600);                                            //set size
+            frame.setMinimumSize(new Dimension(700, 500));                                            //set size
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);               //and close
             listModel = new DefaultListModel<>();                               //make listmodel
         }
