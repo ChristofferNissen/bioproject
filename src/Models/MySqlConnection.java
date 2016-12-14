@@ -293,7 +293,18 @@ public class MySqlConnection {
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
             statement = connection.createStatement();
 
-            ResultSet rs = statement.executeQuery("SELECT * FROM reservations WHERE tlf_nr = " + phoneNumber);
+            String sql;
+
+            // If phoneNumber = 0, get all reservations
+            if(phoneNumber.length() == 0) {
+                sql =  "SELECT * FROM reservations";
+            } else {
+                sql =  "SELECT * FROM reservations WHERE tlf_nr = " + phoneNumber;
+            }
+
+
+            ResultSet rs = statement.executeQuery(sql);
+
 
             // Process data
             while(rs.next()) {
@@ -307,6 +318,8 @@ public class MySqlConnection {
             // When done processing, close connection
             rs.close();
             connection.close();
+
+
 
             } catch(Exception e) {
                 e.printStackTrace();
@@ -445,8 +458,10 @@ public class MySqlConnection {
      */
     public static boolean updateReservation(int reservationID, int[] input){
         if(deleteReservedSeats(reservationID)){
-            createReservedSeats(input,reservationID);
-            return true;
+            if(createReservedSeats(input,reservationID)) {
+                return true;
+            }
+            return false;
         }
         return false;
     }

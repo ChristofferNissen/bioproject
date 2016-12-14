@@ -73,11 +73,6 @@ public class MySqlConnectionTest {
         b[0] = 50;
         b[1] = 51;
         b[2] = 52;
-        // convert to arrayList
-        ArrayList<Integer> bArrayList = new ArrayList<>();
-        bArrayList.add(50);
-        bArrayList.add(51);
-        bArrayList.add(52);
 
         // create new reservation
         Reservation r = new Reservation(666,10,b);
@@ -96,6 +91,12 @@ public class MySqlConnectionTest {
         // retrieve reservation id from DB
         int id = resMake.get(0).getReservation_id();
 
+        // convert to arrayList
+        ArrayList<Integer> bArrayList = new ArrayList<>();
+        bArrayList.add(50);
+        bArrayList.add(51);
+        bArrayList.add(52);
+
         // Check if the seats are the one we specified
         assertEquals(MySqlConnection.getReservedSeats(resMake.get(0).getReservation_id()),bArrayList);
 
@@ -105,12 +106,6 @@ public class MySqlConnectionTest {
         c[1] = 41;
         c[2] = 42;
 
-        // conver to arrayList
-        ArrayList<Integer> cArrayList = new ArrayList<>();
-        cArrayList.add(40);
-        cArrayList.add(41);
-        cArrayList.add(42);
-
         // update the reservation
         assertEquals(true,MySqlConnection.updateReservation(id,c));
 
@@ -119,6 +114,12 @@ public class MySqlConnectionTest {
 
         // check if they are the same
         assertFalse(resMake == resUpdate);
+
+        // conver to arrayList
+        ArrayList<Integer> cArrayList = new ArrayList<>();
+        cArrayList.add(40);
+        cArrayList.add(41);
+        cArrayList.add(42);
 
         // Check if the reserved seats match the new specified.
         assertEquals(MySqlConnection.getReservedSeats(resUpdate.get(0).getReservation_id()), cArrayList);
