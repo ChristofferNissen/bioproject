@@ -18,7 +18,7 @@ public class Controller {
      * Start of the program
      */
     public static void main(String[] args) {
-        BookingGUI gui = new BookingGUI();  // get creates initial UI
+        BookingView gui = new BookingView();  // get creates initial UI
         gui.makeFrame(updateShowingList()); // get Creates the frame showing showings
 
         //initializes variable

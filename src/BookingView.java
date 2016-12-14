@@ -12,7 +12,7 @@ import java.util.Map;
  * Initial user interface
  * loaded on start
  */
-class BookingGUI {
+class BookingView {
 
         //fields
         private JFrame frame;                                                   //frame
@@ -21,7 +21,7 @@ class BookingGUI {
         //private DefaultListModel<String> stringModel;                           //list for storing indicies
 
         //Constructor
-        BookingGUI() {
+        BookingView() {
             frame = new JFrame("CinemaView: Book Tickets");                     //initialize frame
             frame.setMinimumSize(new Dimension(700, 500));                                            //set size
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);               //and close
