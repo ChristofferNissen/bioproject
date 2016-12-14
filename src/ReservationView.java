@@ -1,6 +1,5 @@
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.EtchedBorder;
+import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -8,7 +7,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * ReservationView creates the gui element "Reservations" which will be created when "Change Reseration" is pressed in bookingGUI
+ * ReservationView creates the GUI element "Reservations" which will be created when "Change reservation" is pressed in BookingView
  */
 class ReservationView{
 
@@ -23,15 +22,42 @@ class ReservationView{
     }
 
     /**
-     * Constructs the gui elements of ReservationView
+     * Constructs the GUI elements of ReservationView
      * @param treeMap A treeMap containing Reservations
      * @return boolean on condition if frame was created
      */
-    public boolean makeFrame(TreeMap<Integer,String> treeMap){
+    boolean makeFrame(TreeMap<Integer,String> treeMap){
         JPanel contentPane = (JPanel)frame.getContentPane();
         frame.setPreferredSize(new Dimension(400, 800));
         contentPane.setLayout(new BorderLayout());
 
+        JPanel buttonPane = new JPanel();
+        buttonPane.setBackground(Color.darkGray);
+        buttonPane.setLayout(new BorderLayout());
+
+        JPanel buttonPane2 = new JPanel();
+        buttonPane2.setBackground(Color.darkGray);
+        buttonPane2.setLayout(new BorderLayout());
+        buttonPane2.add(makeSearch(),BorderLayout.NORTH);
+        buttonPane2.add(makeChangeButton(),BorderLayout.CENTER);
+        buttonPane2.add(makeDeleteButton(),BorderLayout.SOUTH);
+
+        buttonPane.add(buttonPane2,BorderLayout.CENTER);
+        contentPane.add(buttonPane,BorderLayout.NORTH);
+
+        makeReservationList(treeMap);
+        contentPane.add(list,BorderLayout.CENTER);
+
+        frame.pack();
+        frame.setVisible(true);
+        return true;
+    }
+
+    /**
+     * Creates search bar and search button for reservation change
+     * @return JPanel with search bar and search button
+     */
+    private JPanel makeSearch() {
         JPanel search = new JPanel();
         search.setLayout(new GridLayout(2,1));
         search.setBackground(Color.darkGray);
@@ -46,12 +72,20 @@ class ReservationView{
         searchReservations.addActionListener(
                 (ActionEvent e ) -> {
                     String tlf_nr = text.getText();
-                    // When search is pressed, look up the phoneNumber and if it exists in DB, get a result back
+                    //when search is pressed, look up the phoneNumber and if it exists in DB, get a result back
                     updateList(Controller.getReservationsByPhone(tlf_nr));
                 }
         );
         search.add(searchReservations);
 
+        return search;
+    }
+
+    /**
+     * Creates "Change reservation"-button
+     * @return JButton for changing reservations
+     */
+    private JButton makeChangeButton() {
         JButton changeReservations = new JButton("Change reservation");
         changeReservations.addActionListener(
                 (ActionEvent e ) -> {
@@ -59,15 +93,23 @@ class ReservationView{
                         int i = reservationList.getSelectedIndex();
                         int a = (Integer) listModel.get(i).getKey();
 
-                        // store reservation_ID for this reservation
+                        //store reservation_ID for this reservation
                         Controller.storeReservationID(a);
 
-                        // Display the reselected reservation
+                        //display the reselected reservation
                         Controller.displayReservation(a);
                     }
                 }
         );
 
+        return changeReservations;
+    }
+
+    /**
+     * Creates "Delete reservation"-button
+     * @return JButton for deleting a reservation
+     */
+    private JButton makeDeleteButton() {
         JButton deleteReservations = new JButton("Delete reservation");
         deleteReservations.addActionListener(
                 (ActionEvent e ) -> {
@@ -83,26 +125,7 @@ class ReservationView{
                 }
         );
 
-        JPanel buttonPane = new JPanel();
-        buttonPane.setBackground(Color.darkGray);
-        buttonPane.setLayout(new BorderLayout());
-        JPanel buttonPane2 = new JPanel();
-        buttonPane2.setBackground(Color.darkGray);
-        buttonPane2.setLayout(new BorderLayout());
-        buttonPane.add(buttonPane2,BorderLayout.CENTER);
-
-        buttonPane2.add(search,BorderLayout.NORTH);
-        buttonPane2.add(changeReservations,BorderLayout.CENTER);
-        buttonPane2.add(deleteReservations,BorderLayout.SOUTH);
-
-        contentPane.add(buttonPane,BorderLayout.NORTH);
-        makeReservationList(treeMap);
-        contentPane.add(list,BorderLayout.CENTER);
-
-        frame.pack();
-        frame.setVisible(true);
-        return true;
-
+        return deleteReservations;
     }
 
     /**
@@ -146,6 +169,5 @@ class ReservationView{
 
         reservationList.setModel(stringModel);
         frame.setVisible(true);
-
     }
 }

@@ -10,7 +10,7 @@ import javax.swing.border.*;
 
 class CinemaView extends JComponent {
 
-    //field variables
+    //Field variables
     private int rows;
     private int seats;
     private String title;
@@ -19,17 +19,17 @@ class CinemaView extends JComponent {
     private int hall;
     private int showID;
 
-    //private int seatNumber;
+    //Private int seatNumber;
     private boolean changeReservation;
     private String input;
     private ArrayList<Integer> reservedSeats;
 
-    // Icons
+    //Icons
     private ImageIcon vacantSeat;
     private ImageIcon occupiedSeat;
     private ImageIcon selectedSeat;
 
-    // Gui
+    //GUI
     private JFrame frame;
     private JPanel cinema;
     private JButton seat;
@@ -48,7 +48,7 @@ class CinemaView extends JComponent {
      * @param changeReservation Boolean true if its a reservation being changed rather than showing available seats
      */
     CinemaView(int rows, int seats, String title, String time, java.util.Date date, int hall,
-                      int showID, ArrayList<Integer> reservedSeats, String input, Boolean changeReservation) {
+               int showID, ArrayList<Integer> reservedSeats, String input, Boolean changeReservation) {
         this.rows = rows;
         this.seats = seats;
         this.title = title;
@@ -60,12 +60,12 @@ class CinemaView extends JComponent {
         this.changeReservation = changeReservation;
         this.reservedSeats = reservedSeats;
 
-        // Icons
+        //Icons
         vacantSeat = new ImageIcon("VacantSeat.png");
         occupiedSeat = new ImageIcon("occupiedSeat.png");
         selectedSeat = new ImageIcon("selectedSeat.png");
 
-        // build GUI
+        //Build GUI
         frame = new JFrame("CinemaView: Choose Seats");
         cinema = new JPanel();
         makeFrame(this);
@@ -81,118 +81,150 @@ class CinemaView extends JComponent {
         frame.getContentPane().add(c);;
         frame.setLayout(new BorderLayout());
 
-        // Create show-desciptive label
-
-        JLabel label = new JLabel("You have chosen " + title, SwingConstants.CENTER);
-
-        //creates labels for describing the show
-        JLabel dateLabel = new JLabel("   Date: " + date + ".\n" + "Time: " + time, SwingConstants.LEFT);
-        frame.add(dateLabel, BorderLayout.CENTER);
-        JLabel hallLabel = new JLabel("   Hall: " + hall, SwingConstants.LEFT);
-        frame.add(hallLabel, BorderLayout.SOUTH);
-
-        //adds labels to frame
-        JPanel labelCollection = new JPanel();
-        labelCollection.setBackground(Color.darkGray);
-        JPanel labelCollectionTwo = new JPanel();
-        labelCollectionTwo.setBackground(Color.darkGray);
-        labelCollection.setLayout(new BorderLayout());
-        labelCollectionTwo.setLayout(new BorderLayout());
-        labelCollection.add(label,BorderLayout.NORTH);
-        labelCollectionTwo.add(dateLabel,BorderLayout.CENTER);
-        labelCollectionTwo.add(hallLabel,BorderLayout.SOUTH);
-        labelCollection.add(labelCollectionTwo,BorderLayout.CENTER);
-
-        frame.add(labelCollection, BorderLayout.NORTH);
-
-        label.setFont(new Font("Cambria", Font.BOLD, 14));
-        label.setForeground(Color.WHITE);
-        hallLabel.setFont(new Font("Cambria", Font.PLAIN, 12));
-        hallLabel.setForeground(Color.WHITE);
-        dateLabel.setFont(new Font("Cambria", Font.PLAIN, 12));
-        dateLabel.setForeground(Color.WHITE);
-        label.setBorder(new EmptyBorder(10,10,10,10));
         cinema.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        // Create visual representation of seats
+        //Create show-descriptive label
+        frame.add(makeShowLabel(), BorderLayout.NORTH);
+
+        //Create visual representation of seats
         JPanel seats = makeGrid();
         frame.add(seats, BorderLayout.CENTER);
 
-        // filler panel
+        //Create filler panel
         JPanel fillerPanel = new JPanel();
         fillerPanel.setBackground(Color.darkGray);
         fillerPanel.setBorder(new EmptyBorder(245, 100, 245, 70));
         frame.add(fillerPanel, BorderLayout.WEST);
 
-        // Adds a visualrepresentation of the screen location
+        //Add screen to frame
+        frame.add(makeScreen(), BorderLayout.SOUTH);
+
+        //Decide whether to display "Book Now" or "Update reservation"-button
+        if(changeReservation) {
+            frame.add(makeUpdateButton(), BorderLayout.EAST);
+        } else {
+            frame.add(makeBookingButton(), BorderLayout.EAST);
+        }
+
+        frame.setVisible(true);
+    }
+
+    /**
+     * Creates labels for describing the show
+     * @return JPanel including JLabels with show descriptions
+     */
+    private JPanel makeShowLabel() {
+        JLabel label = new JLabel("You have chosen " + title, SwingConstants.CENTER);
+        JLabel dateLabel = new JLabel("   Date: " + date + ".\n" + "Time: " + time, SwingConstants.LEFT);
+        JLabel hallLabel = new JLabel("   Hall: " + hall, SwingConstants.LEFT);
+
+        label.setFont(new Font("Cambria", Font.BOLD, 14));
+        label.setForeground(Color.WHITE);
+        label.setBorder(new EmptyBorder(10,10,10,10));
+        hallLabel.setFont(new Font("Cambria", Font.PLAIN, 12));
+        hallLabel.setForeground(Color.WHITE);
+        dateLabel.setFont(new Font("Cambria", Font.PLAIN, 12));
+        dateLabel.setForeground(Color.WHITE);
+
+        //Adds labels to JPanel
+        JPanel labelCollection = new JPanel();
+        labelCollection.setBackground(Color.darkGray);
+        labelCollection.setLayout(new BorderLayout());
+        labelCollection.add(label, BorderLayout.NORTH);
+
+        JPanel labelCollectionTwo = new JPanel();
+        labelCollectionTwo.setBackground(Color.darkGray);
+        labelCollectionTwo.setLayout(new BorderLayout());
+        labelCollectionTwo.add(dateLabel, BorderLayout.CENTER);
+        labelCollectionTwo.add(hallLabel, BorderLayout.SOUTH);
+
+        labelCollection.add(labelCollectionTwo, BorderLayout.CENTER);
+
+        return labelCollection;
+    }
+
+    /**
+     * Creates a visual representation of the screen location
+     * @return JPanel with cinema screen
+     */
+    private JPanel makeScreen() {
         JPanel screenPanel = new JPanel();
         screenPanel.setBackground(Color.darkGray);
         screenPanel.setBorder(new EmptyBorder(10,10,10,20));
+
         JLabel screen = new JLabel("Screen", SwingConstants.CENTER);
         screen.setFont(new Font("Cambria", Font.BOLD, 14));
         screen.setBorder(new LineBorder(Color.BLACK, 2));
         screen.setPreferredSize(new Dimension(500, 20));
         screenPanel.add(screen);
-        frame.add(screenPanel, BorderLayout.SOUTH);
 
-        // Decide wether to display Book Now or Update reservation botton
-        if(changeReservation) {
-            // Adds Update reservation button
-            JPanel bookingButton = new JPanel();
-            bookingButton.setBackground(Color.darkGray);
-            bookingButton.setLayout(new BorderLayout());
+        return screenPanel;
+    }
 
-            bookingButton.setBorder(new EmptyBorder(260, 30, 260, 70));
-            JButton updateReservation= new JButton("Update");
-            updateReservation.setBackground(Color.lightGray);
+    /**
+     * Creates "Update reservation"-button
+     * @return JPanel with "Update reservation"-button
+     */
+    private JPanel makeUpdateButton() {
+        JPanel bookingButton = new JPanel();
+        bookingButton.setBackground(Color.darkGray);
+        bookingButton.setLayout(new BorderLayout());
+        bookingButton.setBorder(new EmptyBorder(260, 30, 260, 70));
 
-            updateReservation.addActionListener(
-                    (ActionEvent e) -> {
-                        if (Controller.updateReservation(input, true)) {
-                            JOptionPane.showMessageDialog(null, "Update Succesfull");
-                            frame.dispose();
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Update Failed");
-                        }
+        JButton updateReservation= new JButton("Update");
+        updateReservation.setBackground(Color.lightGray);
+        updateReservation.addActionListener(
+                (ActionEvent e) -> {
+                    if (Controller.updateReservation(input, true)) {
+                        JOptionPane.showMessageDialog(null, "Update Succesfull");
+                        frame.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Update Failed");
                     }
-            );
+                }
+        );
 
-            bookingButton.add(updateReservation, BorderLayout.CENTER);
-            frame.add(bookingButton, BorderLayout.EAST);
+        bookingButton.add(updateReservation, BorderLayout.CENTER);
 
-        } else {
-            // Addes Book Now button
-            JPanel bookingButton = new JPanel();
-            bookingButton.setBackground(Color.darkGray);
-            bookingButton.setLayout(new BorderLayout());
-            bookingButton.setBorder(new EmptyBorder(260, 10, 260, 70));
-            JButton bookNow = new JButton("Book now!");
-            bookNow.setBackground(Color.lightGray);
-            bookNow.setBorderPainted(true);
-            bookNow.addActionListener(
-                    (ActionEvent e) ->{
-                        int tlf = 0;
-                        try{
-                            tlf = getCustomerNumber();
-                        }
-                        catch(IllegalArgumentException iae) {
-                            if (iae.getMessage().equals("Missing phone number"))
-                                JOptionPane.showMessageDialog(null, "Please enter a PhoneNumber");
-                        }
-                        // Report back if the reservation was succesfull
-                        if (Controller.createReservation(tlf, showID, input) && input.length() > 0) {
-                            JOptionPane.showMessageDialog(null, "Booking Succes");
-                            frame.dispose();
-                        }else {
-                            JOptionPane.showMessageDialog(null, "Booking failed");
-                        }
+        return bookingButton;
+    }
+
+    /**
+     * Creates "Book now"-button
+     * @return JPanel with "Book now"-button
+     */
+    private JPanel makeBookingButton() {
+        JPanel bookingButton = new JPanel();
+        bookingButton.setBackground(Color.darkGray);
+        bookingButton.setLayout(new BorderLayout());
+        bookingButton.setBorder(new EmptyBorder(260, 10, 260, 70));
+
+        JButton bookNow = new JButton("Book now!");
+        bookNow.setBackground(Color.lightGray);
+        bookNow.setBorderPainted(true);
+        bookNow.addActionListener(
+                (ActionEvent e) ->{
+                    int tlf = 0;
+                    try{
+                        tlf = getCustomerNumber();
                     }
-            );
-            bookingButton.add(bookNow, BorderLayout.CENTER);
-            frame.add(bookingButton, BorderLayout.EAST);
-        }
-        //frame.pack();
-        frame.setVisible(true);
+                    catch(IllegalArgumentException iae) {
+                        if (iae.getMessage().equals("Missing phone number"))
+                            JOptionPane.showMessageDialog(null, "Please enter a PhoneNumber");
+                    }
+                    // Report back if the reservation was succesfull
+                    if (Controller.createReservation(tlf, showID, input) && input.length() > 0) {
+                        JOptionPane.showMessageDialog(null, "Booking Succes");
+                        frame.dispose();
+                    }else {
+                        JOptionPane.showMessageDialog(null, "Booking failed");
+                    }
+                }
+        );
+
+        bookingButton.add(bookNow, BorderLayout.CENTER);
+
+        return bookingButton;
     }
 
     /**
