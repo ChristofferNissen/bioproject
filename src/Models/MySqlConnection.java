@@ -414,7 +414,7 @@ public class MySqlConnection {
 
             // Create customer if not in system
             if(!statement.executeQuery(customerCheck).next()){ //if no next(empty query)
-                //makes the customer
+                //makes the customer    
                 String makeCustomer = "INSERT INTO customers (tlf_nr) VALUES (" + tlfNr + ")";
                 statement.executeUpdate(makeCustomer);
             }

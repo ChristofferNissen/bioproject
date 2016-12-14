@@ -45,8 +45,8 @@ class BookingView {
         //JPanels for buttons: book and change reservation
         JPanel actionBar = new JPanel();
         actionBar.setBackground(Color.darkGray);
-        JPanel buttonBar = new JPanel();
-        buttonBar.setBackground(Color.darkGray);
+        JPanel bottomBar = new JPanel();
+        bottomBar.setBackground(Color.darkGray);
         actionBar.setLayout(new BorderLayout());
         actionBar.setBorder(new EmptyBorder(50, 10, 350, 10));
 
@@ -55,9 +55,9 @@ class BookingView {
         actionBar.setMinimumSize(new Dimension(50,20));
 
         //Change reservation
-        buttonBar.add(makeChangeButton());                                  //add change button
+        bottomBar.add(makeChangeButton());                                  //add change button
         contentPane.add(actionBar, BorderLayout.EAST);                      //add buttons to contentpane
-        contentPane.add(buttonBar, BorderLayout.SOUTH);
+        contentPane.add(bottomBar, BorderLayout.SOUTH);
 
         //Pack and set visible
         frame.pack();
