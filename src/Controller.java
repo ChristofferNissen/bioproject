@@ -9,7 +9,6 @@ import java.util.TreeMap;
  */
 public class Controller {
 
-    private static int showID;                            // Used to store show_ID from view
     private static int reservationID;                       // stores id from view
     private static ArrayList<Showing> showingList;          // stores showings from db
     private static ArrayList<Reservation> reservationList;  // stores reservations from db
@@ -232,14 +231,6 @@ public class Controller {
      */
     static boolean deleteReservation(int a) {
         return MySqlConnection.deleteReservation(a);
-    }
-
-    /**
-     * Stores an show_id in field variable
-     * @param a id to store
-     */
-    static void storeShowID(int a) {
-        showID = a;
     }
 
     /**

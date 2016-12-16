@@ -123,7 +123,6 @@ class BookingView {
                     }
                     int i = showList.getSelectedIndex();                      //get index of selection
                     int a = (Integer) listModel.get(i).getKey();              //get key for showing
-                    Controller.storeShowID(a);                                //store key in Controller
                     Controller.CreateCinemaViewByShowID(a, "",false);         //get the show with chosen id
                 }
         );
